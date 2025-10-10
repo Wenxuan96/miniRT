@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   create_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyvan-de <lyvan-de@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/10 15:15:06 by lyvan-de         ###   ########.fr       */
+/*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
+/*   Updated: 2025/10/10 14:53:13 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./inc/miniRT.h"
-#include <stdio.h>
+#include "objects.h"
 
-int32_t	main(void)
+t_camera    *camera(void)
 {
-	mlx_t	*mlx;
+    static const t_camera    cam = {
+    .position = {-50.0,0,20},
+    .orientation = {0,0,1},
+    .fov = 70,
+    };
+    return ((t_camera *)&cam);
+}
 
-	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
-	if (!mlx)
-		printf("no window\n");
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	return (0);
+t_sphere    *sphere(void)
+{
+    static const t_sphere   sphere = {
+        .position = {0.0,0.0,20.6},
+        .diameter = 12.4,
+        .color = {10,0,255},
+    };
+    return ((t_sphere  *)&sphere);
 }
