@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/11 18:40:18 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/11 19:02:26 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ double  deg_to_rad(double degrees)
 
 t_vec3	upper_left(t_viewport *viewport, t_camera *cam)
 {
-	t_vec3	length;
 	t_vec3	upper_left;
 
-	length = vec3(0, 0, 1);
-	upper_left = vec3_sub(cam->position, length);
+	upper_left = vec3_sub(cam->position, cam->orientation);
 	upper_left = vec3_sub(upper_left, vec3_div(viewport->viewport_u, 2.0));
 	upper_left = vec3_sub(upper_left, vec3_div(viewport->viewport_v, 2.0));
 	return (upper_left);
@@ -41,7 +39,7 @@ t_viewport  *set_viewport(t_camera *camera)
     d = 1.0;
     fov_rad = deg_to_rad(camera->fov);
     viewport.plane_width = 2 * d * tan(fov_rad/2);
-    aspect_ratio = HEIGHT / WIDTH;
+    aspect_ratio = (double)HEIGHT / (double)WIDTH;
     viewport.plane_height = viewport.plane_width * aspect_ratio;
 	viewport.viewport_u = vec3(viewport.plane_width, 0 ,0);
 	viewport.viewport_v = vec3(0, -viewport.plane_height, 0);
