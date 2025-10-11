@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_data.c                                      :+:      :+:    :+:   */
+/*   math.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/11 18:23:07 by lyvan-de         ###   ########.fr       */
+/*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
+/*   Updated: 2025/10/11 18:38:26 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
+#ifndef MATH_H
+# define MATH_H
 
-t_camera    *camera(void)
-{
-    static const t_camera    cam = {
-    .position = {-50.0,0,20},
-    .orientation = {0,0,1},
-    .fov = 70,
-    };
-    return ((t_camera *)&cam);
-}
+# include "objects.h"
 
-t_sphere    *sphere(void)
-{
-    static const t_sphere   sphere = {
-        .position = {0.0,0.0,20.6},
-        .diameter = 12.4,
-        .color = {10,0,255},
-    };
-    return ((t_sphere  *)&sphere);
-}
+t_vec3	vec3(double x, double y, double z);
+t_vec3	vec3_add(t_vec3 a, t_vec3 b);
+t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
+t_vec3	vec3_mult(t_vec3 v, double s);
+t_vec3	vec3_div(t_vec3 v, double s);
+
+#endif
