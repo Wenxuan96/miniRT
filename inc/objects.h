@@ -6,19 +6,13 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/11 18:27:35 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/13 12:32:33 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
-
-typedef struct s_vec3
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_vec3;
+# include "vector.h"
 
 typedef struct s_rgb
 {
