@@ -6,28 +6,30 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/11 18:23:07 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/13 11:32:49 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
 
-t_camera    *camera(void)
+t_camera	*camera(void)
 {
-    static const t_camera    cam = {
-    .position = {-50.0,0,20},
-    .orientation = {0,0,1},
-    .fov = 70,
-    };
-    return ((t_camera *)&cam);
+	static const t_camera	cam = {
+		.position = {-50.0, 0, 20},
+		.orientation = {0, 0, 1},
+		.fov = 70,
+	};
+
+	return ((t_camera *)&cam);
 }
 
-t_sphere    *sphere(void)
+t_sphere	*sphere(void)
 {
-    static const t_sphere   sphere = {
-        .position = {0.0,0.0,20.6},
-        .diameter = 12.4,
-        .color = {10,0,255},
-    };
-    return ((t_sphere  *)&sphere);
+	static const t_sphere	sphere = {
+		.position = {0.0, 0.0, 20.6},
+		.diameter = 12.4,
+		.color = {10, 0, 255},
+	};
+
+	return ((t_sphere *)&sphere);
 }
