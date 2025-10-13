@@ -6,13 +6,12 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 11:21:56 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/13 15:19:43 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/miniRT.h"
 #include "inc/objects.h"
-#include "inc/math.h"
 
 double	deg_to_rad(double degrees)
 {

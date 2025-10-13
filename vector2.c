@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   vector2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 16:47:50 by lyvan-de         ###   ########.fr       */
+/*   Created: 2025/10/13 15:54:21 by lyvan-de          #+#    #+#             */
+/*   Updated: 2025/10/13 15:54:36 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "inc/vector.h"
 
-# include <stdint.h>
-# include <math.h>
-# include <stdlib.h>
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "objects.h"
-# include "vector.h"
-# include "graphics.h"
-
-# define WIDTH 800
-# define HEIGHT 400
-# define PI 3.14159265358979323846
-
-typedef struct s_context
+t_vec3	vec3_norm(t_vec3 v)
 {
-	mlx_t			*mlx;
-	mlx_image_t		*image;
-	t_viewport		*view;
-	t_camera		*cam;
-}	t_context;
+	double	len;
 
-#endif
+	sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	return (vec3_div(v, len));
+}

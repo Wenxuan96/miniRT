@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 16:47:50 by lyvan-de         ###   ########.fr       */
+/*   Created: 2025/10/13 13:01:18 by lyvan-de          #+#    #+#             */
+/*   Updated: 2025/10/13 15:18:38 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "inc/graphics.h"
 
-# include <stdint.h>
-# include <math.h>
-# include <stdlib.h>
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "objects.h"
-# include "vector.h"
-# include "graphics.h"
-
-# define WIDTH 800
-# define HEIGHT 400
-# define PI 3.14159265358979323846
-
-typedef struct s_context
+int	get_rgba(int r, int g, int b, int a)
 {
-	mlx_t			*mlx;
-	mlx_image_t		*image;
-	t_viewport		*view;
-	t_camera		*cam;
-}	t_context;
-
-#endif
+	return (r << 24 | g << 16 | b << 8 | a);
+}

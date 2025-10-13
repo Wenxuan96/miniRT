@@ -6,13 +6,13 @@
 #    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 16:42:17 by lyvan-de          #+#    #+#              #
-#    Updated: 2025/10/08 13:34:35 by lyvan-de         ###   ########.fr        #
+#    Updated: 2025/10/13 16:37:47 by lyvan-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 BUILD_DIR = ./build
-SRC = main.c 
+SRC = main.c graphics.c create_data.c vector.c vector2.c viewport.c
 
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include

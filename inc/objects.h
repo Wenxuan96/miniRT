@@ -6,20 +6,14 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 12:32:33 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:41:33 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 # include "vector.h"
-
-typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_rgb;
+# include "graphics.h"
 
 typedef struct s_sphere
 {
@@ -44,6 +38,12 @@ typedef struct	s_viewport
 	t_vec3	pixel_delta_u;
 	t_vec3	pixel_delta_v;
 	t_vec3	upper_left;
-} t_viewport;
+}	t_viewport;
+
+//fucntions to create mock data
+t_camera	*camera(void);
+
+
+t_viewport	*set_viewport(t_camera *camera);
 
 #endif
