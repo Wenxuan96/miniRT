@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:40:15 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 15:40:29 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:16:46 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	put_image(void *param)
 		while (y < HEIGHT)
 		{
 			mlx_put_pixel(context->image, x, y,
-				ray_color(ray_rgb(ray_dir(view, cam, x, y))));
+				ray_color(ray_rgb(ray_dir(view, cam, x, y),cam)));
 			y ++;
 		}
 		y = 0;

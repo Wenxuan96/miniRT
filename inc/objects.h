@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 16:41:33 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:07:42 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_viewport
 
 //fucntions to create mock data
 t_camera	*camera(void);
+t_sphere	*sphere(void);
 
 
 t_viewport	*set_viewport(t_camera *camera);

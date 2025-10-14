@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 12:36:21 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:35:52 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_camera	*camera(void)
 t_sphere	*sphere(void)
 {
 	static const t_sphere	sphere = {
-		.position = {0.0, 0.0, 20.6},
+		.position = {-50.0, 0.0, 50.0},
 		.diameter = 12.4,
 		.color = {10, 0, 255},
 	};
