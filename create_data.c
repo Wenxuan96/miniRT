@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 10:56:55 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:36:21 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_camera	*camera(void)
 	static const t_camera	cam = {
 		.position = {-50.0, 0, 20},
 		.orientation = {0, 0, 1},
-		.fov = 70,
+		.fov = 90,
 	};
 
 	return ((t_camera *)&cam);

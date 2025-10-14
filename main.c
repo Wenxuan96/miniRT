@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 11:16:00 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:41:34 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,17 @@ void	put_image(void *param)
 	t_viewport	*view;
 	int			x;
 	int			y;
+	static int	i;
 
+	if (i == 1)
+		return ;
 	context = param;
 	mlx = context->mlx;
 	cam = context->cam;
 	view = context->view;
 	x = 0;
 	y = 0;
+	i = 0;
 	while (x < WIDTH)
 	{
 		while (y < HEIGHT)
@@ -74,7 +78,9 @@ void	put_image(void *param)
 		}
 		y = 0;
 		x ++;
+		i = 1;
 	}
+	mlx_image_to_window(mlx, context->image,0,0);
 	printf("image rendered\n");
 }
 

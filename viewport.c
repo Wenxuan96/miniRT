@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 15:19:43 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:06:39 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vec3	upper_left(t_viewport *viewport, t_camera *cam)
 {
 	t_vec3	upper_left;
 
-	upper_left = vec3_sub(cam->position, cam->orientation);
+	upper_left = vec3_add(cam->position, cam->orientation);
 	upper_left = vec3_sub(upper_left, vec3_div(viewport->viewport_u, 2.0));
 	upper_left = vec3_sub(upper_left, vec3_div(viewport->viewport_v, 2.0));
 	return (upper_left);
