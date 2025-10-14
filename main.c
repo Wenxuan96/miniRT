@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 16:45:18 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:16:00 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	put_image(void *param)
 		y = 0;
 		x ++;
 	}
+	printf("image rendered\n");
 }
 
 int32_t	main(void)
@@ -89,6 +90,7 @@ int32_t	main(void)
 		printf("no window\n");
 	context->cam = camera();
 	context->view = set_viewport(context->cam);
+	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
 	mlx_loop_hook(context->mlx, &put_image, context);
 	mlx_loop(context->mlx);
 	mlx_terminate(context->mlx);

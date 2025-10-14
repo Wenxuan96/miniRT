@@ -6,11 +6,11 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 11:32:49 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 10:56:55 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "objects.h"
+#include "inc/objects.h"
 
 t_camera	*camera(void)
 {

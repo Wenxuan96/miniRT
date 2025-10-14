@@ -6,14 +6,13 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 15:54:04 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:01:15 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
-
-# include "objects.h"
+# include <math.h>
 
 typedef struct s_vec3
 {

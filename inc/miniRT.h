@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 16:47:50 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 11:01:38 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define MINIRT_H
 
 # include <stdint.h>
-# include <math.h>
 # include <stdlib.h>
 # include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft/libft.h"
 # include "objects.h"
 # include "vector.h"
 # include "graphics.h"
