@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:15 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/13 16:04:46 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:09:14 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,3 @@ t_vec3	vec3_div(t_vec3 v, double s)
 {
 	return ((t_vec3){v.x / s, v.y / s, v.z / s});
 }
-
-

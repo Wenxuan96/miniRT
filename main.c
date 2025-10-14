@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 12:41:34 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 14:08:51 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,36 +52,29 @@ t_vec3	ray_dir(t_viewport *view, t_camera *cam, int x, int y)
 
 void	put_image(void *param)
 {
-	mlx_t		*mlx;
 	t_context	*context;
 	t_camera	*cam;
 	t_viewport	*view;
 	int			x;
 	int			y;
-	static int	i;
 
-	if (i == 1)
-		return ;
 	context = param;
-	mlx = context->mlx;
 	cam = context->cam;
 	view = context->view;
 	x = 0;
 	y = 0;
-	i = 0;
 	while (x < WIDTH)
 	{
 		while (y < HEIGHT)
 		{
-			mlx_put_pixel(context->image, x, y, ray_color(ray_rgb(ray_dir(view, cam, x, y))));
+			mlx_put_pixel(context->image, x, y,
+				ray_color(ray_rgb(ray_dir(view, cam, x, y))));
 			y ++;
 		}
 		y = 0;
 		x ++;
-		i = 1;
 	}
-	mlx_image_to_window(mlx, context->image,0,0);
-	printf("image rendered\n");
+	mlx_image_to_window(context->mlx, context->image, 0, 0);
 }
 
 int32_t	main(void)
@@ -97,7 +90,7 @@ int32_t	main(void)
 	context->cam = camera();
 	context->view = set_viewport(context->cam);
 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
-	mlx_loop_hook(context->mlx, &put_image, context);
+	put_image(context);
 	mlx_loop(context->mlx);
 	mlx_terminate(context->mlx);
 	free(context);
