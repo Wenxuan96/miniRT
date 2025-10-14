@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 12:28:23 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:42:22 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ typedef struct s_context
 	t_viewport		*view;
 	t_camera		*cam;
 }	t_context;
+
+//ray functions
+int		ray_color(t_rgb rgb);
+t_vec3	ray_dir(t_viewport *view, t_camera *cam, int x, int y);
+t_rgb	ray_rgb(t_vec3 ray);
 
 #endif

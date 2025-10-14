@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 15:39:06 by lyvan-de         ###   ########.fr       */
+/*   Created: 2025/10/14 15:40:15 by lyvan-de          #+#    #+#             */
+/*   Updated: 2025/10/14 15:40:29 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/miniRT.h"
-#include <stdio.h>
 
-int32_t	main(void)
+void	put_image(void *param)
 {
 	t_context	*context;
+	t_camera	*cam;
+	t_viewport	*view;
+	int			x;
+	int			y;
 
-	context = ft_calloc(1, sizeof(t_context));
-	if (!context)
-		return (1);
-	context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
-	if (!context->mlx)
-		printf("no window\n");
-	context->cam = camera();
-	context->view = set_viewport(context->cam);
-	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
-	put_image(context);
-	mlx_loop(context->mlx);
-	mlx_terminate(context->mlx);
-	free(context);
-	return (0);
+	context = param;
+	cam = context->cam;
+	view = context->view;
+	x = 0;
+	y = 0;
+	while (x < WIDTH)
+	{
+		while (y < HEIGHT)
+		{
+			mlx_put_pixel(context->image, x, y,
+				ray_color(ray_rgb(ray_dir(view, cam, x, y))));
+			y ++;
+		}
+		y = 0;
+		x ++;
+	}
+	mlx_image_to_window(context->mlx, context->image, 0, 0);
 }
