@@ -6,11 +6,25 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 10:53:47 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 12:16:18 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/miniRT.h"
+
+t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
+{
+	t_vec3	hit_point;
+	t_vec3	norm_hit_point;
+	t_rgb	color;
+
+	hit_point = vec3_add(cam->position, vec3_mult(ray, t));
+	norm_hit_point = vec3_norm(vec3_sub(hit_point, sphere->position));
+	color.r = (int) sphere->color.r * (0.5 * (norm_hit_point.x + 1));
+	color.g = (int) sphere->color.g * (0.5 * (norm_hit_point.y + 1));
+	color.b = (int) sphere->color.b * (0.5 * (norm_hit_point.z + 1));
+	return (color);
+}
 
 double	hit_sphere(t_vec3 ray, t_camera *cam)
 {
@@ -52,7 +66,7 @@ t_rgb	ray_rgb(t_vec3 ray, t_camera *cam)
 	}
 	else
 	{
-		rgb = sph->color;
+		rgb = norm_color_sphere(sph, ray, t, cam);
 	}
 	return (rgb);
 }
