@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 14:20:16 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:23:57 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_camera	*camera(void)
 {
 	static t_camera	cam = {
-		.position = {-50.0, 0, 0},
+		.position = {-50.0, 0, 20},
 		.orientation = {0, 0, 1},
 		.fov = 70,
 		.world_up = {0, 1, 0},
@@ -29,7 +29,7 @@ t_sphere	*sphere(void)
 	static const t_sphere	sphere = {
 		.position = {-50.0, 0.0, 40.0},
 		.diameter = 12.4,
-		.color = {255, 255, 255},
+		.color = {255, 0, 0},
 	};
 
 	return ((t_sphere *)&sphere);
@@ -43,4 +43,12 @@ t_ambient	*ambient(void)
 	};
 
 	return ((t_ambient *)&ambient);
+}
+
+t_light	*light(void)
+{
+	static const t_light	light = {
+		.ratio = 0.6,
+		.origin = {-40.0, 50.0, 0.0},
+	};
 }

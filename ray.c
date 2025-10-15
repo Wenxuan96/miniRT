@@ -6,11 +6,24 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 12:16:18 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:15:41 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/miniRT.h"
+
+double	light_intensity(t_vec3 hit_point, t_vec3 norm_hit_point)
+{
+	t_vec3		light_direction;
+	t_vec3		light_pos;
+	double		light_intensity;
+
+	light_pos	= vec3(-50.0, -50, 20);
+	light_direction = vec3_sub(light_pos, hit_point);
+	light_direction = vec3_norm(light_direction);
+	light_intensity = fmax(0.0, vec3_dot(norm_hit_point, light_direction));
+	return (light_intensity);
+}
 
 t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 {
@@ -20,9 +33,9 @@ t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 
 	hit_point = vec3_add(cam->position, vec3_mult(ray, t));
 	norm_hit_point = vec3_norm(vec3_sub(hit_point, sphere->position));
-	color.r = (int) sphere->color.r * (0.5 * (norm_hit_point.x + 1));
-	color.g = (int) sphere->color.g * (0.5 * (norm_hit_point.y + 1));
-	color.b = (int) sphere->color.b * (0.5 * (norm_hit_point.z + 1));
+	color.r = (int) sphere->color.r * light_intensity(hit_point, norm_hit_point);
+	color.g = (int) sphere->color.g * light_intensity(hit_point, norm_hit_point);
+	color.b = (int) sphere->color.b * light_intensity(hit_point, norm_hit_point);
 	return (color);
 }
 
