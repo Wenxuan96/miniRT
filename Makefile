@@ -6,7 +6,7 @@
 #    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 16:42:17 by lyvan-de          #+#    #+#              #
-#    Updated: 2025/10/14 15:42:33 by lyvan-de         ###   ########.fr        #
+#    Updated: 2025/10/15 20:32:52 by lyvan-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	
 $(NAME) : $(LIBFT) $(OBJ)
-	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ -lm -lglfw 
+	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ -lm -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 # flags for compiling MLX42 on mac at home: -framework Cocoa -framework OpenGL -framework IOKit
 
 $(BUILD_DIR)/%.o : %.c

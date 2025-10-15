@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 16:15:41 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 20:46:48 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,26 @@
 double	light_intensity(t_vec3 hit_point, t_vec3 norm_hit_point)
 {
 	t_vec3		light_direction;
-	t_vec3		light_pos;
 	double		light_intensity;
+	t_light		*li;
 
-	light_pos	= vec3(-50.0, -50, 20);
-	light_direction = vec3_sub(light_pos, hit_point);
+	li = light();
+	light_direction = vec3_sub(li->origin, hit_point);
 	light_direction = vec3_norm(light_direction);
-	light_intensity = fmax(0.0, vec3_dot(norm_hit_point, light_direction));
+	light_intensity = fmax(0.0, vec3_dot(norm_hit_point, light_direction)) * li->ratio;
 	return (light_intensity);
+}
+
+t_rgb	ambient_rgb(void)
+{
+	t_ambient	*amb;
+	t_rgb		rgb;
+
+	amb = ambient();
+	rgb.r = amb->ratio * amb->color.r + (1 - amb->ratio);
+	rgb.b = amb->ratio * amb->color.b + (1 - amb->ratio);
+	rgb.g = amb->ratio * amb->color.g + (1 - amb->ratio);
+	return (rgb);
 }
 
 t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
@@ -30,12 +42,14 @@ t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 	t_vec3	hit_point;
 	t_vec3	norm_hit_point;
 	t_rgb	color;
+	t_rgb	ambient;
 
 	hit_point = vec3_add(cam->position, vec3_mult(ray, t));
 	norm_hit_point = vec3_norm(vec3_sub(hit_point, sphere->position));
-	color.r = (int) sphere->color.r * light_intensity(hit_point, norm_hit_point);
-	color.g = (int) sphere->color.g * light_intensity(hit_point, norm_hit_point);
-	color.b = (int) sphere->color.b * light_intensity(hit_point, norm_hit_point);
+	ambient = ambient_rgb();
+	color.r = (int) ambient.r * sphere->color.r * light_intensity(hit_point, norm_hit_point);
+	color.g = (int) ambient.g * sphere->color.g * light_intensity(hit_point, norm_hit_point);
+	color.b = (int) ambient.b * sphere->color.b * light_intensity(hit_point, norm_hit_point);
 	return (color);
 }
 

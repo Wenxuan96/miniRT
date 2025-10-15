@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 16:23:28 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 20:36:46 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct t_light
 t_camera	*camera(void);
 t_sphere	*sphere(void);
 t_ambient	*ambient(void);
+t_light		*light(void);
 
 
 t_viewport	*set_viewport(t_camera *camera);
