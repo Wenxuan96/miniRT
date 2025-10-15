@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 11:30:42 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:57:45 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_camera
 	t_vec3	position;
 	t_vec3	orientation;
 	int		fov;
+	t_vec3	world_up;
 }	t_camera;
 
 typedef struct	s_viewport

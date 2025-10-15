@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 16:12:11 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:12:03 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ t_vec3	vec3_mult(t_vec3 v, double s);
 t_vec3	vec3_div(t_vec3 v, double s);
 t_vec3	vec3_norm(t_vec3 v);
 double	vec3_dot(t_vec3 a, t_vec3 b);
+t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 
 #endif
