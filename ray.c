@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 16:47:00 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 10:53:47 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ double	hit_sphere(t_vec3 ray, t_camera *cam)
 
 t_rgb	ray_rgb(t_vec3 ray, t_camera *cam)
 {
-	double	t;
-	t_rgb	rgb;
-	t_vec3	hit_point;
+	double		t;
+	t_rgb		rgb;
+	t_sphere	*sph;
 
+	sph = sphere();
 	t = hit_sphere(ray, cam);
 	if (t <= 0.0)
 	{
@@ -51,9 +52,7 @@ t_rgb	ray_rgb(t_vec3 ray, t_camera *cam)
 	}
 	else
 	{
-		rgb.r = 255;
-		rgb.g = 0;
-		rgb.b = 0;
+		rgb = sph->color;
 	}
 	return (rgb);
 }

@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:54:21 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 16:13:06 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 11:45:27 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_vec3	vec3_norm(t_vec3 v)
 {
 	double	len;
 
-	len = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	len = sqrt(vec3_dot(v, v));
 	return (vec3_div(v, len));
 }
 

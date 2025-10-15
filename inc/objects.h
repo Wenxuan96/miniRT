@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 16:07:42 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/15 11:30:42 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ typedef struct	s_viewport
 	t_vec3	pixel_delta_v;
 	t_vec3	upper_left;
 }	t_viewport;
+
+typedef struct s_ambient
+{
+	double	ratio;
+	t_rgb	color;
+}	t_ambient;
+
 
 //fucntions to create mock data
 t_camera	*camera(void);
