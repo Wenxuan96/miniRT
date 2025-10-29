@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 20:46:48 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/29 15:10:20 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ t_rgb	ambient_rgb(void)
 	t_rgb		rgb;
 
 	amb = ambient();
-	rgb.r = amb->ratio * amb->color.r + (1 - amb->ratio);
-	rgb.b = amb->ratio * amb->color.b + (1 - amb->ratio);
-	rgb.g = amb->ratio * amb->color.g + (1 - amb->ratio);
+	rgb.r = amb->ratio * amb->color.r;
+	rgb.b = amb->ratio * amb->color.b;
+	rgb.g = amb->ratio * amb->color.g;
 	return (rgb);
 }
 
-t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
+t_rgb	color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 {
 	t_vec3	hit_point;
 	t_vec3	norm_hit_point;
@@ -47,12 +47,13 @@ t_rgb	norm_color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 	hit_point = vec3_add(cam->position, vec3_mult(ray, t));
 	norm_hit_point = vec3_norm(vec3_sub(hit_point, sphere->position));
 	ambient = ambient_rgb();
-	color.r = (int) ambient.r * sphere->color.r * light_intensity(hit_point, norm_hit_point);
-	color.g = (int) ambient.g * sphere->color.g * light_intensity(hit_point, norm_hit_point);
-	color.b = (int) ambient.b * sphere->color.b * light_intensity(hit_point, norm_hit_point);
+	color.r = (int) ambient.r * sphere->color.r* light_intensity(hit_point, norm_hit_point);
+	color.g = (int) ambient.g * sphere->color.g* light_intensity(hit_point, norm_hit_point);
+	color.b = (int) ambient.b * sphere->color.b* light_intensity(hit_point, norm_hit_point);
 	return (color);
 }
 
+// returns the distance to the camera and the point where you hit the sphere
 double	hit_sphere(t_vec3 ray, t_camera *cam)
 {
 	t_sphere	*sph;
@@ -93,7 +94,7 @@ t_rgb	ray_rgb(t_vec3 ray, t_camera *cam)
 	}
 	else
 	{
-		rgb = norm_color_sphere(sph, ray, t, cam);
+		rgb = color_sphere(sph, ray, t, cam);
 	}
 	return (rgb);
 }

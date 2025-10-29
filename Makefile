@@ -6,7 +6,7 @@
 #    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 16:42:17 by lyvan-de          #+#    #+#              #
-#    Updated: 2025/10/15 20:32:52 by lyvan-de         ###   ########.fr        #
+#    Updated: 2025/10/29 12:38:35 by lyvan-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,18 @@ LIBMLX = ./MLX42
 LIBMLX_LINK := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Werror -Wextra -g
 CC = cc
+MACFLAGS =
 
-all : libmlx $(NAME)
+all : libmlx $(NAME) 
+
+mac : MACFLAGS += -framework Cocoa -framework OpenGL -framework IOKit
+mac : all
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	
 $(NAME) : $(LIBFT) $(OBJ)
-	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ -lm -lglfw -framework Cocoa -framework OpenGL -framework IOKit
-# flags for compiling MLX42 on mac at home: -framework Cocoa -framework OpenGL -framework IOKit
+	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ -lm -lglfw $(MACFLAGS)
 
 $(BUILD_DIR)/%.o : %.c
 	mkdir -p $(BUILD_DIR)
@@ -50,4 +53,4 @@ fclean: clean
 
 re : fclean all
 
-.PHONY: all clean fclean re libmlx
+.PHONY: all clean fclean re libmlx mac

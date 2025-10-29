@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 20:38:19 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/10/29 14:53:45 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_sphere	*sphere(void)
 t_ambient	*ambient(void)
 {
 	static const t_ambient	ambient = {
-		.ratio = 0.2,
+		.ratio = 0.60,
 		.color = {255, 255, 255},
 	};
 
