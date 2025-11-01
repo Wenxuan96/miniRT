@@ -6,7 +6,7 @@
 #    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 16:42:17 by lyvan-de          #+#    #+#              #
-#    Updated: 2025/11/01 19:26:31 by wxi              ###   ########.fr        #
+#    Updated: 2025/11/01 19:33:20 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ endif
 
 all : libmlx $(NAME) 
 
-mac : MACFLAGS += -framework Cocoa -framework OpenGL -framework IOKit
+mac : MACFLAGS += -framework Cocoa -framework OpenGL -framework IOKt
 mac : all
 
 libmlx:
