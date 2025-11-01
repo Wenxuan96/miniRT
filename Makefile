@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
+#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 16:42:17 by lyvan-de          #+#    #+#              #
-#    Updated: 2025/10/29 12:38:35 by lyvan-de         ###   ########.fr        #
+#    Updated: 2025/11/01 19:26:31 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,20 @@ BUILD_DIR = ./build
 SRC = main.c graphics.c create_data.c vector.c vector2.c viewport.c ray.c render.c
 
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
-INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include
-LIBFT_PATH =./libft
+LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 LIBMLX = ./MLX42
+LIBMLX_PATH = ./MLX42
+INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include
 LIBMLX_LINK := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Werror -Wextra -g
 CC = cc
-MACFLAGS =
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
+else
+	FRAMEWORKS =
+endif
 
 all : libmlx $(NAME) 
 
@@ -33,7 +39,11 @@ libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 	
 $(NAME) : $(LIBFT) $(OBJ)
-	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ -lm -lglfw $(MACFLAGS)
+	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ $(FRAMEWORKS)
+
+# On macOS we need the Cocoa/OpenGL/IOKit frameworks; on Linux these flags must be empty
+# Also avoid -shared here (we want an executable). The MLX42 static lib and extra libs
+# are included via $(LIBMLX_LINK).
 
 $(BUILD_DIR)/%.o : %.c
 	mkdir -p $(BUILD_DIR)
