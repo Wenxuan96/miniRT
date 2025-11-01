@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
+#    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/11/01 19:45:13 by wxi              ###   ########.fr        #
+#    Updated: 2025/11/01 19:53:47 by a12708           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,6 @@ $(NAME) : $(LIBFT) $(OBJ)
 # On macOS we need the Cocoa/OpenGL/IOKit frameworks; on Linux these flags must be empty
 # Also avoid -shared here (we want an executable). The MLX42 static lib and extra libs
 # are included via $(LIBMLX_LINK).
-	$(CC) $^ $(LIBFT) $(LIBMLX_LINK) -o $@ $(FRAMEWORKS)
-
-# On macOS we need the Cocoa/OpenGL/IOKit frameworks; on Linux these flags must be empty
-# Also avoid -shared here (we want an executable). The MLX42 static lib and extra libs
-# are included via $(LIBMLX_LINK).
 
 $(BUILD_DIR)/%.o : %.c
 	mkdir -p $(BUILD_DIR)
@@ -80,4 +75,4 @@ fclean: clean
 re : fclean all
 
 .PHONY: all clean fclean re libmlx mac
-.PHONY: all clean fclean re libmlx mac
+
