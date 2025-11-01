@@ -6,7 +6,7 @@
 #    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/01 16:42:17 by lyvan-de          #+#    #+#              #
-#    Updated: 2025/11/01 19:41:04 by wxi              ###   ########.fr        #
+#    Updated: 2025/11/01 19:41:50 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,10 @@ else
 	FRAMEWORKS =
 endif
 
-all : libmlx $(NAME) 
+all : libmlx $(NAME)
 
-mac : MACFLAGS += -framework Cocoa -framework OpenGL -framework IOKit
+# mac target for convenience: append mac frameworks and build
+mac : FRAMEWORKS += -framework Cocoa -framework OpenGL -framework IOKit
 mac : all
 
 libmlx:
