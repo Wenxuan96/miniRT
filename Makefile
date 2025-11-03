@@ -6,21 +6,19 @@
 #    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/11/01 20:00:08 by a12708           ###   ########.fr        #
+#    Updated: 2025/11/03 13:30:38 by a12708           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 BUILD_DIR = ./build
 SRC = main.c graphics.c create_data.c vector.c vector2.c viewport.c ray.c render.c
-
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
-LIBMLX = ./MLX42
 LIBMLX_PATH = ./MLX42
 INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include
-LIBMLX_LINK := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBMLX_LINK := $(LIBMLX_PATH)/build/libmlx42.a -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Werror -Wextra -g
 CC = cc
 
@@ -28,10 +26,10 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
     FRAMEWORKS = -framework Cocoa -framework OpenGL -framework IOKit
     BREW_PREFIX = $(shell brew --prefix 2>/dev/null || echo /opt/homebrew)
-    LIBMLX_LINK := $(LIBMLX)/build/libmlx42.a -ldl -L$(BREW_PREFIX)/lib -lglfw -pthread -lm
+    LIBMLX_LINK := $(LIBMLX_PATH)/build/libmlx42.a -ldl -L$(BREW_PREFIX)/lib -lglfw -pthread -lm
 else
     FRAMEWORKS =
-    LIBMLX_LINK := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+    LIBMLX_LINK := $(LIBMLX_PATH)/build/libmlx42.a -ldl -lglfw -pthread -lm
 endif
 
 all : libmlx $(NAME)
@@ -41,7 +39,7 @@ mac : FRAMEWORKS += -framework Cocoa -framework OpenGL -framework IOKit
 mac : all
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+	@cmake $(LIBMLX_PATH) -B $(LIBMLX_PATH)/build && make -C $(LIBMLX_PATH)/build -j4
 	
 $(NAME) : $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBFT) $(LIBMLX_LINK) -o $@ $(FRAMEWORKS)
@@ -56,7 +54,7 @@ $(LIBFT):
 clean:
 	rm -rf $(BUILD_DIR)
 	$(MAKE) -C $(LIBFT_PATH) clean
-	@rm -rf $(LIBMLX)/build
+	@rm -rf $(LIBMLX_PATH)/build
 
 fclean: clean
 	rm -f $(NAME)
