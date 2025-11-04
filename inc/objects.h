@@ -6,7 +6,7 @@
 /*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/03 14:08:17 by a12708           ###   ########.fr       */
+/*   Updated: 2025/11/04 12:17:58 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_camera	*camera(void);
 t_sphere	*sphere(void);
 t_ambient	*ambient(void);
 t_light		*light(void);
-
 t_viewport	*set_viewport(t_camera *camera);
 
 #endif

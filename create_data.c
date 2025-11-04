@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/29 14:53:45 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:42:49 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_light	*light(void)
 {
 	static const t_light	light = {
 		.ratio = 0.9,
-		.origin = {-40.0, 50.0, 0.0},
+		.origin = {70.0, 50.0, 0.0},
 	};
-	return ((t_light *)&light);
+	return ((t_light *) & light);
 }

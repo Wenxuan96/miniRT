@@ -6,7 +6,7 @@
 /*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/04 12:05:51 by a12708           ###   ########.fr       */
+/*   Updated: 2025/11/04 12:34:35 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ double	light_intensity(t_vec3 hit_point, t_vec3 norm_hit_point)
 	return (light_intensity);
 }
 
-t_rgb	ambient_rgb(void)
+t_rgb	ambient_rgb(void)//incorrect neeed to modify
 {
 	t_ambient	*amb;
 	t_rgb		rgb;
@@ -77,36 +77,6 @@ double	hit_sphere(t_vec3 ray, t_camera *cam)
 		return ((-b - sqrt(discriminant)) / (2.0 * a));
 }
 
-t_rgb	ray_rgb(t_vec3 ray, t_camera *cam)
-{
-	double		t;
-	t_rgb		rgb;
-	t_sphere	*sph;
-
-	sph = sphere();
-	t = hit_sphere(ray, cam);
-	if (t <= 0.0)
-	{
-		t = 0.5 * (ray.y + 1);
-		rgb.r = (int)((1.0 - t) * 255 + t * 127);
-		rgb.g = (int)((1.0 - t) * 255 + t * 178);
-		rgb.b = 255;
-	}
-	else
-	{
-		rgb = color_sphere(sph, ray, t, cam);
-	}
-	return (rgb);
-}
-
-int	ray_color(t_rgb rgb)
-{
-	int	color;
-
-	color = get_rgba(rgb.r, rgb.g, rgb.b, 225);
-	return (color);
-}
-
 t_vec3	ray_dir(t_viewport *view, t_camera *cam, int x, int y)
 {
 	t_vec3	center;
@@ -122,4 +92,34 @@ t_vec3	ray_dir(t_viewport *view, t_camera *cam, int x, int y)
 	ray_dir = vec3_sub(center, cam->position);
 	ray_dir = vec3_norm(ray_dir);
 	return (ray_dir);
+}
+
+t_rgb	ray_rgb(t_vec3 ray, t_camera *cam)
+{
+	double		t;
+	t_rgb		rgb;
+	t_sphere	*sph;
+
+	sph = sphere();
+	t = hit_sphere(ray, cam);
+	if (t <= 0.0)
+	{
+		t = 0.5 * (ray.y + 1);
+		rgb.r = (unsigned char)((1.0 - t) * 255 + t * 127);
+		rgb.g = (unsigned char)((1.0 - t) * 255 + t * 178);
+		rgb.b = 255;
+	}
+	else
+	{
+		rgb = color_sphere(sph, ray, t, cam);
+	}
+	return (rgb);
+}
+
+int	ray_color(t_rgb rgb)
+{
+	int	color;
+
+	color = get_rgba(rgb.r, rgb.g, rgb.b, 225);
+	return (color);
 }
