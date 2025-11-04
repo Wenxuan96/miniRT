@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:01:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 15:40:59 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:31:41 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/graphics.h"
 
-int	get_rgba(int r, int g, int b, int a)
+int	get_rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }

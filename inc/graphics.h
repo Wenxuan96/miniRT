@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:00:37 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/14 15:41:39 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:30:25 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 
 typedef struct s_rgb
 {
-	int	r;
-	int	g;
-	int	b;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 }	t_rgb;
 
-int		get_rgba(int r, int g, int b, int a);
+int		get_rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
 void	put_image(void *param);
 
 #endif
