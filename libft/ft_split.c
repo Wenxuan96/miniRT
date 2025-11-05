@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:18:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2024/10/22 11:25:53 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:30:40 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	**create_array(char const *s, char c, char **array, int n)
 		if (s[end] != c && (s[end + 1] == c || s[end + 1] == '\0'))
 		{
 			begin = end;
-			while (s[begin - 1] != c && begin > 0)
+			while (begin > 0 && s[begin - 1] != c)
 				begin --;
 			array[i] = ft_substr(s, begin, (end - begin +1));
 			if (array[i] == NULL)

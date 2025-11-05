@@ -1,3 +1,4 @@
 *.o
 *.a
 miniRT
+scenes/wrong_no_rights.rt
