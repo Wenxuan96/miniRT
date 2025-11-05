@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/04 15:44:04 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/05 15:33:05 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <unistd.h>
+# include <errno.h>
+# include <string.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include "objects.h"
