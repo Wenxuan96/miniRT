@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:41:21 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:00:32 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@ typedef	struct s_list
 	void			*object;
 	struct s_list	*next;
 }	t_list;
-
-typedef struct s_scene
-{
-	t_ambient	ambient;
-	t_camera	camera;
-	t_list		lights;
-	t_list		objects;
-} 	t_scene;
 
 typedef struct s_sphere
 {
@@ -66,6 +58,14 @@ typedef struct t_light
 	t_vec3	origin;
 	double	ratio;
 }	t_light;
+
+typedef struct s_scene
+{
+	t_ambient	ambient;
+	t_camera	camera;
+	t_list		lights;
+	t_list		objects;
+} 	t_scene;
 
 //fucntions to create mock data
 t_camera	*camera(void);

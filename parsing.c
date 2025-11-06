@@ -6,11 +6,22 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 15:07:10 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/05 17:30:00 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/06 17:43:40 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/miniRT.h"
+#include "inc/parsing.h"
+
+static const t_parsermap g_parsers[] =
+{
+	{"A", parse_ambient},
+	{"C", parse_camera},
+	{"L", parse_light},
+	{"sp", parse_sphere},
+	{"pl", parse_plane},
+	{"cy", parse_cylinder},
+	{NULL, NULL}
+};
 
 int	check_line(char *line)
 {
@@ -24,11 +35,17 @@ int	check_line(char *line)
 		return(0);
 	}
 	i = 0;
-	while (tokens[i] != NULL)
+	while(g_parsers[i].id)
 	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
+		if (ft_strncmp(tokens[0], g_parsers[i].id, 1) == 0)
+		{
+			g_parsers[i].func(tokens);
+			break ;
+		}
+		i++;
 	}
+	if (g_parsers[i].id == NULL)
+		printf("Error\nUnknown identifier '%s'\n", tokens[0]);
 	i = 0;
 	while (tokens[i] != NULL)
 	{
@@ -59,7 +76,10 @@ int	main(int argc, char *argv[])
 	char	*line;
 	
 	if (argc != 2)
+	{
+		printf("Error\nPlease input .rt file\n");
 		return (1);
+	}
 	if (!check_file_extension(argv[1]))
 		return(1);
 	fd = open(argv[1], O_RDONLY);
@@ -70,6 +90,11 @@ int	main(int argc, char *argv[])
 	}
 	while((new_line = get_next_line(fd)) != NULL)
 	{
+		if(new_line[0] == '\n')
+		{
+			free(new_line);
+			continue ;
+		}
 		line = ft_strtrim(new_line, "\n");
 		printf("%s\n", line);
 		check_line(line);

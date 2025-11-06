@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"objects.h": "c",
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"parsing.h": "c"
 	}
 }
