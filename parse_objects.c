@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/12 19:24:46 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:51:09 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	parse_ambient(char **tokens, t_scene *scene)
 		return (0);
 	}
 	i = 1;
-	scene->ambient->ratio = str_to_double(tokens[i]);
+	scene->ambient->ratio = str_to_double(tokens[1]);
+	printf("double: %f\n", scene->ambient->ratio);
 	while (tokens[i] != NULL)
 	{
 		printf("token %d: %s\n", i, tokens[i]);
