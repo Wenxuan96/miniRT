@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 15:07:10 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/06 17:43:40 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:32:02 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static const t_parsermap g_parsers[] =
 	{NULL, NULL}
 };
 
-int	check_line(char *line)
+int	parse_line(char *line, t_scene *scene)
 {
 	char	**tokens;
 	int		i;
@@ -37,9 +37,10 @@ int	check_line(char *line)
 	i = 0;
 	while(g_parsers[i].id)
 	{
-		if (ft_strncmp(tokens[0], g_parsers[i].id, 1) == 0)
+		if (ft_strncmp(tokens[0], g_parsers[i].id, ft_strlen(tokens[0])) == 0)
 		{
-			g_parsers[i].func(tokens);
+			if (!g_parsers[i].func(tokens, scene))
+				return (0);
 			break ;
 		}
 		i++;
@@ -74,6 +75,7 @@ int	main(int argc, char *argv[])
 	int		fd;
 	char	*new_line;
 	char	*line;
+	t_scene	*scene;
 	
 	if (argc != 2)
 	{
@@ -88,6 +90,7 @@ int	main(int argc, char *argv[])
 		printf("Error\n%s\n", strerror(errno));
 		return (1);
 	}
+	scene = ft_calloc(1, sizeof(scene));
 	while((new_line = get_next_line(fd)) != NULL)
 	{
 		if(new_line[0] == '\n')
@@ -97,7 +100,12 @@ int	main(int argc, char *argv[])
 		}
 		line = ft_strtrim(new_line, "\n");
 		printf("%s\n", line);
-		check_line(line);
+		if (!parse_line(line, scene))
+		{
+			free (line);
+			free (new_line);
+			return(1);
+		}
 		free(line);
 		free(new_line);
 	}

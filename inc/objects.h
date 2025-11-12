@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/06 15:00:32 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/12 18:03:30 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ typedef struct t_light
 
 typedef struct s_scene
 {
-	t_ambient	ambient;
-	t_camera	camera;
-	t_list		lights;
-	t_list		objects;
+	t_ambient	*ambient;
+	t_camera	*camera;
+	t_list		*lights;
+	t_list		*objects;
 } 	t_scene;
 
 //fucntions to create mock data
