@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/12 20:15:34 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:40:52 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		parse_plane(char **tokens, t_scene *scene);
 int		parse_cylinder(char **tokens, t_scene *scene);
 void	free_scene(t_scene *scene);
 double	str_to_double(char *str);
-t_rgb	str_to_rgb(char *str);
+int		str_to_rgb(char *str, t_rgb *rgb);
+int		check_double(char *str);
+int		check_rgb(char *str);
 
 #endif

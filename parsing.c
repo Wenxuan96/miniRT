@@ -6,13 +6,13 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 15:07:10 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/12 19:32:02 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:54:08 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/parsing.h"
 
-static const t_parsermap g_parsers[] =
+static const	t_parsermap g_parsers[] =
 {
 	{"A", parse_ambient},
 	{"C", parse_camera},

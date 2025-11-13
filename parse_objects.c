@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/12 20:17:10 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/13 15:52:02 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	parse_ambient(char **tokens, t_scene *scene)
 {
-	int i;
-
 	if (scene->ambient)
 	{
 		printf("Error\nDuplicate ambient input\n");
@@ -27,24 +25,19 @@ int	parse_ambient(char **tokens, t_scene *scene)
 		printf("Error\nMalloc Error\n");
 		return (0);
 	}
-	i = 1;
+	if (!check_double(tokens[1]))
+		return (printf("Error\nWrong double value\n"), 0);
 	scene->ambient->ratio = str_to_double(tokens[1]);
-	printf("double: %f\n", scene->ambient->ratio);
-	scene->ambient->color = str_to_rgb(tokens[2]);
-	printf("rgb.r: %d\n", scene->ambient->color.r);
-	printf("rgb.g: %d\n", scene->ambient->color.g);
-	printf("rgb.b: %d\n", scene->ambient->color.b);
-	while (tokens[i] != NULL)
-	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
-	}
+	if (!check_rgb(tokens[2]))
+		return (printf("Error\nWrong rgb value\n"), 0);
+	if (!str_to_rgb(tokens[2], &scene->ambient->color))
+		return (0);
 	return (1);
 }
 
 int	parse_camera(char **tokens, t_scene *scene)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	scene = (void *)scene;
@@ -59,7 +52,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 
 int	parse_light(char **tokens, t_scene *scene)
 {
-	int i;
+	int	i;
 
 	scene = (void *)scene;
 	i = 0;
@@ -74,7 +67,7 @@ int	parse_light(char **tokens, t_scene *scene)
 
 int	parse_sphere(char **tokens, t_scene *scene)
 {
-	int i;
+	int	i;
 
 	scene = (void *)scene;
 	i = 0;
@@ -89,7 +82,7 @@ int	parse_sphere(char **tokens, t_scene *scene)
 
 int	parse_plane(char **tokens, t_scene *scene)
 {
-	int i;
+	int	i;
 
 	scene = (void *)scene;
 	i = 0;
@@ -104,7 +97,7 @@ int	parse_plane(char **tokens, t_scene *scene)
 
 int	parse_cylinder(char **tokens, t_scene *scene)
 {
-	int i;
+	int	i;
 
 	scene = (void *)scene;
 	i = 0;
