@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/13 15:52:02 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:10:08 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 int	parse_ambient(char **tokens, t_scene *scene)
 {
+	int	i;
+
+	i = 0;
+	while(tokens[i])
+		i++;
+	if (i > 3)
+		return (printf("Error\nToo many ambient tokens\n"), 0);
 	if (scene->ambient)
-	{
-		printf("Error\nDuplicate ambient input\n");
-		return (0);
-	}
+		return (printf("Error\nDuplicate ambient input\n"), 0);
 	scene->ambient = ft_calloc(1, sizeof(t_ambient));
 	if (!scene->ambient)
-	{
-		printf("Error\nMalloc Error\n");
-		return (0);
-	}
+		return (printf("Error\nMalloc Error\n"), 0);
 	if (!check_double(tokens[1]))
 		return (printf("Error\nWrong double value\n"), 0);
 	scene->ambient->ratio = str_to_double(tokens[1]);
+	if (scene->ambient->ratio < 0.0 || scene->ambient->ratio > 1.0)
+		return (printf("Error\nAmbient ratio not in range\n"), 0);
 	if (!check_rgb(tokens[2]))
 		return (printf("Error\nWrong rgb value\n"), 0);
 	if (!str_to_rgb(tokens[2], &scene->ambient->color))
@@ -40,13 +43,23 @@ int	parse_camera(char **tokens, t_scene *scene)
 	int	i;
 
 	i = 0;
-	scene = (void *)scene;
-	printf("camera\n");
-	while (tokens[i] != NULL)
-	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
-	}
+	while(tokens[i])
+		i++;
+	if (i > 4)
+		return (printf("Error\nToo many camera tokens\n"), 0);
+	if (scene->camera)
+		return (printf("Error\nDuplicate camera input\n"), 0);
+	scene->camera = ft_calloc(1, sizeof(t_camera));
+	if (!scene->camera)
+		return (printf("Error\nMalloc Error\n"), 0);
+	if (!parse_vector(tokens[1], &scene->camera->position))
+		return (0);
+	if (!parse_norm_vector(tokens[2], &scene->camera->orientation))
+		return (0);
+	scene->camera->fov = ft_atoi(tokens[3]);
+	if (scene->camera->fov < 0 || scene->camera->fov > 180)
+		return(printf("Error\nFOV should be between 0 and 180"), 0);
+	scene->camera->world_up = vec3(0, 1, 0);
 	return (1);
 }
 

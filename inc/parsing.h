@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/13 15:40:52 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:16:17 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,8 @@ double	str_to_double(char *str);
 int		str_to_rgb(char *str, t_rgb *rgb);
 int		check_double(char *str);
 int		check_rgb(char *str);
+int		parse_vector(char *str, t_vec3	*vec);
+void	free_array(char **array);
+int		parse_norm_vector(char*str, t_vec3	*vec);
 
 #endif

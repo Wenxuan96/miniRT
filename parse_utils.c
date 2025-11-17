@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 18:22:47 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/13 15:53:32 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:44:24 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ double	str_to_double(char *str)
 	fraction = 0;
 	devisor = 1;
 	if (*str == '-' || *str == '+')
+	{
 		if (*str == '-')
 			sign *= -1;
-	str++;
+		str++;
+	}
 	while (*str >= '0' && *str <= '9')
 		result = (result * 10) + *str++ - '0';
 	if (*str == '.')

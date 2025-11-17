@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/12 18:03:30 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/17 16:15:02 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 # define OBJECTS_H
 # include "vector.h"
 # include "graphics.h"
-
-typedef	struct s_list
-{
-	void			*object;
-	struct s_list	*next;
-}	t_list;
+# include "../libft/libft.h"
 
 typedef struct s_sphere
 {
