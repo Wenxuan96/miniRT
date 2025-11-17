@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/17 17:10:08 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:31:59 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	parse_ambient(char **tokens, t_scene *scene)
 	if (!scene->ambient)
 		return (printf("Error\nMalloc Error\n"), 0);
 	if (!check_double(tokens[1]))
-		return (printf("Error\nWrong double value\n"), 0);
+		return (printf("Error\nWrong double value ambient ratio\n"), 0);
 	scene->ambient->ratio = str_to_double(tokens[1]);
 	if (scene->ambient->ratio < 0.0 || scene->ambient->ratio > 1.0)
 		return (printf("Error\nAmbient ratio not in range\n"), 0);
@@ -67,14 +67,23 @@ int	parse_light(char **tokens, t_scene *scene)
 {
 	int	i;
 
-	scene = (void *)scene;
 	i = 0;
-	printf("light\n");
-	while (tokens[i] != NULL)
-	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
-	}
+	while(tokens[i])
+		i++;
+	if (i > 3)
+		return (printf("Error\nToo many light tokens\n"), 0);	
+	if (scene->light)
+		return (printf("Error\nDuplicate light input\n"), 0);
+	scene->light = ft_calloc(1, sizeof(t_light));
+	if (!scene->light)
+		return (printf("Error\nMalloc Error\n"), 0);
+	if (!parse_vector(tokens[1], & scene->light->origin))
+		return (0);
+	if (!check_double(tokens[2]))
+		return (printf("Error\nWrong double value light ratio\n"), 0);
+	scene->light->ratio = str_to_double(tokens[2]);
+	if (scene->light->ratio < 0.0 || scene->light->ratio > 1.0)
+		return (printf("Error\nLight ratio not in range\n"), 0);
 	return (1);
 }
 

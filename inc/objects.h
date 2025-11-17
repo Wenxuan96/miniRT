@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/17 16:15:02 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:20:39 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_scene
 {
 	t_ambient	*ambient;
 	t_camera	*camera;
-	t_list		*lights;
+	t_light		*light;
 	t_list		*objects;
 } 	t_scene;
 
