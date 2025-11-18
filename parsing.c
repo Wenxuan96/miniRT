@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 15:07:10 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/18 19:09:16 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:27:57 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	main(int argc, char *argv[])
 		free(new_line);
 	}
 	close(fd);
+	printf("objects lenght: %d\n", ft_lstsize(scene->objects));
 	//print scene for testing
 	free_scene(scene);
 	return(0);

@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/18 19:17:52 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:32:42 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ typedef struct s_plane
 	t_vec3	normal;
 	t_rgb	color;
 }	t_plane;
+
+typedef struct s_cylinder
+{
+	t_vec3	center;
+	t_vec3	axis;
+	double	diameter;
+	double	heigth;
+	t_rgb	color;
+}	t_cylinder;
 
 
 typedef struct s_camera

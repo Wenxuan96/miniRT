@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/18 19:21:41 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:41:49 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	parse_ambient(char **tokens, t_scene *scene)
 	i = 0;
 	while(tokens[i])
 		i++;
-	if (i > 3)
-		return (printf("Error\nToo many ambient tokens\n"), 0);
+	if (i != 3)
+		return (printf("Error\nWrong amount of ambient tokens\n"), 0);
 	if (scene->has_ambient)
 		return (printf("Error\nDuplicate ambient input\n"), 0);
 	if (!check_double(tokens[1]))
@@ -43,8 +43,8 @@ int	parse_camera(char **tokens, t_scene *scene)
 	i = 0;
 	while(tokens[i])
 		i++;
-	if (i > 4)
-		return (printf("Error\nToo many camera tokens\n"), 0);
+	if (i != 4)
+		return (printf("Error\nWWrong amount of camera tokens\n"), 0);
 	if (scene->has_camera)
 		return (printf("Error\nDuplicate camera input\n"), 0);
 	if (!parse_vector(tokens[1], &scene->camera.position))
@@ -66,8 +66,8 @@ int	parse_light(char **tokens, t_scene *scene)
 	i = 0;
 	while(tokens[i])
 		i++;
-	if (i > 3)
-		return (printf("Error\nToo many light tokens\n"), 0);	
+	if (i != 3)
+		return (printf("Error\nWrong amount of light tokens\n"), 0);	
 	if (scene->has_light)
 		return (printf("Error\nDuplicate light input\n"), 0);
 	if (!parse_vector(tokens[1], & scene->light.origin))
@@ -90,8 +90,8 @@ int	parse_sphere(char **tokens, t_scene *scene)
 	i = 0;
 	while(tokens[i])
 		i++;
-	if (i > 4)
-		return (printf("Error\nToo many sphere tokens\n"), 0);	
+	if (i != 4)
+		return (printf("Error\nWrong amount of sphere tokens\n"), 0);	
 	sphere = ft_calloc(1, sizeof(*sphere));
 	if (!sphere)
 		return (printf("Error\nMalloc error\n"), 0);
@@ -103,7 +103,9 @@ int	parse_sphere(char **tokens, t_scene *scene)
 	if (!str_to_rgb(tokens[3], &sphere->color))
 		return (printf("Error\nWrong rgb value sphere\n"), 0);
 	node = ft_lstnew(sphere);
-	ft_lstadd_back(&scene->objects, node);
+	if (!node)
+		return (printf("Error\nMalloc error\n"), 0);
+	ft_lstadd_front(&scene->objects, node);
 	return (1);
 }
 
@@ -111,35 +113,58 @@ int	parse_plane(char **tokens, t_scene *scene)
 {
 	int		i;
 	t_plane	*plane;
+	t_list	*node;
 
 	i = 0;
 	while(tokens[i])
 		i++;
-	if (i > 4)
-		return (printf("Error\nToo many plane tokens\n"), 0);
+	if (i != 4)
+		return (printf("Error\nWrong amount of plane tokens\n"), 0);
 	plane = ft_calloc(1, sizeof(*plane));
 	if (!plane)
 		return (printf("Error\nMalloc error\n"), 0);
-	if (!parse_vector(tokens[1], &plane->point));
+	if (!parse_vector(tokens[1], &plane->point))
 		return (0);
-	if (!parse_norm_vector(tokens[2], &plane->point));
+	if (!parse_norm_vector(tokens[2], &plane->point))
 		return (0);
-	if (!str_to_rgb(tokens[3], &plane->color));
+	if (!str_to_rgb(tokens[3], &plane->color))
 		return (printf("Error\nWrong rgb value plane\n"), 0);
+	node = ft_lstnew(plane);
+	if (!node)
+		return (printf("Error\nMalloc error\n"), 0);
+	ft_lstadd_front(&scene->objects, node);
 	return (1);
 }
 
 int	parse_cylinder(char **tokens, t_scene *scene)
 {
-	int	i;
+	int			i;
+	t_cylinder	*cylinder;
+	t_list		*node;
 
-	scene = (void *)scene;
 	i = 0;
-	printf("cylinder\n");
-	while (tokens[i] != NULL)
-	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
-	}
+	while(tokens[i])
+		i++;
+	if (i != 6)
+		return (printf("Error\nWrong amount of cylinder tokens\n"), 0);
+	cylinder = ft_calloc(1, sizeof(* cylinder));
+	if (!cylinder)
+		return (printf("Error\nMalloc error\n"), 0);
+	if (!parse_vector(tokens[1], &cylinder->center))
+		return (0);
+	if (!parse_norm_vector(tokens[2], &cylinder->axis))
+		return (0);
+	if (!check_double(tokens[3]))
+		return (printf("Error\nWrong double value cylinder diameter\n"), 0);
+	cylinder->diameter = str_to_double(tokens[3]);
+	if (!check_double(tokens[4]))
+		return (printf("Error\nWrong double value cylinder heigth\n"), 0);
+	cylinder->heigth = str_to_double(tokens[4]);
+	if (!str_to_rgb(tokens[5], &cylinder->color))
+		return (printf("Error\nWrong rgb value cylinder\n"), 0);
+	node = ft_lstnew(cylinder);
+	if (!node)
+		return (printf("Error\nMalloc error\n"), 0);
+	ft_lstadd_front(&scene->objects, node);
 	return (1);
 }
