@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/18 19:02:46 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:21:41 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_ambient(char **tokens, t_scene *scene)
 	if (scene->ambient.ratio < 0.0 || scene->ambient.ratio > 1.0)
 		return (printf("Error\nAmbient ratio not in range\n"), 0);
 	if (!check_rgb(tokens[2]))
-		return (printf("Error\nWrong rgb value\n"), 0);
+		return (printf("Error\nWrong rgb value ambient\n"), 0);
 	if (!str_to_rgb(tokens[2], &scene->ambient.color))
 		return (0);
 	scene->has_ambient = true;
@@ -101,7 +101,7 @@ int	parse_sphere(char **tokens, t_scene *scene)
 		return (printf("Error\nWrong double value sphere diameter\n"), 0);
 	sphere->diameter = str_to_double(tokens[2]);
 	if (!str_to_rgb(tokens[3], &sphere->color))
-		return (printf("Error\nWrong rgb value\n"), 0);
+		return (printf("Error\nWrong rgb value sphere\n"), 0);
 	node = ft_lstnew(sphere);
 	ft_lstadd_back(&scene->objects, node);
 	return (1);
@@ -109,16 +109,23 @@ int	parse_sphere(char **tokens, t_scene *scene)
 
 int	parse_plane(char **tokens, t_scene *scene)
 {
-	int	i;
+	int		i;
+	t_plane	*plane;
 
-	scene = (void *)scene;
 	i = 0;
-	printf("plane\n");
-	while (tokens[i] != NULL)
-	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
-	}
+	while(tokens[i])
+		i++;
+	if (i > 4)
+		return (printf("Error\nToo many plane tokens\n"), 0);
+	plane = ft_calloc(1, sizeof(*plane));
+	if (!plane)
+		return (printf("Error\nMalloc error\n"), 0);
+	if (!parse_vector(tokens[1], &plane->point));
+		return (0);
+	if (!parse_norm_vector(tokens[2], &plane->point));
+		return (0);
+	if (!str_to_rgb(tokens[3], &plane->color));
+		return (printf("Error\nWrong rgb value plane\n"), 0);
 	return (1);
 }
 

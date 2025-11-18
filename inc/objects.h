@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/18 18:23:13 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:17:52 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ typedef struct s_sphere
 	double	diameter;
 	t_rgb	color;
 }	t_sphere;
+
+typedef struct s_plane
+{
+	t_vec3	point;
+	t_vec3	normal;
+	t_rgb	color;
+}	t_plane;
+
 
 typedef struct s_camera
 {
