@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/17 17:20:39 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 18:23:13 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ typedef struct t_light
 
 typedef struct s_scene
 {
-	t_ambient	*ambient;
-	t_camera	*camera;
-	t_light		*light;
+	t_ambient	ambient;
+	t_camera	camera;
+	t_light		light;
+	bool		has_ambient;
+	bool		has_camera;
+	bool		has_light;
 	t_list		*objects;
 } 	t_scene;
 

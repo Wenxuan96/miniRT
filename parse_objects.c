@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/17 17:31:59 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/18 19:02:46 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,18 @@ int	parse_ambient(char **tokens, t_scene *scene)
 		i++;
 	if (i > 3)
 		return (printf("Error\nToo many ambient tokens\n"), 0);
-	if (scene->ambient)
+	if (scene->has_ambient)
 		return (printf("Error\nDuplicate ambient input\n"), 0);
-	scene->ambient = ft_calloc(1, sizeof(t_ambient));
-	if (!scene->ambient)
-		return (printf("Error\nMalloc Error\n"), 0);
 	if (!check_double(tokens[1]))
 		return (printf("Error\nWrong double value ambient ratio\n"), 0);
-	scene->ambient->ratio = str_to_double(tokens[1]);
-	if (scene->ambient->ratio < 0.0 || scene->ambient->ratio > 1.0)
+	scene->ambient.ratio = str_to_double(tokens[1]);
+	if (scene->ambient.ratio < 0.0 || scene->ambient.ratio > 1.0)
 		return (printf("Error\nAmbient ratio not in range\n"), 0);
 	if (!check_rgb(tokens[2]))
 		return (printf("Error\nWrong rgb value\n"), 0);
-	if (!str_to_rgb(tokens[2], &scene->ambient->color))
+	if (!str_to_rgb(tokens[2], &scene->ambient.color))
 		return (0);
+	scene->has_ambient = true;
 	return (1);
 }
 
@@ -47,19 +45,17 @@ int	parse_camera(char **tokens, t_scene *scene)
 		i++;
 	if (i > 4)
 		return (printf("Error\nToo many camera tokens\n"), 0);
-	if (scene->camera)
+	if (scene->has_camera)
 		return (printf("Error\nDuplicate camera input\n"), 0);
-	scene->camera = ft_calloc(1, sizeof(t_camera));
-	if (!scene->camera)
-		return (printf("Error\nMalloc Error\n"), 0);
-	if (!parse_vector(tokens[1], &scene->camera->position))
+	if (!parse_vector(tokens[1], &scene->camera.position))
 		return (0);
-	if (!parse_norm_vector(tokens[2], &scene->camera->orientation))
+	if (!parse_norm_vector(tokens[2], &scene->camera.orientation))
 		return (0);
-	scene->camera->fov = ft_atoi(tokens[3]);
-	if (scene->camera->fov < 0 || scene->camera->fov > 180)
+	scene->camera.fov = ft_atoi(tokens[3]);
+	if (scene->camera.fov < 0 || scene->camera.fov > 180)
 		return(printf("Error\nFOV should be between 0 and 180"), 0);
-	scene->camera->world_up = vec3(0, 1, 0);
+	scene->camera.world_up = vec3(0, 1, 0);
+	scene->has_camera = true;
 	return (1);
 }
 
@@ -72,33 +68,42 @@ int	parse_light(char **tokens, t_scene *scene)
 		i++;
 	if (i > 3)
 		return (printf("Error\nToo many light tokens\n"), 0);	
-	if (scene->light)
+	if (scene->has_light)
 		return (printf("Error\nDuplicate light input\n"), 0);
-	scene->light = ft_calloc(1, sizeof(t_light));
-	if (!scene->light)
-		return (printf("Error\nMalloc Error\n"), 0);
-	if (!parse_vector(tokens[1], & scene->light->origin))
+	if (!parse_vector(tokens[1], & scene->light.origin))
 		return (0);
 	if (!check_double(tokens[2]))
 		return (printf("Error\nWrong double value light ratio\n"), 0);
-	scene->light->ratio = str_to_double(tokens[2]);
-	if (scene->light->ratio < 0.0 || scene->light->ratio > 1.0)
+	scene->light.ratio = str_to_double(tokens[2]);
+	if (scene->light.ratio < 0.0 || scene->light.ratio > 1.0)
 		return (printf("Error\nLight ratio not in range\n"), 0);
+	scene->has_light = true;
 	return (1);
 }
 
 int	parse_sphere(char **tokens, t_scene *scene)
 {
-	int	i;
+	int			i;
+	t_sphere	*sphere;
+	t_list		*node;
 
-	scene = (void *)scene;
 	i = 0;
-	printf("sphere\n");
-	while (tokens[i] != NULL)
-	{
-		printf("token %d: %s\n", i, tokens[i]);
-		i ++;
-	}
+	while(tokens[i])
+		i++;
+	if (i > 4)
+		return (printf("Error\nToo many sphere tokens\n"), 0);	
+	sphere = ft_calloc(1, sizeof(*sphere));
+	if (!sphere)
+		return (printf("Error\nMalloc error\n"), 0);
+	if (!parse_vector(tokens[1], &sphere->position))
+		return (0);
+	if (!check_double(tokens[2]))
+		return (printf("Error\nWrong double value sphere diameter\n"), 0);
+	sphere->diameter = str_to_double(tokens[2]);
+	if (!str_to_rgb(tokens[3], &sphere->color))
+		return (printf("Error\nWrong rgb value\n"), 0);
+	node = ft_lstnew(sphere);
+	ft_lstadd_back(&scene->objects, node);
 	return (1);
 }
 
