@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:16:53 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/17 16:11:14 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/19 13:13:27 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_list
 {
 	void			*content;
+	int				type;
 	struct s_list	*next;
 }	t_list;
 

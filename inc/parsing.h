@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/17 16:16:17 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/19 13:15:53 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef struct s_parsermap
 	char			*id;
 	t_parser_func	func;	
 }	t_parsermap;
+
+enum	e_type
+{
+	SPHERE,
+	PLANE,
+	CYLINDER,
+};
 
 int		parse_ambient(char **tokens, t_scene *scene);
 int		parse_camera(char **tokens, t_scene *scene);

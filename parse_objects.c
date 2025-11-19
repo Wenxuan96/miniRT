@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/18 19:41:49 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:34:40 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 	while(tokens[i])
 		i++;
 	if (i != 4)
-		return (printf("Error\nWWrong amount of camera tokens\n"), 0);
+		return (printf("Error\nWrong amount of camera tokens\n"), 0);
 	if (scene->has_camera)
 		return (printf("Error\nDuplicate camera input\n"), 0);
 	if (!parse_vector(tokens[1], &scene->camera.position))
@@ -104,7 +104,8 @@ int	parse_sphere(char **tokens, t_scene *scene)
 		return (printf("Error\nWrong rgb value sphere\n"), 0);
 	node = ft_lstnew(sphere);
 	if (!node)
-		return (printf("Error\nMalloc error\n"), 0);
+	return (printf("Error\nMalloc error\n"), 0);
+	node->type = SPHERE;
 	ft_lstadd_front(&scene->objects, node);
 	return (1);
 }
@@ -132,6 +133,7 @@ int	parse_plane(char **tokens, t_scene *scene)
 	node = ft_lstnew(plane);
 	if (!node)
 		return (printf("Error\nMalloc error\n"), 0);
+	node->type = PLANE;
 	ft_lstadd_front(&scene->objects, node);
 	return (1);
 }
@@ -165,6 +167,7 @@ int	parse_cylinder(char **tokens, t_scene *scene)
 	node = ft_lstnew(cylinder);
 	if (!node)
 		return (printf("Error\nMalloc error\n"), 0);
+	node->type = CYLINDER;
 	ft_lstadd_front(&scene->objects, node);
 	return (1);
 }
