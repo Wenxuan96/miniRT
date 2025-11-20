@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/20 18:03:02 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:34:36 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int		read_file(char *argv[], t_scene *scene);
 void	init_scene(t_scene *scene);
 void	free_scene(t_scene *scene);
 int		check_scene(t_scene *scene);
+int		check_tokens(char **tokens, int	expected);
 
 #endif

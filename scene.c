@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 17:52:22 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/20 18:04:10 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:38:37 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	free_scene(t_scene *scene)
 
 int	check_scene(t_scene *scene)
 {
-	if (!scene->has_ambient && !scene->has_camera && !scene->has_ambient && ft_lstsize(scene->objects) == 0)
+	if (!scene->has_ambient && !scene->has_camera
+		&& !scene->has_ambient && ft_lstsize(scene->objects) == 0)
 		return (printf("Error\nNo file contents\n"), 0);
 	if (!scene->has_ambient)
 		return (printf("Error\nNo ambient input\n"), 0);
@@ -46,4 +47,3 @@ void	init_scene(t_scene *scene)
 	scene->has_light = false;
 	scene->objects = NULL;
 }
-
