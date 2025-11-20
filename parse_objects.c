@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/19 15:34:40 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:15:04 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	parse_ambient(char **tokens, t_scene *scene)
 	int	i;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 		i++;
 	if (i != 3)
 		return (printf("Error\nWrong amount of ambient tokens\n"), 0);
@@ -41,7 +41,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 	int	i;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 		i++;
 	if (i != 4)
 		return (printf("Error\nWrong amount of camera tokens\n"), 0);
@@ -53,7 +53,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 		return (0);
 	scene->camera.fov = ft_atoi(tokens[3]);
 	if (scene->camera.fov < 0 || scene->camera.fov > 180)
-		return(printf("Error\nFOV should be between 0 and 180"), 0);
+		return (printf("Error\nFOV should be between 0 and 180"), 0);
 	scene->camera.world_up = vec3(0, 1, 0);
 	scene->has_camera = true;
 	return (1);
@@ -64,10 +64,10 @@ int	parse_light(char **tokens, t_scene *scene)
 	int	i;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 		i++;
 	if (i != 3)
-		return (printf("Error\nWrong amount of light tokens\n"), 0);	
+		return (printf("Error\nWrong amount of light tokens\n"), 0);
 	if (scene->has_light)
 		return (printf("Error\nDuplicate light input\n"), 0);
 	if (!parse_vector(tokens[1], & scene->light.origin))
@@ -88,10 +88,10 @@ int	parse_sphere(char **tokens, t_scene *scene)
 	t_list		*node;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 		i++;
 	if (i != 4)
-		return (printf("Error\nWrong amount of sphere tokens\n"), 0);	
+		return (printf("Error\nWrong amount of sphere tokens\n"), 0);
 	sphere = ft_calloc(1, sizeof(*sphere));
 	if (!sphere)
 		return (printf("Error\nMalloc error\n"), 0);
@@ -104,7 +104,7 @@ int	parse_sphere(char **tokens, t_scene *scene)
 		return (printf("Error\nWrong rgb value sphere\n"), 0);
 	node = ft_lstnew(sphere);
 	if (!node)
-	return (printf("Error\nMalloc error\n"), 0);
+		return (printf("Error\nMalloc error\n"), 0);
 	node->type = SPHERE;
 	ft_lstadd_front(&scene->objects, node);
 	return (1);
@@ -117,7 +117,7 @@ int	parse_plane(char **tokens, t_scene *scene)
 	t_list	*node;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 		i++;
 	if (i != 4)
 		return (printf("Error\nWrong amount of plane tokens\n"), 0);
@@ -145,11 +145,11 @@ int	parse_cylinder(char **tokens, t_scene *scene)
 	t_list		*node;
 
 	i = 0;
-	while(tokens[i])
+	while (tokens[i])
 		i++;
 	if (i != 6)
 		return (printf("Error\nWrong amount of cylinder tokens\n"), 0);
-	cylinder = ft_calloc(1, sizeof(* cylinder));
+	cylinder = ft_calloc(1, sizeof(*cylinder));
 	if (!cylinder)
 		return (printf("Error\nMalloc error\n"), 0);
 	if (!parse_vector(tokens[1], &cylinder->center))

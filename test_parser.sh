@@ -29,7 +29,7 @@ echo -e "${GREEN}Build succeeded.${RESET}"
 # ----------------------------
 
 echo ""
-echo "---- Valid scene tests ----"
+echo "=============== Valid scene tests ==============="
 
 for file in "$TEST_DIR/valid/"*.rt; do
 	printf "Test %-40s : " "$(basename "$file")"
@@ -50,7 +50,7 @@ done
 # ----------------------------
 
 echo ""
-echo "---- Invalid scene test ----"
+echo "============== Invalid scene test =============="
 
 for file in "$TEST_DIR/invalid/"*; do
 	printf "Test %-40s : " "$(basename "$file")"

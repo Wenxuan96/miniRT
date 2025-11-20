@@ -6,13 +6,13 @@
 #    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/11/17 15:23:53 by lyvan-de         ###   ########.fr        #
+#    Updated: 2025/11/20 17:58:24 by lyvan-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 BUILD_DIR = ./build
-SRC = main.c graphics.c create_data.c vector.c vector2.c viewport.c ray.c render.c parsing.c parse_objects.c parse_utils.c parse_vectors.c
+SRC = main.c graphics.c create_data.c vector.c vector2.c viewport.c ray.c render.c parsing.c parse_objects.c parse_utils.c parse_vectors.c parse_file.c scene.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
