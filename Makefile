@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
+#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/11/03 13:30:38 by a12708           ###   ########.fr        #
+#    Updated: 2025/12/10 15:50:24 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 BUILD_DIR = ./build
-SRC = main.c graphics.c create_data.c vector.c vector2.c viewport.c ray.c render.c
+SRC = main.c input_data.c vec_utils1.c vec_utils2.c viewport.c ray.c render.c ray_copy.c test.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a

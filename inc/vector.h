@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/10/15 14:12:03 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/12/09 13:12:42 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ typedef struct s_vec3
 	double	y;
 	double	z;
 }	t_vec3;
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+}	t_point;
 
 t_vec3	vec3(double x, double y, double z);
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);

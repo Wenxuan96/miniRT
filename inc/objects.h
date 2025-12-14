@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/04 12:17:58 by a12708           ###   ########.fr       */
+/*   Updated: 2025/12/10 14:19:37 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_sphere
 {
 	t_vec3	position;
 	double	diameter;
-	t_rgb	color;
+	t_vec3	color;
 }	t_sphere;
 
 typedef struct s_camera
@@ -44,7 +44,7 @@ typedef struct	s_viewport
 typedef struct s_ambient
 {
 	double	ratio;
-	t_rgb	color;
+	t_vec3	color;
 }	t_ambient;
 
 typedef struct t_light

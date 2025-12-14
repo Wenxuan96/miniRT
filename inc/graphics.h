@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:00:37 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/04 12:30:25 by a12708           ###   ########.fr       */
+/*   Updated: 2025/12/10 15:01:06 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 typedef struct s_rgb
 {
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
+	int	r;
+	int	g;
+	int	b;
 }	t_rgb;
 
 int		get_rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
