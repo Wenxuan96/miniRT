@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/10 15:50:03 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/15 00:18:44 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ t_vec3	color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 	t_vec3	hit_point;
 	t_vec3	norm_hit_point;
 	t_vec3	color;
-	t_vec3	ambient;
+	// t_vec3	ambient;
 
 	hit_point = vec3_add(cam->position, vec3_mult(ray, t));
 	norm_hit_point = vec3_norm(vec3_sub(hit_point, sphere->position));
-	ambient = ambient_rgb();
+	// ambient = ambient_rgb();
 	color.x = sphere->color.x * light_intensity(hit_point, norm_hit_point);
 	color.y = sphere->color.y * light_intensity(hit_point, norm_hit_point);
 	color.z = sphere->color.z * light_intensity(hit_point, norm_hit_point);
@@ -122,9 +122,9 @@ int	ray_color(t_context	*context, int x, int y)
 	ray_dir = find_dir(context->view, context->cam, x, y);
 	vec_rgb = get_rgb(ray_dir, context->cam);
 	// make it  0-255 again
-	rgb.r = (int)fmin(255, fmax(0, vec_rgb.x * 255));
-	rgb.g = (int)fmin(255, fmax(0, vec_rgb.y * 255));
-	rgb.b = (int)fmin(255, fmax(0, vec_rgb.z * 255));
+	rgb.r = (int)fmin(255, fmax(0, vec_rgb.x));
+	rgb.g = (int)fmin(255, fmax(0, vec_rgb.y));
+	rgb.b = (int)fmin(255, fmax(0, vec_rgb.z));
 	color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 	return (color);
 }
