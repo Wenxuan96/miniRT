@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/15 00:10:42 by a12708           ###   ########.fr       */
+/*   Updated: 2025/12/17 15:04:02 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 t_vec3	map(t_vec3 *obj_input)
 {
-    obj_input->x = (obj_input->x < 0) ? 0 : (obj_input->x > 255) ? 1 : obj_input->x / 255;
-    obj_input->y = (obj_input->y < 0) ? 0 : (obj_input->y > 255) ? 1 : obj_input->y / 255;
-    obj_input->z = (obj_input->z < 0) ? 0 : (obj_input->z > 255) ? 1 : obj_input->z / 255;
+    obj_input->x = (obj_input->x < 0) ? 0 : (obj_input->x > 255) ? 1 : obj_input->x / 255.0f;
+    obj_input->y = (obj_input->y < 0) ? 0 : (obj_input->y > 255) ? 1 : obj_input->y / 255.0f;
+    obj_input->z = (obj_input->z < 0) ? 0 : (obj_input->z > 255) ? 1 : obj_input->z / 255.0f;
     return (*obj_input);
 }
 
@@ -34,12 +34,18 @@ t_camera	*camera(void)
 
 t_sphere	*sphere(void)
 {
+	static int i;
+	
 	static t_sphere	sphere = {
 		.position = {-50.0, 0.0, 40.0},
 		.diameter = 12.4,
 		.color = {255, 0, 0},
 	};
-	sphere.color = map(&sphere.color);
+	if (i == 0)
+	{
+		sphere.color = map(&sphere.color);
+		i = 1;
+	}
 	// for (int i = 0; i < 2; i++)
 	// 	printf("%f, %f, %f\n", sphere.color.x, sphere.color.y, sphere.color.z);
 	return ((t_sphere *)&sphere);

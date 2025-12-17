@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/17 12:25:10 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/17 14:49:10 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_vec3	color_sphere(t_sphere *sphere, t_vec3 ray, double t, t_camera *cam)
 	hit_point = vec3_add(cam->position, vec3_mult(ray, t));
 	norm_hit_point = vec3_norm(vec3_sub(hit_point, sphere->position));
 	// ambient = ambient_rgb();
+	//printf("sphere color (x = %f, y = %f, z = %f)\n", sphere->color.x, sphere->color.y ,sphere->color.z);
 	color.x = sphere->color.x * light_intensity(hit_point, norm_hit_point);
 	color.y = sphere->color.y * light_intensity(hit_point, norm_hit_point);
 	color.z = sphere->color.z * light_intensity(hit_point, norm_hit_point);
@@ -103,9 +104,9 @@ t_vec3	get_rgb(t_vec3 ray_dir, t_camera *cam)
 	if (t <= 0.0)
 	{
 		t = 0.5 * (ray_dir.y + 1);
-		rgb.x = (unsigned char)((1.0 - t) * 255 + t * 127);
-		rgb.y = (unsigned char)((1.0 - t) * 255 + t * 178);
-		rgb.z = 255;
+		rgb.x = ((1.0 - t) * 255 + t * 127) / 255;
+		rgb.y = ((1.0 - t) * 255 + t * 178) / 255;
+		rgb.z = 255 / 255;
 	}
 	else
 		rgb = color_sphere(sph, ray_dir, t, cam);
@@ -122,9 +123,12 @@ int	ray_color(t_context	*context, int x, int y)
 	ray_dir = find_dir(context->view, context->cam, x, y);
 	vec_rgb = get_rgb(ray_dir, context->cam);
 	// make it  0-255 again
-	rgb.r = (int)fmin(255, fmax(0, vec_rgb.x));
-	rgb.g = (int)fmin(255, fmax(0, vec_rgb.y));
-	rgb.b = (int)fmin(255, fmax(0, vec_rgb.z));
+	//rgb.r = (int)fmin(255, fmax(0, vec_rgb.x));
+	//rgb.g = (int)fmin(255, fmax(0, vec_rgb.y));
+	//rgb.b = (int)fmin(255, fmax(0, vec_rgb.z));
+	rgb.r = (int)((vec_rgb.x) * 255);
+	rgb.g = (int)((vec_rgb.y) * 255);
+	rgb.b = (int)((vec_rgb.z) * 255);
 	color = get_rgba(rgb.r, rgb.g, rgb.b, 255);
 	return (color);
 }
