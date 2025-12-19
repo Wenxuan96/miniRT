@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/19 19:55:15 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/19 21:43:03 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_vec4	map(t_vec4 *obj_input)
 t_camera	*camera(void)
 {
 	static t_camera	cam = {
-		.position = {-50.0, 0, 20},
-		.orientation = {0, 0, 1},
+		.position = {-50.0, 0, 20, 0},
+		.orientation = {0, 0, 1, 0},
 		.fov = 70,
-		.world_up = {0, 1, 0},
+		.world_up = {0, 1, 0, 0},
 	};
 	return ((t_camera *)&cam);
 }
@@ -38,9 +38,9 @@ t_sphere	*sphere(void)
 	static int i;
 	
 	static t_sphere	sphere = {
-		.position = {-50.0, 0.0, 40.0},
+		.position = {-50.0, 0.0, 40.0, 0},
 		.diameter = 12.4,
-		.color = {255, 0, 0},
+		.color = {255, 0, 0, 0},
 	};
 	if (i == 0)
 	{
@@ -56,7 +56,7 @@ t_ambient	*ambient(void)
 {
 	static t_ambient	ambient = {
 		.ratio = 0.60,
-		.color = {255, 255, 255},
+		.color = {255, 255, 255, 0},
 	};
 	map(&ambient.color);
 	return ((t_ambient *)&ambient);
@@ -66,7 +66,7 @@ t_light	*light(void)
 {
 	static t_light	light = {
 		.ratio = 0.9,
-		.origin = {70.0, 50.0, 0.0},
+		.origin = {70.0, 50.0, 0.0, 0},
 	};
 	return ((t_light *) & light);
 }
