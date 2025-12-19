@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   input_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/17 15:04:02 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2025/12/19 19:55:15 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/objects.h"
 #include <stdio.h>
 
-t_vec3	map(t_vec3 *obj_input)
+t_vec4	map(t_vec4 *obj_input)
 {
-    obj_input->x = (obj_input->x < 0) ? 0 : (obj_input->x > 255) ? 1 : obj_input->x / 255.0f;
-    obj_input->y = (obj_input->y < 0) ? 0 : (obj_input->y > 255) ? 1 : obj_input->y / 255.0f;
-    obj_input->z = (obj_input->z < 0) ? 0 : (obj_input->z > 255) ? 1 : obj_input->z / 255.0f;
+    obj_input->x = (obj_input->x < 0) ? 0 : (obj_input->x > 255) ? 1 : obj_input->x / 255;
+    obj_input->y = (obj_input->y < 0) ? 0 : (obj_input->y > 255) ? 1 : obj_input->y / 255;
+    obj_input->z = (obj_input->z < 0) ? 0 : (obj_input->z > 255) ? 1 : obj_input->z / 255;
+	obj_input->w = (obj_input->z < 0) ? 0 : (obj_input->w > 255) ? 1 : obj_input->w / 255;
     return (*obj_input);
 }
 

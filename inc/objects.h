@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/10 14:19:37 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/19 19:47:45 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,39 +17,39 @@
 
 typedef struct s_sphere
 {
-	t_vec3	position;
+	t_vec4	position;
 	double	diameter;
-	t_vec3	color;
+	t_vec4	color;
 }	t_sphere;
 
 typedef struct s_camera
 {
-	t_vec3	position;
-	t_vec3	orientation;
+	t_vec4	position;
+	t_vec4	orientation;
 	int		fov;
-	t_vec3	world_up;
+	t_vec4	world_up;
 }	t_camera;
 
 typedef struct	s_viewport
 {
 	double	plane_width;
 	double	plane_height;
-	t_vec3	viewport_u;
-	t_vec3	viewport_v;
-	t_vec3	pixel_delta_u;
-	t_vec3	pixel_delta_v;
-	t_vec3	upper_left;
+	t_vec4	viewport_u;
+	t_vec4	viewport_v;
+	t_vec4	pixel_delta_u;
+	t_vec4	pixel_delta_v;
+	t_vec4	upper_left;
 }	t_viewport;
 
 typedef struct s_ambient
 {
 	double	ratio;
-	t_vec3	color;
+	t_vec4	color;
 }	t_ambient;
 
 typedef struct t_light
 {
-	t_vec3	origin;
+	t_vec4	origin;
 	double	ratio;
 }	t_light;
 
