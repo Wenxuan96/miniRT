@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:51:23 by a12708            #+#    #+#             */
-/*   Updated: 2025/12/28 18:16:19 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/28 19:02:24 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,12 @@ double   get_m4_deter(t_matrix4 org_mat)
 	return m4_deter;
 }
 
+t_matrix4 invert_m4(t_matrix4 srcm4)
+{
+	t_matrix4 inverted_m4;
+
+	return inverted_m4;
+}
 /*  
 
   4     2     2

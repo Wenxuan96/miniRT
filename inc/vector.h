@@ -6,13 +6,14 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/28 18:35:34 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/28 19:04:34 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 # include <math.h>
+# include <stdbool.h>
 
 typedef struct s_vec3
 {
@@ -31,7 +32,9 @@ typedef struct s_vec4
 
 typedef struct s_matrix4
 {
-	double m4[4][4];
+	double	m4[4][4];
+	double	m4_deter;
+	bool	invertable;
 }	t_matrix4;
 
 t_vec4	vec4(double x, double y, double z, double w);
