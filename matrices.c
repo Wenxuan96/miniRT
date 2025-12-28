@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrices.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:15:22 by wxi               #+#    #+#             */
-/*   Updated: 2025/12/25 12:53:13 by a12708           ###   ########.fr       */
+/*   Updated: 2025/12/28 18:43:27 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_matrix4 create_mat(int p)
 	{
 		while (j < 4)
 		{
-			m.m4[i][j] = p;
+			m.m4[i][j] = (float)rand() / (float)RAND_MAX;
 			j++;
 			p++;	
 		}
@@ -93,40 +93,45 @@ t_vec4 matXtuple(t_matrix4 a, t_vec4 tup)
 	return new_tup;
 }
 
-// void prt_mat(t_matrix4 m)
-// {
-// 	int i;
-// 	int j;
+void prt_mat(t_matrix4 m)
+{
+	int i;
+	int j;
 
-// 	i = 0;
-// 	j = 0;
-// 	while (i < 4)
-// 	{
-// 		while (j < 4)
-// 		{
-// 			printf("m.m4[%d][%d]: %f ", i, j, m.m4[i][j]);
-// 			j++;
-// 			printf("\n");
-// 		}
-// 		j = 0;
-// 		i++;
-// 	}
-// }
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		while (j < 4)
+		{
+			printf("m.m4[%d][%d]: %f ", i, j, m.m4[i][j]);
+			j++;
+			printf("\n");
+		}
+		j = 0;
+		i++;
+	}
+}
 
-// int main(void)
-// {
-// 	t_matrix4 	a;
-// 	t_vec4		tup;
-// 	t_vec4		new_tup;
+int main(void)
+{
+	t_matrix4 	a;
+	t_vec4		tup;
+	t_vec4		new_tup;
+	double 		m4_deter;
 	
-// 	a = create_mat(2);
-// 	printf("a:\n");
-// 	prt_mat(a);
-// 	printf("\n");
-// 	tup = vec4(2, 2, 1, 0);
-// 	printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
-// 	new_tup = matXtuple(a, tup);
-// 	printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);
-// 	printf("\n");
-// 	return 0;	
-// }
+	a = create_mat(2);
+	m4_deter = get_m4_deter(a);
+	printf("a:\n");
+	prt_mat(a);
+	printf("\n");
+	printf("m4_deter: %f\n", m4_deter);
+	tup = vec4(2, 2, 1, 0);
+	printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
+	new_tup = matXtuple(a, tup);
+	printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);
+	printf("\n");
+	
+	
+	return 0;	
+}
