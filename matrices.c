@@ -6,13 +6,13 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:15:22 by wxi               #+#    #+#             */
-/*   Updated: 2025/12/28 18:43:27 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/29 16:08:46 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "inc/miniRT.h"
 
-t_matrix4 create_mat(int p)
+t_matrix4 assign_mat_val(double val)
 {
 	t_matrix4	m;
 	int			i;
@@ -24,9 +24,8 @@ t_matrix4 create_mat(int p)
 	{
 		while (j < 4)
 		{
-			m.m4[i][j] = (float)rand() / (float)RAND_MAX;
+			m.m4[i][j] = val * (float)rand() / (float)RAND_MAX;
 			j++;
-			p++;	
 		}
 		j = 0;
 		i++;
@@ -116,22 +115,28 @@ void prt_mat(t_matrix4 m)
 int main(void)
 {
 	t_matrix4 	a;
+	t_matrix4 	inverted_a;
 	t_vec4		tup;
 	t_vec4		new_tup;
 	double 		m4_deter;
 	
-	a = create_mat(2);
-	m4_deter = get_m4_deter(a);
+	a = assign_mat_val(5);
+	m4_deter = get_m4_deter(&a);
+	inverted_a = invert_m4(a);
 	printf("a:\n");
 	prt_mat(a);
 	printf("\n");
-	printf("m4_deter: %f\n", m4_deter);
+	printf("m4_deter: %f\n", a.m4_deter);
+	printf("inverted_a:\n");
+	prt_mat(inverted_a);
+	printf("\n");
+	// system("python3 test.py");
+	printf("\n");
 	tup = vec4(2, 2, 1, 0);
 	printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
 	new_tup = matXtuple(a, tup);
 	printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);
 	printf("\n");
-	
 	
 	return 0;	
 }

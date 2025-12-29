@@ -6,13 +6,13 @@
 #    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/12/28 18:30:26 by wxi              ###   ########.fr        #
+#    Updated: 2025/12/29 15:48:05 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 BUILD_DIR = ./build
-SRC = main.c input_data.c vec_utils1.c vec_utils2.c viewport.c ray.c render.c test.c
+SRC = main.c input_data.c vec_utils1.c vec_utils2.c viewport.c ray.c render.c matrices.c mat_invert.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a

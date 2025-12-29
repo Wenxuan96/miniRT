@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:51:23 by a12708            #+#    #+#             */
-/*   Updated: 2025/12/28 19:02:24 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/29 16:00:23 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ double   get_m3_deter(t_matrix4 org_mat, int row, int col)
 	return m3_deter;
 }
 
-
-double   get_m4_deter(t_matrix4 org_mat)
+double   get_m4_deter(t_matrix4 *org_mat)
 {
     int i;
 	double	m4_deter;
@@ -82,19 +81,51 @@ double   get_m4_deter(t_matrix4 org_mat)
 			sign = -1;
 		else
 			sign = 1;
-		m4_deter += get_m3_deter(org_mat, 3, i) * sign * org_mat.m4[3][i];
+		m4_deter += sign * get_m3_deter(*org_mat, 3, i) * (*org_mat).m4[3][i];
 		i++;
 	}
+	(*org_mat).m4_deter = m4_deter;
 	return m4_deter;
 }
 
-t_matrix4 invert_m4(t_matrix4 srcm4)
+t_matrix4 invert_m4(t_matrix4 src_m4)
 {
-	t_matrix4 inverted_m4;
+	t_matrix4	inverted_m4;
+	int			sign;
+	int			i;
+	int			j;
 
+	inverted_m4 = assign_mat_val(0);
+	if (fabs(src_m4.m4_deter) < 1e-9)
+		return inverted_m4;
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			sign = 1;
+			if ((i + j) % 2 == 1)
+				sign = -1;
+			inverted_m4.m4[i][j] = sign * get_m3_deter(src_m4, i, j) / src_m4.m4_deter;
+			j++;
+		}
+		i++;
+	}
+	inverted_m4 = transpose_mat(inverted_m4);
 	return inverted_m4;
 }
 /*  
+
+  1     4     2     2
+(0,0) (0,1) (0,2) (0,3)
+  1     4     2     2
+(1,0) (1,1) (1,2) (1,3)
+  1     4     2     2
+(2,0) (2,1) (2,2) (2,3)
+  1     4     2     2
+(3,0) (3,1) (3,2) (3,3)
+
 
   4     2     2
 (0,0) (0,1) (0,2)

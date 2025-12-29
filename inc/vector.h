@@ -6,14 +6,13 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/28 19:04:34 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/29 15:59:35 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 # include <math.h>
-# include <stdbool.h>
 
 typedef struct s_vec3
 {
@@ -34,7 +33,6 @@ typedef struct s_matrix4
 {
 	double	m4[4][4];
 	double	m4_deter;
-	bool	invertable;
 }	t_matrix4;
 
 t_vec4	vec4(double x, double y, double z, double w);
@@ -46,11 +44,13 @@ t_vec4	vec4_norm(t_vec4 v);
 t_vec4	vec4_mult(t_vec4 v, double s);
 t_vec4	vec4_cross(t_vec4 a, t_vec4 b);
 
-t_matrix4 create_mat(int p);
+t_matrix4 assign_mat_val(double val);
 t_matrix4 multi_mat(t_matrix4 a, t_matrix4 b);
 t_matrix4 transpose_mat(t_matrix4 a);
 t_vec4 matXtuple(t_matrix4 a, t_vec4 tup);
-double   get_m4_deter(t_matrix4 org_mat);
+double   get_m4_deter(t_matrix4 *org_mat);
+t_matrix4 invert_m4(t_matrix4 src_m4);
+void prt_mat(t_matrix4 m);
 
 // t_vec3	vec3(double x, double y, double z);
 // t_vec3	vec3_add(t_vec3 a, t_vec3 b);
