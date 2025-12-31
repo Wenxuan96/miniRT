@@ -6,14 +6,14 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 13:29:45 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/31 14:11:04 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/objects.h"
 #include <stdio.h>
 
-t_vec4	map(t_vec4 *obj_input)
+t_tuple	map(t_tuple *obj_input)
 {
     obj_input->x = (obj_input->x < 0) ? 0 : (obj_input->x > 255) ? 1 : obj_input->x / 255;
     obj_input->y = (obj_input->y < 0) ? 0 : (obj_input->y > 255) ? 1 : obj_input->y / 255;

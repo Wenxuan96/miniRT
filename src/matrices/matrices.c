@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:15:22 by wxi               #+#    #+#             */
-/*   Updated: 2025/12/31 13:33:32 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/31 14:12:03 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ t_matrix4 transpose_mat(t_matrix4 a)
 	return new_m;
 }
 
-t_vec4 matXtuple(t_matrix4 a, t_vec4 tup)
+t_tuple matXtuple(t_matrix4 a, t_tuple tup)
 {
-	t_vec4	new_tup;
+	t_tuple	new_tup;
 
 	new_tup.x = a.m4[0][0] * tup.x + a.m4[0][1] * tup.y +
 				a.m4[0][2] * tup.z + a.m4[0][3] * tup.w;
@@ -140,8 +140,8 @@ int main(void)
 {
 	t_matrix4 	a;
 	t_matrix4 	inverted_a;
-	// t_vec4		tup;
-	// t_vec4		new_tup;
+	// t_tuple		tup;
+	// t_tuple		new_tup;
 	double 		m4_deter;
 	
 	a = assign_mat_val(5);
@@ -156,7 +156,7 @@ int main(void)
 	printf("\n");
 	// system("python3 test.py");
 	// printf("\n");
-	// tup = vec4(2, 2, 1, 0);
+	// tup = tuple(2, 2, 1, 0);
 	// printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
 	// new_tup = matXtuple(a, tup);
 	// printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);

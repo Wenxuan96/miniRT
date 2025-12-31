@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 13:29:35 by wxi              ###   ########.fr       */
+/*   Updated: 2025/12/31 14:12:03 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@ double	deg_to_rad(double degrees)
 	return (degrees * PI / 180);
 }
 
-t_vec4	upper_left(t_viewport *viewport, t_camera *cam)
+t_tuple	upper_left(t_viewport *viewport, t_camera *cam)
 {
-	t_vec4	upper_left;
+	t_tuple	upper_left;
 
-	upper_left = vec4_add(cam->position, cam->orientation);
-	upper_left = vec4_sub(upper_left, vec4_div(viewport->viewport_u, 2.0));
-	upper_left = vec4_sub(upper_left, vec4_div(viewport->viewport_v, 2.0));
+	upper_left = tuple_add(cam->position, cam->orientation);
+	upper_left = tuple_sub(upper_left, tuple_div(viewport->viewport_u, 2.0));
+	upper_left = tuple_sub(upper_left, tuple_div(viewport->viewport_v, 2.0));
 	return (upper_left);
 }
 
 void compute_viewport_axis(t_viewport *view, t_camera *cam)
 {
-	t_vec4	right;
-	t_vec4	up;
+	t_tuple	right;
+	t_tuple	up;
 
-	if (fabs(vec4_dot(cam->orientation, cam->world_up)) > 0.999)
-        cam->world_up = vec4(1, 0, 0, 0);
-	right = vec4_norm(vec4_cross(cam->orientation, cam->world_up));
-	up = vec4_cross(right, cam->orientation);
-    view->viewport_u = vec4_mult(right, view->plane_width);
-    view->viewport_v = vec4_mult(up, view->plane_height);
+	if (fabs(tuple_dot(cam->orientation, cam->world_up)) > 0.999)
+        cam->world_up = tuple(1, 0, 0, 0);
+	right = tuple_norm(tuple_cross(cam->orientation, cam->world_up));
+	up = tuple_cross(right, cam->orientation);
+    view->viewport_u = tuple_mult(right, view->plane_width);
+    view->viewport_v = tuple_mult(up, view->plane_height);
 }
 
 //not sure if this should be part of the camera struct or not
@@ -55,8 +55,8 @@ t_viewport	*set_viewport(t_camera *camera)
 	aspect_ratio = (double)HEIGHT / (double)WIDTH;
 	viewport.plane_height = viewport.plane_width * aspect_ratio;
 	compute_viewport_axis(&viewport, camera);
-	viewport.pixel_delta_u = vec4_div(viewport.viewport_u, WIDTH);
-	viewport.pixel_delta_v = vec4_div(viewport.viewport_v, HEIGHT);
+	viewport.pixel_delta_u = tuple_div(viewport.viewport_u, WIDTH);
+	viewport.pixel_delta_v = tuple_div(viewport.viewport_v, HEIGHT);
 	viewport.upper_left = upper_left(&viewport, camera);
 	return (&viewport);
 }

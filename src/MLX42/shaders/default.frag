@@ -3,7 +3,7 @@
 in vec2 TexCoord;
 flat in int TexIndex;
 
-out vec4 FragColor;
+out tuple FragColor;
 
 uniform sampler2D Texture0;
 uniform sampler2D Texture1;
@@ -24,7 +24,7 @@ uniform sampler2D Texture15;
 
 void main()
 {
-    vec4 outColor = vec4(1.0, 0.0, 0.0, 1.0);
+    tuple outColor = tuple(1.0, 0.0, 0.0, 1.0);
     switch (int(TexIndex)) {
         case 0: outColor = texture(Texture0, TexCoord); break;
         case 1: outColor = texture(Texture1, TexCoord); break;
@@ -42,7 +42,7 @@ void main()
         case 13: outColor = texture(Texture13, TexCoord); break;
         case 14: outColor = texture(Texture14, TexCoord); break;
         case 15: outColor = texture(Texture15, TexCoord); break;
-        default: outColor = vec4(1.0, 0.0, 0.0, 1.0); break;
+        default: outColor = tuple(1.0, 0.0, 0.0, 1.0); break;
     }
     FragColor = outColor;
 }
