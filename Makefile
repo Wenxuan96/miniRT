@@ -6,17 +6,17 @@
 #    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2025/12/29 15:48:05 by wxi              ###   ########.fr        #
+#    Updated: 2025/12/31 13:33:15 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 BUILD_DIR = ./build
-SRC = main.c input_data.c vec_utils1.c vec_utils2.c viewport.c ray.c render.c matrices.c mat_invert.c
+SRC = src/miniRT.c src/objects/input_data.c src/vectors/vec_utils1.c src/vectors/vec_utils2.c src/objects/viewport.c src/objects/ray.c src/matrices/matrices.c src/matrices/mat_invert.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
-LIBFT_PATH = ./libft
+LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a
-LIBMLX_PATH = ./MLX42
+LIBMLX_PATH = src/MLX42
 INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include
 LIBMLX_LINK := $(LIBMLX_PATH)/build/libmlx42.a -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Werror -Wextra -g
@@ -45,7 +45,7 @@ $(NAME) : $(LIBFT) $(OBJ)
 	$(CC) $(OBJ) $(LIBFT) $(LIBMLX_LINK) -o $@ $(FRAMEWORKS)
 
 $(BUILD_DIR)/%.o : %.c
-	mkdir -p $(BUILD_DIR)
+	mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) $(INCLUDE) $< -o $@
 
 $(LIBFT):
