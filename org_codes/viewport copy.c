@@ -13,7 +13,7 @@
 // #include "inc/miniRT.h"
 // #include "inc/objects.h"
 
-// double	deg_to_rad(double degrees)
+// double	deg_to_rad(double tuplerees)
 // {
 // 	return (degrees * PI / 180);
 // }

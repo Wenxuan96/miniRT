@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:51:23 by a12708            #+#    #+#             */
-/*   Updated: 2025/12/31 13:30:08 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/05 15:44:08 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ double   get_m4_deter(t_matrix4 *org_mat)
 		m4_deter += sign * get_m3_deter(*org_mat, 3, i) * (*org_mat).m4[3][i];
 		i++;
 	}
-	(*org_mat).m4_deter = m4_deter;
+
 	return m4_deter;
 }
 
@@ -96,6 +96,7 @@ t_matrix4 invert_m4(t_matrix4 src_m4)
 	int			j;
 
 	inverted_m4 = assign_mat_val(0);
+	src_m4.m4_deter = get_m4_deter(&src_m4);
 	if (fabs(src_m4.m4_deter) < 1e-9)
 		return inverted_m4;
 	i = 0;
@@ -115,6 +116,11 @@ t_matrix4 invert_m4(t_matrix4 src_m4)
 	inverted_m4 = transpose_mat(inverted_m4);
 	return inverted_m4;
 }
+
+
+
+
+
 /*  
 
   1     4     2     2

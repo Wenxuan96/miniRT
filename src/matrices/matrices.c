@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:15:22 by wxi               #+#    #+#             */
-/*   Updated: 2025/12/31 14:12:03 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/05 15:15:49 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,33 +134,4 @@ void prt_mat(t_matrix4 m)
 		j = 0;
 		i++;
 	}
-}
-
-int main(void)
-{
-	t_matrix4 	a;
-	t_matrix4 	inverted_a;
-	// t_tuple		tup;
-	// t_tuple		new_tup;
-	double 		m4_deter;
-	
-	a = assign_mat_val(5);
-	m4_deter = get_m4_deter(&a);
-	inverted_a = invert_m4(a);
-	printf("a:\n");
-	prt_mat(a);
-	printf("\n");
-	printf("m4_deter: %f\n", a.m4_deter);
-	printf("inverted_a:\n");
-	prt_mat(inverted_a);
-	printf("\n");
-	// system("python3 test.py");
-	// printf("\n");
-	// tup = tuple(2, 2, 1, 0);
-	// printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
-	// new_tup = matXtuple(a, tup);
-	// printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);
-	// printf("\n");
-	
-	return 0;	
 }

@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:15:37 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/05 15:40:52 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ typedef struct s_world
 
 typedef struct s_sphere
 {
-	// t_tuple	position;
-	// double	diameter;
-	// t_tuple	color;
-	t_tuple      origin;          // center of sphere
-    double       radius;
-    t_matrix4    transform;       // translation, scaling, rotation
-    t_matrix4    inverse_transform;
-    int          material_id;     // optional, points to material properties
+	t_tuple	position;
+	double	diameter;
+	t_tuple	color;
+	// t_tuple      origin;          // center of sphere
+    // double       radius;
+    // t_matrix4    transform;       // translation, scaling, rotation
+    // t_matrix4    inverse_transform;
+    // int          material_id;     // optional, points to material properties
 }	t_sphere;
 
 typedef struct s_plane
