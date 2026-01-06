@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/06 18:00:07 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/06 18:16:59 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,23 @@ typedef struct s_ray
 	t_tuple	vector;
 }	t_ray;
 
-typedef struct s_objs
-{
-	t_sphere	sph;
-	t_cylinder	cy;
-	t_plane		pl;
-}	t_objs;
+typedef enum e_obj_type 
+{ 
+	SPHERE, 
+	PLANE, 
+	CYLINDER 
+} t_obj_type; 
+
+typedef struct s_object 
+{ 
+	t_obj_type	type; 
+	void		*data; 
+} t_object;
 
 typedef struct s_intersection
 {
-	double	*t_vals;
-	t_objs	inter_obj;
+	double			*t_vals;
+	t_obj_type		type;
 }	t_intersection;
 
 t_tuple	position(t_ray r, double t)
