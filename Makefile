@@ -6,7 +6,7 @@
 #    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2026/01/05 15:18:14 by wxi              ###   ########.fr        #
+#    Updated: 2026/01/06 15:58:33 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = miniRT
 BUILD_DIR = ./build
 SRC = src/miniRT.c src/objects/input_data.c src/vectors/vec_utils1.c src/vectors/vec_utils2.c \
 	src/objects/viewport.c src/objects/ray.c src/matrices/matrices.c src/matrices/mat_invert.c \
-	src/matrices/transformation.c
+	src/matrices/transformation.c src/matrices/ray_sphere.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a

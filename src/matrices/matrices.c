@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:15:22 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/05 15:15:49 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/06 11:59:01 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_matrix4 identity_m4()
 
 t_matrix4 multi_mat(t_matrix4 a, t_matrix4 b)
 {
-	t_matrix4 new_m;
+	t_matrix4 new_m = {0};
 	int	row;
 	int col;
 

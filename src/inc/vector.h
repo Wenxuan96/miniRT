@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:12:32 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/06 11:35:52 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ typedef struct s_matrix4
 	double	m4[4][4];
 	double	m4_deter;
 }	t_matrix4;
+
+typedef struct  s_shearing
+{
+	double	x_y;
+	double	x_z;
+	double	y_x;
+	double	y_z;
+	double	z_x;
+	double	z_y;
+}	t_shearing;
+
 
 t_tuple	tuple(double x, double y, double z, double w);
 t_tuple	tuple_add(t_tuple a, t_tuple b);
