@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
+#    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2026/01/06 15:58:33 by wxi              ###   ########.fr        #
+#    Updated: 2026/01/07 23:11:49 by a12708           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC = src/miniRT.c src/objects/input_data.c src/vectors/vec_utils1.c src/vectors
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a
-LIBMLX_PATH = src/MLX42
+LIBMLX_PATH = MLX42
 INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include
 LIBMLX_LINK := $(LIBMLX_PATH)/build/libmlx42.a -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Werror -Wextra -g

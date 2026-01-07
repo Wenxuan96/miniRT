@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/05 15:40:52 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 22:58:47 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ typedef struct s_world
 
 typedef struct s_sphere
 {
-	t_tuple	position;
-	double	diameter;
-	t_tuple	color;
+	t_tuple         position;
+	double          diameter;
+	t_tuple         color;
+    t_matrix4       transform;       // translation, scaling, rotation
 	// t_tuple      origin;          // center of sphere
-    // double       radius;
-    // t_matrix4    transform;       // translation, scaling, rotation
     // t_matrix4    inverse_transform;
     // int          material_id;     // optional, points to material properties
 }	t_sphere;
@@ -55,6 +54,12 @@ typedef struct s_cylinder
     t_matrix4    inverse_transform;
     int          material_id;
 }   t_cylinder;
+
+typedef struct s_ray
+{
+	t_tuple	point;
+	t_tuple	vector;
+}	t_ray;
 
 typedef struct s_camera
 {

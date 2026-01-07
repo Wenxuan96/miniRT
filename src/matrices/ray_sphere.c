@@ -3,41 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ray_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/07 15:08:54 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 23:09:03 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-typedef struct s_ray
-{
-	t_tuple	point;
-	t_tuple	vector;
-}	t_ray;
-
-typedef enum e_obj_type 
-{ 
-	SPHERE, 
-	PLANE, 
-	CYLINDER 
-} t_obj_type; 
-
 typedef struct s_intersec
 {
 	double		t_val;
-	t_obj_type	type;
-	t_intersec	*next_intersec;
+	void		*obj;
+    int         hit_count;
+	double      hit_points[2];
+	struct s_intersec	*next_intersec;
 }	t_intersec;
 
-t_intersec	*assign_inter(double t, t_obj_type obj_type)
+t_intersec	*assign_inter(double t, void *inter_obj)
 {
 	t_intersec *cur_inter_obj;
 
+	cur_inter_obj = malloc(sizeof(t_intersec));
+	if (!cur_inter_obj)
+		return NULL;
 	cur_inter_obj->t_val = t;
-	cur_inter_obj->type = obj_type;
+	cur_inter_obj->obj = inter_obj;
+	cur_inter_obj->hit_count = 
 	cur_inter_obj->next_intersec = NULL;
 	
 	return cur_inter_obj;
@@ -53,7 +46,7 @@ t_intersec	*add_inter(t_intersec *i1, t_intersec *i2)
 	return inter_lst;
 }
 
-t_intersec	*hit(t_intersec *inter_lst)
+t_intersec	*closest_hit(t_intersec *inter_lst)
 {
 	t_intersec	*nearest_hit;
 	t_intersec	*cur_inter_obj;
@@ -88,7 +81,7 @@ t_tuple	position(t_ray r, double t)
 	return rt;
 }
 
-double	*hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
+double	hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
 {
 	t_tuple		origin_center;
 	double		a;
@@ -96,7 +89,6 @@ double	*hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
 	double		c;
 	double		radius;
 	double		discriminant;
-	double		rt[2];
 
 	radius = sph->diameter / 2;
 	origin_center = tuple_sub(cam->position, sph->position);
@@ -105,26 +97,28 @@ double	*hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
 	c = tuple_dot(origin_center, origin_center) - (radius * radius);
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
-		return NULL;
+		return 0;
 	else
 	{
-		rt[0] = (-b - sqrt(discriminant)) / (2.0 * a);
-		rt[1] = (-b + sqrt(discriminant)) / (2.0 * a);
+		sph->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
+		sph->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
+		if (sph->hit_points[0] == sph->hit_points[1])
+			return 1;
 	}
-	return rt;
+	return 2;
 }
 
-int	main(void)
-{
-	t_ray		r;
-	t_tuple		new_pos;
-	t_sphere	*sph;
-	t_sphere	*xs;
+// int	main(void)
+// {
+// 	t_ray		r;
+// 	t_tuple		new_pos;
+// 	t_sphere	*sph;
+// 	t_sphere	*xs;
 
-	r.point = tuple(0, 0, -5, 1);
-	r.vector = tuple(0, 0, 1, 0);
-	new_pos = position(r, 2.5);
-	sph = sphere();
-	xs = intersect(sph, r);
-	printf("new pos(%f, %f, %f, %f)\n", new_pos.x, new_pos.y, new_pos.z, new_pos.w);
-}
+// 	r.point = tuple(0, 0, -5, 1);
+// 	r.vector = tuple(0, 0, 1, 0);
+// 	new_pos = position(r, 2.5);
+// 	sph = sphere();
+// 	xs = intersect(sph, r);
+// 	printf("new pos(%f, %f, %f, %f)\n", new_pos.x, new_pos.y, new_pos.z, new_pos.w);
+// }
