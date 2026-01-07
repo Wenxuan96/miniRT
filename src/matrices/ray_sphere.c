@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/07 13:04:21 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 15:08:54 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,19 @@ t_intersec	*hit(t_intersec *inter_lst)
 	smlst_non_neg_t = cur_inter_obj->t_val;
 	while (cur_inter_obj != NULL)
 	{
-		while (smlst_non_neg_t < 0)
+		if (cur_inter_obj->t_val >= 0)
 		{
-			cur_inter_obj = cur_inter_obj->next_intersec;
-			smlst_non_neg_t = cur_inter_obj->t_val;
+			if (smlst_non_neg_t >= cur_inter_obj->t_val)
+			{
+				smlst_non_neg_t = cur_inter_obj->t_val;
+				nearest_hit = cur_inter_obj;
+			}
 		}
-		if (cur_inter_obj->next_intersec != NULL
-			&& smlst_non_neg_t >= cur_inter_obj->next_intersec->t_val)
-		{
+		while (smlst_non_neg_t < 0)//skip negtive ones
 			cur_inter_obj = cur_inter_obj->next_intersec;
-			smlst_non_neg_t = cur_inter_obj->t_val;
-		}					
 		cur_inter_obj = cur_inter_obj->next_intersec;
 	}
-	
+	return nearest_hit;
 }
 
 t_tuple	position(t_ray r, double t)
