@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/06 18:16:59 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 13:04:21 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,60 @@ typedef enum e_obj_type
 	CYLINDER 
 } t_obj_type; 
 
-typedef struct s_object 
-{ 
-	t_obj_type	type; 
-	void		*data; 
-} t_object;
-
-typedef struct s_intersection
+typedef struct s_intersec
 {
-	double			*t_vals;
-	t_obj_type		type;
-}	t_intersection;
+	double		t_val;
+	t_obj_type	type;
+	t_intersec	*next_intersec;
+}	t_intersec;
+
+t_intersec	*assign_inter(double t, t_obj_type obj_type)
+{
+	t_intersec *cur_inter_obj;
+
+	cur_inter_obj->t_val = t;
+	cur_inter_obj->type = obj_type;
+	cur_inter_obj->next_intersec = NULL;
+	
+	return cur_inter_obj;
+}
+
+t_intersec	*add_inter(t_intersec *i1, t_intersec *i2)
+{
+	t_intersec *inter_lst;
+	
+	inter_lst = i1;
+	inter_lst->next_intersec = i2;
+	
+	return inter_lst;
+}
+
+t_intersec	*hit(t_intersec *inter_lst)
+{
+	t_intersec	*nearest_hit;
+	t_intersec	*cur_inter_obj;
+	double		smlst_non_neg_t;
+	
+	cur_inter_obj = inter_lst;
+	nearest_hit = cur_inter_obj;
+	smlst_non_neg_t = cur_inter_obj->t_val;
+	while (cur_inter_obj != NULL)
+	{
+		while (smlst_non_neg_t < 0)
+		{
+			cur_inter_obj = cur_inter_obj->next_intersec;
+			smlst_non_neg_t = cur_inter_obj->t_val;
+		}
+		if (cur_inter_obj->next_intersec != NULL
+			&& smlst_non_neg_t >= cur_inter_obj->next_intersec->t_val)
+		{
+			cur_inter_obj = cur_inter_obj->next_intersec;
+			smlst_non_neg_t = cur_inter_obj->t_val;
+		}					
+		cur_inter_obj = cur_inter_obj->next_intersec;
+	}
+	
+}
 
 t_tuple	position(t_ray r, double t)
 {
@@ -46,7 +89,7 @@ t_tuple	position(t_ray r, double t)
 	return rt;
 }
 
-double	*hit_sphere(t_tuple ray, t_camera *cam, t_sphere	*sph)
+double	*hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
 {
 	t_tuple		origin_center;
 	double		a;
