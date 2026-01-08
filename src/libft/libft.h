@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:16:53 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/11/13 13:21:12 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/07 15:37:18 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stddef.h>
+# define BUFFER_SIZE 4096
 
 typedef struct s_list
 {
 	void			*content;
-	int				index;
+	int				type;
 	struct s_list	*next;
-}					t_list;
+}	t_list;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -64,4 +65,6 @@ t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 int	    ft_lstsize(t_list *lst);
+char	*get_next_line(int fd);
+
 #endif

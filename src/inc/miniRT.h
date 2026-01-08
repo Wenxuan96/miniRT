@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:11:04 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 15:41:36 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@
 # include <stdint.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <errno.h>
+# include <string.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include "objects.h"
+# include "parsing.h"
 
 # define WIDTH 800
 # define HEIGHT 400
@@ -28,8 +34,7 @@ typedef struct s_context
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	t_viewport		*view;
-	t_camera		*cam;
+	t_scene			*scene;
 }	t_context;
 
 //ray functions

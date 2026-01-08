@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 12:43:01 by wxi               #+#    #+#             */
-/*   Updated: 2025/11/13 13:25:28 by a12708           ###   ########.fr       */
+/*   Updated: 2025/11/17 16:12:10 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_list	*ft_lstnew(void *content)
 	if (!new_node)
 		return (NULL);
 	new_node->content = content;
-	new_node->index = -1;
 	new_node->next = NULL;
 	return (new_node);
 }
