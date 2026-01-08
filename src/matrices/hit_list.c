@@ -1,72 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_sphere.c                                       :+:      :+:    :+:   */
+/*   hit_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/08 11:11:06 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/08 13:27:55 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-typedef struct s_intersec
+t_x_list	*add_x_obj(void *x_obj, double discriminant, double t_val, int n)
 {
-	double		t_val;
-	void		*obj;
-	struct s_intersec	*next_intersec;
-}	t_intersec;
+	t_x_list *new_obj;
 
-t_intersec	*assign_inter(double t, void *inter_obj)
-{
-	t_intersec *cur_inter_obj;
-
-	cur_inter_obj = malloc(sizeof(t_intersec));
-	if (!cur_inter_obj)
+	new_obj = malloc(sizeof(t_x_list));
+	if (!new_obj)
 		return NULL;
-	cur_inter_obj->t_val = t;
-	cur_inter_obj->obj = inter_obj;
-	cur_inter_obj->next_intersec = NULL;
+	new_obj->cur_x_obj = x_obj;
+	new_obj->t = t_val;
+	new_obj->hit_count = n;
+	new_obj->next_x_obj = NULL;
 	
-	return cur_inter_obj;
+	return new_obj;
 }
 
-t_intersec	*add_inter(t_intersec *i1, t_intersec *i2)
+t_x_list	*x_obj_to_list(t_x_list *i1, t_x_list *i2)
 {
-	t_intersec *inter_lst;
+	t_x_list *x_obj_lst;
+
+	x_obj_lst = i1;
+	x_obj_lst->next_x_obj = i2;
 	
-	inter_lst = i1;
-	inter_lst->next_intersec = i2;
-	
-	return inter_lst;
+	return x_obj_lst;
 }
 
-t_intersec	*closest_hit(t_intersec *inter_lst)
+t_x_list	*find_1st_hit(t_x_list *x_obj_lst)
 {
-	t_intersec	*nearest_hit;
-	t_intersec	*cur_inter_obj;
+	t_x_list	*first_hit;
+	t_x_list	*cur_x_obj;
 	double		smlst_non_neg_t;
 	
-	cur_inter_obj = inter_lst;
-	nearest_hit = cur_inter_obj;
-	smlst_non_neg_t = cur_inter_obj->t_val;
-	while (cur_inter_obj != NULL)
+	cur_x_obj = x_obj_lst;
+	first_hit = cur_x_obj;
+	smlst_non_neg_t = cur_x_obj->t;
+	while (cur_x_obj != NULL)
 	{
-		if (cur_inter_obj->t_val >= 0)
+		if (cur_x_obj->t >= 0)
 		{
-			if (smlst_non_neg_t >= cur_inter_obj->t_val)
+			if (smlst_non_neg_t >= cur_x_obj->t)
 			{
-				smlst_non_neg_t = cur_inter_obj->t_val;
-				nearest_hit = cur_inter_obj;
+				smlst_non_neg_t = cur_x_obj->t;
+				first_hit = cur_x_obj;
 			}
 		}
 		while (smlst_non_neg_t < 0)//skip negtive ones
-			cur_inter_obj = cur_inter_obj->next_intersec;
-		cur_inter_obj = cur_inter_obj->next_intersec;
+			cur_x_obj = cur_x_obj->next_x_obj;
+		cur_x_obj = cur_x_obj->next_x_obj;
 	}
-	return nearest_hit;
+	return first_hit;
 }
 
 t_tuple	position(t_ray r, double t)
@@ -78,7 +72,7 @@ t_tuple	position(t_ray r, double t)
 	return rt;
 }
 
-double	hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
+double	get_discriminant(t_tuple ray, t_camera *cam, t_sphere *sph)
 {
 	t_tuple		origin_center;
 	double		a;
@@ -93,16 +87,29 @@ double	hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
 	b = 2.0 * tuple_dot(ray, origin_center);
 	c = tuple_dot(origin_center, origin_center) - (radius * radius);
 	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return 0;
-	else
-	{
-		sph->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
-		sph->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
-		if (sph->hit_points[0] == sph->hit_points[1])
-			return 1;
-	}
-	return 2;
+
+	return discriminant;
+}
+
+double	*hit_sphere(t_tuple ray, t_camera *cam, t_sphere *sph)
+{
+	double		discriminant;
+	t_x_list	*new_x_obj;
+	t_tuple		origin_center;
+	double		*t;
+	double		a;
+	double		b;
+
+	t = malloc(3 * sizeof(double));
+	a = tuple_dot(ray, ray);
+	b = 2.0 * tuple_dot(ray, origin_center);
+	origin_center = tuple_sub(cam->position, sph->position);
+	discriminant = get_discriminant(ray, cam, sph);
+	if (!t || discriminant < 0)
+		return NULL;
+	t[0] = (-b - sqrt(discriminant)) / (2.0 * a);
+	t[1] = (-b + sqrt(discriminant)) / (2.0 * a);
+	return t;
 }
 
 // int	main(void)

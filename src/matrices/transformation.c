@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:41:18 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/07 22:45:37 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/08 13:12:50 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,15 @@ t_matrix4 rotation_z(double radians)
 	return rt_matrix;
 }
 
-t_ray	transform(t_ray ray, t_matrix4 mat)
+t_ray	transform_ray(t_ray ray, t_matrix4 trans)
 {
 	t_ray new_ray;
 
-	new_ray.point = matXtuple(mat, ray.point);
-	new_ray.vector = matXtuple(mat, ray.vector);
+	new_ray.point = matXtuple(trans, ray.point);
+	new_ray.vector = matXtuple(trans, ray.vector);
 	
 	return new_ray;
 }
-
-
 
 int main(void)
 {
@@ -113,6 +111,7 @@ int main(void)
 	// c = translation(2, 3, 4);
 
 	sph = sphere();
+	sph->transform = scaling(2, 2, 2);
 	// t = multi_mat(multi_mat(c, b), a);
 	// printf("a:\n");
 	// prt_mat(a);
@@ -120,7 +119,7 @@ int main(void)
 	// a = invert_m4(a);
 	ray1.point = tuple(0, 0, -5, 1);
 	ray1.vector = tuple(0, 0, 1, 0);
-	ray2 = transform(ray1, c);
+	ray2 = transform_ray(ray1, c);
 	// new_tup = matXtuple(b, new_tup);
 	// new_tup = matXtuple(c, new_tup);
 	// m4_deter = get_m4_deter(&a);

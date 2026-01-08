@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
+#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2026/01/07 23:11:49 by a12708           ###   ########.fr        #
+#    Updated: 2026/01/08 12:39:48 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = miniRT
 BUILD_DIR = ./build
 SRC = src/miniRT.c src/objects/input_data.c src/vectors/vec_utils1.c src/vectors/vec_utils2.c \
 	src/objects/viewport.c src/objects/ray.c src/matrices/matrices.c src/matrices/mat_invert.c \
-	src/matrices/transformation.c src/matrices/ray_sphere.c
+	src/matrices/transformation.c src/matrices/hit_list.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a
