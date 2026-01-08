@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/07 23:09:03 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/08 11:11:06 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ typedef struct s_intersec
 {
 	double		t_val;
 	void		*obj;
-    int         hit_count;
-	double      hit_points[2];
 	struct s_intersec	*next_intersec;
 }	t_intersec;
 
@@ -30,7 +28,6 @@ t_intersec	*assign_inter(double t, void *inter_obj)
 		return NULL;
 	cur_inter_obj->t_val = t;
 	cur_inter_obj->obj = inter_obj;
-	cur_inter_obj->hit_count = 
 	cur_inter_obj->next_intersec = NULL;
 	
 	return cur_inter_obj;

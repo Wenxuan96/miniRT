@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 22:58:47 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/08 11:01:06 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_sphere
 	double          diameter;
 	t_tuple         color;
     t_matrix4       transform;       // translation, scaling, rotation
+	int				hit_count;
+	double      	hit_points[2];
 	// t_tuple      origin;          // center of sphere
     // t_matrix4    inverse_transform;
     // int          material_id;     // optional, points to material properties
