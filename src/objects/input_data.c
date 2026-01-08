@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:11:04 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 22:44:38 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ t_camera	*camera(void)
 
 t_sphere	*sphere(void)
 {
-	static int i;
-	
+	static int	i;
+
 	static t_sphere	sphere = {
 		.position = {-50.0, 0.0, 40.0, 0},
 		.diameter = 12.4,
 		.color = {255, 0, 0, 0},
 	};
+	sphere.transform = identity_m4();
 	if (i == 0)
 	{
 		sphere.color = map(&sphere.color);
