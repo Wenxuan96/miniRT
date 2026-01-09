@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_scene_setup.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:23:45 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:33:19 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-int	parse_ambient(char **tokens, t_scene *scene)
+int	parse_ambient(char **tokens, t_world *scene)
 {
 	if (!check_tokens(tokens, 3))
 		return (0);
@@ -31,7 +31,7 @@ int	parse_ambient(char **tokens, t_scene *scene)
 	return (1);
 }
 
-int	parse_camera(char **tokens, t_scene *scene)
+int	parse_camera(char **tokens, t_world *scene)
 {
 	if (!check_tokens(tokens, 4))
 		return (0);
@@ -49,7 +49,7 @@ int	parse_camera(char **tokens, t_scene *scene)
 	return (1);
 }
 
-int	parse_light(char **tokens, t_scene *scene)
+int	parse_light(char **tokens, t_world *scene)
 {
 	if (!check_tokens(tokens, 3))
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 15:41:36 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:15:32 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_context
 {
 	mlx_t			*mlx;
 	mlx_image_t		*image;
-	t_scene			*scene;
+	t_world			*world;
 }	t_context;
 
 //ray functions
