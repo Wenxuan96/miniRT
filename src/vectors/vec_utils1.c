@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vec_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:15 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:12:03 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 18:30:04 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/vector.h"
 
-t_tuple	tuple(double x, double y, double z, double w)
+t_tuple	new_tuple(double x, double y, double z, double w)
 {
 	return ((t_tuple){x, y, z, w});
 }

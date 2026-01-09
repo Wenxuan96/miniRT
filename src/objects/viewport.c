@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewport.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:12:03 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 15:40:42 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void compute_viewport_axis(t_viewport *view, t_camera *cam)
 }
 
 //not sure if this should be part of the camera struct or not
-t_viewport	*set_viewport(t_camera *camera)
+t_viewport	*set_viewport(t_camera camera)
 {
 	static t_viewport	viewport;
 	double				d;
@@ -50,7 +50,7 @@ t_viewport	*set_viewport(t_camera *camera)
 	double				aspect_ratio;
 
 	d = 1.0;
-	fov_rad = deg_to_rad(camera->fov);
+	fov_rad = deg_to_rad(camera.fov);
 	viewport.plane_width = 2 * d * tan(fov_rad / 2);
 	aspect_ratio = (double)HEIGHT / (double)WIDTH;
 	viewport.plane_height = viewport.plane_width * aspect_ratio;

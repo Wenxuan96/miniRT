@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/08 12:23:25 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/07 18:11:24 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,31 @@
 # define OBJECTS_H
 # include "vector.h"
 # include "graphics.h"
-
-#define MAX_OBJECTS 100
+# include "../libft/libft.h"
 
 typedef struct s_sphere
 {
-	t_tuple         position;
-	double          diameter;
-	t_tuple         color;
-    t_matrix4       transform;       // translation, scaling, rotation
-	// t_tuple      origin;          // center of sphere
-    // t_matrix4    inverse_transform;
-    // int          material_id;     // optional, points to material properties
+	t_tuple	position;
+	double	diameter;
+	t_rgb	color;
 }	t_sphere;
 
 typedef struct s_plane
 {
-    t_tuple      origin;          // a point on the plane
-    t_tuple      normal;          // normalized direction
-    t_matrix4    transform;
-    t_matrix4    inverse_transform;
-    int          material_id;
-}   t_plane;
+	t_tuple	point;
+	t_tuple	normal;
+	t_rgb	color;
+}	t_plane;
 
 typedef struct s_cylinder
 {
-    t_tuple      origin;          // base center
-    double       radius;
-    double       height;          // could be infinite
-    t_matrix4    transform;
-    t_matrix4    inverse_transform;
-    int          material_id;
-}   t_cylinder;
+	t_tuple	center;
+	t_tuple	axis;
+	double	diameter;
+	double	heigth;
+	t_rgb	color;
+}	t_cylinder;
 
-typedef struct s_ray
-{
-	t_tuple	point;
-	t_tuple	vector;
-}	t_ray;
 
 typedef struct s_camera
 {
@@ -75,7 +62,7 @@ typedef struct	s_viewport
 typedef struct s_ambient
 {
 	double	ratio;
-	t_tuple	color;
+	t_rgb	color;
 }	t_ambient;
 
 typedef struct t_light
@@ -83,14 +70,6 @@ typedef struct t_light
 	t_tuple	origin;
 	double	ratio;
 }	t_light;
-
-typedef struct s_x_list
-{
-	void			*cur_x_obj;
-	double			t;
-	int				hit_count;
-	struct s_x_list	*next_x_obj;
-}	t_x_list;
 
 typedef struct s_scene
 {
@@ -101,7 +80,6 @@ typedef struct s_scene
 	bool		has_camera;
 	bool		has_light;
 	t_list		*objects;
-	t_list		*x_objs;
 } 	t_scene;
 
 //fucntions to create mock data
@@ -109,6 +87,7 @@ t_camera	*camera(void);
 t_sphere	*sphere(void);
 t_ambient	*ambient(void);
 t_light		*light(void);
-t_viewport	*set_viewport(t_camera *camera);
+
+t_viewport	*set_viewport(t_camera camera);
 
 #endif

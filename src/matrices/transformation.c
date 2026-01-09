@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:41:18 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/08 13:12:50 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/06 15:48:49 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,57 +84,43 @@ t_matrix4 rotation_z(double radians)
 	return rt_matrix;
 }
 
-t_ray	transform_ray(t_ray ray, t_matrix4 trans)
-{
-	t_ray new_ray;
-
-	new_ray.point = matXtuple(trans, ray.point);
-	new_ray.vector = matXtuple(trans, ray.vector);
+// int main(void)
+// {
+// 	t_matrix4 	a;
+// 	t_matrix4 	b;
+// 	t_matrix4 	c;
+// 	t_matrix4 	t;
+// 	// t_matrix4 	inverted_a;
+// 	t_tuple		tup;
+// 	t_tuple		new_tup;
+// 	// double 		m4_deter;
 	
-	return new_ray;
-}
+// 	a = rotation_x(PI / 2);
+// 	b = scaling(5, 5, 5);
+// 	c = translation(10, 5, 7);
 
-int main(void)
-{
-	// t_matrix4 	a;
-	// t_matrix4 	b;
-	t_matrix4 	c;
-	t_sphere	*sph;
-	// t_matrix4 	t;
-	// t_matrix4 	inverted_a;
-	t_ray		ray1;
-	t_ray		ray2;
-	// double 		m4_deter;
+// 	t = multi_mat(multi_mat(c, b), a);
+// 	// printf("a:\n");
+// 	// prt_mat(a);
+// 	// printf("\n");
+// 	// a = invert_m4(a);
+// 	tup = tuple(1, 0, 1, 1);
+// 	new_tup = matXtuple(t, tup);
+// 	// new_tup = matXtuple(b, new_tup);
+// 	// new_tup = matXtuple(c, new_tup);
+// 	// m4_deter = get_m4_deter(&a);
+// 	// inverted_a = invert_m4(a);
+
+// 	// printf("m4_deter: %f\n", a.m4_deter);
+// 	// printf("inverted_a:\n");
+// 	// prt_mat(a);
+// 	// printf("\n");
+// 	// system("python3 test.py");
+// 	// printf("\n");
+// 	// tup = tuple(2, 2, 1, 0);
+// 	// printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
+// 	// new_tup = matXtuple(a, tup);
+// 	printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);
 	
-	// a = rotation_x(PI / 2);
-	// b = scaling(5, 5, 5);
-	// c = translation(2, 3, 4);
-
-	sph = sphere();
-	sph->transform = scaling(2, 2, 2);
-	// t = multi_mat(multi_mat(c, b), a);
-	// printf("a:\n");
-	// prt_mat(a);
-	// printf("\n");
-	// a = invert_m4(a);
-	ray1.point = tuple(0, 0, -5, 1);
-	ray1.vector = tuple(0, 0, 1, 0);
-	ray2 = transform_ray(ray1, c);
-	// new_tup = matXtuple(b, new_tup);
-	// new_tup = matXtuple(c, new_tup);
-	// m4_deter = get_m4_deter(&a);
-	// inverted_a = invert_m4(a);
-
-	// printf("m4_deter: %f\n", a.m4_deter);
-	// printf("inverted_a:\n");
-	// prt_mat(a);
-	// printf("\n");
-	// system("python3 test.py");
-	// printf("\n");
-	// tup = tuple(2, 2, 1, 0);
-	// printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
-	// new_tup = matXtuple(a, tup);
-	printf("ray2 point:(%f, %f, %f, %f), ray2 vector:(%f, %f, %f, %f)\n", ray2.point.x, ray2.point.y, ray2.point.z, ray2.point.w, ray2.vector.x, ray2.vector.y, ray2.vector.z, ray2.vector.w);
-	
-	return 0;	
-}
+// 	return 0;	
+// }
