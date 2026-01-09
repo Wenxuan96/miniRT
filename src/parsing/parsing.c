@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 15:07:10 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:14:12 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-//t_scene	*parse(int argc, char *argv[])
+//t_world	*parse(int argc, char *argv[])
 //{
-//	t_scene	*scene;
+//	t_world	*scene;
 
 //	if (argc != 2)
 //	{
@@ -26,7 +26,7 @@
 //	scene = ft_calloc(1, sizeof(*scene));
 //	if (!scene)
 //		return (printf("Error\nMalloc error\n"), NULL);
-//	init_scene(scene);
+//	init_world(scene);
 //	if (!read_file(argv, scene))
 //		return (free_scene(scene), NULL);
 //	if (!check_scene(scene))
@@ -36,7 +36,7 @@
 
 int	main(int argc, char *argv[])
 {
-	t_scene	*scene;
+	t_world	*scene;
 
 	if (argc != 2)
 	{
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[])
 	scene = ft_calloc(1, sizeof(*scene));
 	if (!scene)
 		return (printf("Error\nMalloc error\n"), 1);
-	init_scene(scene);
+	init_world(scene);
 	if (!read_file(argv, scene))
 		return (free_scene(scene), 1);
 	if (!check_scene(scene))

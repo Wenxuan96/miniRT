@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:30:44 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-int	add_node(int type, void *content, t_scene *scene)
+int	add_node(int type, void *content, t_world *scene)
 {
 	t_list	*node;
 
@@ -36,7 +36,7 @@ int	check_tokens(char **tokens, int expected)
 	return (1);
 }
 
-int	parse_sphere(char **tokens, t_scene *scene)
+int	parse_sphere(char **tokens, t_world *scene)
 {
 	t_sphere	*sphere;
 
@@ -57,7 +57,7 @@ int	parse_sphere(char **tokens, t_scene *scene)
 	return (1);
 }
 
-int	parse_plane(char **tokens, t_scene *scene)
+int	parse_plane(char **tokens, t_world *scene)
 {
 	t_plane	*plane;
 
@@ -77,7 +77,7 @@ int	parse_plane(char **tokens, t_scene *scene)
 	return (1);
 }
 
-int	parse_cylinder(char **tokens, t_scene *scene)
+int	parse_cylinder(char **tokens, t_world *scene)
 {
 	t_cylinder	*cylinder;
 

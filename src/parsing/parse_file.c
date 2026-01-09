@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 17:50:22 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/08 17:35:13 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_file_extension(char *argv)
 	return (1);
 }
 
-int	parse_line(char *line, t_scene *scene)
+int	parse_line(char *line, t_world *scene)
 {
 	char	**tokens;
 	int		i;
@@ -64,7 +64,7 @@ int	parse_line(char *line, t_scene *scene)
 	return (free_array (tokens), 1);
 }
 
-int	handle_line(char *new_line, t_scene *scene)
+int	handle_line(char *new_line, t_world *scene)
 {
 	char	*line;
 
@@ -78,7 +78,7 @@ int	handle_line(char *new_line, t_scene *scene)
 	return (free(line), 1);
 }
 
-int	read_file(char *argv[], t_scene *scene)
+int	read_file(char *argv[], t_world *scene)
 {
 	int		fd;
 	char	*new_line;

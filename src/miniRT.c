@@ -55,8 +55,8 @@ void	put_image(void *param)
 // 	context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 // 	if (!context->mlx)
 // 		printf("no window\n");
-// 	context->cam = camera();
-// 	context->view = set_viewport(context->cam);
+// 	context->world->camera = camera();
+// 	context->world->view = set_viewport(context->world->camera);
 // 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
 // 	put_image(context);
 // 	mlx_loop(context->mlx);

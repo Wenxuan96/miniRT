@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 17:52:22 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/08 17:35:22 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	del_node(void *content)
 	free(content);
 }
 
-void	free_scene(t_scene *scene)
+void	free_scene(t_world *scene)
 {
 	ft_lstclear(&scene->objects, del_node);
 	free(scene);
 }
 
-int	check_scene(t_scene *scene)
+int	check_scene(t_world *scene)
 {
 	if (!scene->has_ambient && !scene->has_camera
 		&& !scene->has_ambient && ft_lstsize(scene->objects) == 0)
@@ -37,7 +37,7 @@ int	check_scene(t_scene *scene)
 	return (1);
 }
 
-void	init_scene(t_scene *scene)
+void	init_world(t_world *scene)
 {
 	scene->ambient = (t_ambient){0};
 	scene->camera = (t_camera){0};

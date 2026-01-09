@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:11:24 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/09 12:18:52 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,31 @@ typedef struct t_light
 	double	ratio;
 }	t_light;
 
-typedef struct s_scene
+typedef struct s_world
 {
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		light;
+	t_viewport	view;
 	bool		has_ambient;
 	bool		has_camera;
 	bool		has_light;
 	t_list		*objects;
-} 	t_scene;
+} 	t_world;
+
+
+typedef struct s_ray
+{
+	t_tuple	origin;
+	t_tuple	direction;
+}	t_ray;
+
+typedef struct s_intersec
+{
+	double		t_val;
+	void		*x_object;
+	t_intersec	*next_intersec;
+}	t_intersec;
 
 //fucntions to create mock data
 t_camera	*camera(void);
