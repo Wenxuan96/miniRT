@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 12:18:52 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/09 14:19:39 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct s_sphere
 	t_tuple	position;
 	double	diameter;
 	t_rgb	color;
+	double	hit_points[2];
+	int		hit_count;
 }	t_sphere;
 
 typedef struct s_plane
