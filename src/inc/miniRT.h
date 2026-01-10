@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 12:15:32 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/10 20:08:59 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "../../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include "objects.h"
 # include "parsing.h"

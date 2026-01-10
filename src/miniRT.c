@@ -1,66 +1,66 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   main.c                                             :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-// /*   Updated: 2025/12/17 14:18:59 by lyvan-de         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+// // /* ************************************************************************** */
+// // /*                                                                            */
+// // /*                                                        :::      ::::::::   */
+// // /*   main.c                                             :+:      :+:    :+:   */
+// // /*                                                    +:+ +:+         +:+     */
+// // /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+// // /*                                                +#+#+#+#+#+   +#+           */
+// // /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
+// // /*   Updated: 2025/12/17 14:18:59 by lyvan-de         ###   ########.fr       */
+// // /*                                                                            */
+// // /* ************************************************************************** */
 
-#include "inc/miniRT.h"
-#include "inc/graphics.h"
-#include <stdio.h>
+// #include "inc/miniRT.h"
+// #include "inc/graphics.h"
+// #include <stdio.h>
 
-int	get_rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
+// int	get_rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+// {
+// 	return (r << 24 | g << 16 | b << 8 | a);
+// }
 
-void	put_image(void *param)
-{
-	t_context	*context;
-	int			color;
-	int			x;
-	int			y;
-
-	context = param;
-	x = 0;
-	y = 0;
-	while (x < WIDTH)
-	{
-		while (y < HEIGHT)
-		{
-			color = ray_color(context, x, y);
-			// mlx_put_pixel(context->image, x, y,
-			// 	ray_color(ray_rgb(ray_dir(view, cam, x, y),cam)));
-			mlx_put_pixel(context->image, x, y, color);
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-	mlx_image_to_window(context->mlx, context->image, 0, 0);
-}
-
-// int32_t	main(void)
+// void	put_image(void *param)
 // {
 // 	t_context	*context;
+// 	int			color;
+// 	int			x;
+// 	int			y;
 
-// 	context = ft_calloc(1, sizeof(t_context));
-// 	if (!context)
-// 		return (1);
-// 	context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
-// 	if (!context->mlx)
-// 		printf("no window\n");
-// 	context->world->camera = camera();
-// 	context->world->view = set_viewport(context->world->camera);
-// 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
-// 	put_image(context);
-// 	mlx_loop(context->mlx);
-// 	mlx_terminate(context->mlx);
-// 	free(context);
-// 	return (0);
+// 	context = param;
+// 	x = 0;
+// 	y = 0;
+// 	while (x < WIDTH)
+// 	{
+// 		while (y < HEIGHT)
+// 		{
+// 			color = ray_color(context, x, y);
+// 			// mlx_put_pixel(context->image, x, y,
+// 			// 	ray_color(ray_rgb(ray_dir(view, cam, x, y),cam)));
+// 			mlx_put_pixel(context->image, x, y, color);
+// 			y++;
+// 		}
+// 		y = 0;
+// 		x++;
+// 	}
+// 	mlx_image_to_window(context->mlx, context->image, 0, 0);
 // }
+
+// // int32_t	main(void)
+// // {
+// // 	t_context	*context;
+
+// // 	context = ft_calloc(1, sizeof(t_context));
+// // 	if (!context)
+// // 		return (1);
+// // 	context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+// // 	if (!context->mlx)
+// // 		printf("no window\n");
+// // 	context->world->camera = camera();
+// // 	context->world->view = set_viewport(context->world->camera);
+// // 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
+// // 	put_image(context);
+// // 	mlx_loop(context->mlx);
+// // 	mlx_terminate(context->mlx);
+// // 	free(context);
+// // 	return (0);
+// // }

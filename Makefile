@@ -3,25 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
+#    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2026/01/07 19:04:41 by lyvan-de         ###   ########.fr        #
+#    Updated: 2026/01/10 20:05:01 by a12708           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#	src/matrices/matrices.c src/matrices/mat_invert.c src/matrices/transformation.c src/matrices/ray_sphere.c \
-	src/objects/input_data.c src/objects/ray.c src/objects/viewport.c \
-	src/miniRT.c
+
 
 NAME = miniRT
 BUILD_DIR = ./build
 SRC = src/parsing/parse_file.c src/parsing/parse_objects.c src/parsing/parse_scene_setup.c src/parsing/parse_tuple.c src/parsing/parse_utils.c src/parsing/parsing.c src/parsing/scene.c \
-	src/vectors/vec_utils1.c src/vectors/vec_utils2.c
+	src/vectors/vec_utils1.c src/vectors/vec_utils2.c src/matrices/matrices.c src/matrices/mat_invert.c src/matrices/transformation.c src/matrices/ray_sphere.c \
+	src/objects/input_data.c src/objects/ray.c src/objects/viewport.c src/miniRT.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a
-LIBMLX_PATH = src/MLX42
+LIBMLX_PATH = MLX42
 INCLUDE = -I $(LIBFT_PATH) -I $(LIBMLX_PATH)/include
 LIBMLX_LINK := $(LIBMLX_PATH)/build/libmlx42.a -ldl -lglfw -pthread -lm
 CFLAGS = -Wall -Werror -Wextra -g

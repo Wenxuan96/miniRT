@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 14:19:39 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/10 20:10:21 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct s_intersec
 {
 	double		t_val;
 	void		*x_object;
-	t_intersec	*next_intersec;
+	struct s_intersec	*next_intersec;
 }	t_intersec;
 
 //fucntions to create mock data

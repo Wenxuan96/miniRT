@@ -1,17 +1,17 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   input_data.c                                       :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
-// /*   Updated: 2025/12/31 14:11:04 by wxi              ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_data.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/10 13:37:41 by lyvan-de          #+#    #+#             */
+/*   Updated: 2026/01/10 20:58:08 by a12708           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "../inc/objects.h"
-// #include <stdio.h>
+#include "../inc/objects.h"
+#include <stdio.h>
 
 // t_tuple	map(t_tuple *obj_input)
 // {
@@ -33,24 +33,27 @@
 // 	return ((t_camera *)&cam);
 // }
 
-// t_sphere	*sphere(void)
-// {
-// 	static int i;
+t_sphere	*sphere(void)
+{
+	// static int i;
 	
-// 	static t_sphere	sphere = {
-// 		.position = {-50.0, 0.0, 40.0, 0},
-// 		.diameter = 12.4,
-// 		.color = {255, 0, 0, 0},
-// 	};
-// 	if (i == 0)
-// 	{
-// 		sphere.color = map(&sphere.color);
-// 		i = 1;
-// 	}
-// 	// for (int i = 0; i < 2; i++)
-// 	// 	printf("%f, %f, %f\n", sphere.color.x, sphere.color.y, sphere.color.z);
-// 	return ((t_sphere *)&sphere);
-// }
+	static t_sphere	sphere = {
+		.position = {0.0, 0.0, 0.0, 1},
+		.diameter = 2,
+		.color = {255, 0, 0},
+        .hit_count = 0,
+        .hit_points[0] = 0,
+        .hit_points[1] = 0
+    };
+	// if (i == 0)
+	// {
+	// 	sphere.color = map(&sphere.color);
+	// 	i = 1;
+	// }
+	// for (int i = 0; i < 2; i++)
+	// 	printf("%f, %f, %f\n", sphere.color.x, sphere.color.y, sphere.color.z);
+	return ((t_sphere *)&sphere);
+}
 
 // t_ambient	*ambient(void)
 // {
