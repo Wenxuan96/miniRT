@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tuple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:23:13 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:58:25 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/11 21:01:16 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	parse_tuple(char *str, t_tuple	*tuple, double w)
 	return (1);
 }
 
-int	parse_norm_tuple(char*str, t_tuple	*tuple)
+int	parse_norm_tuple(char	*str, t_tuple	*tuple)
 {
 	if (!parse_tuple(str, tuple, 0.0))
 		return (0);

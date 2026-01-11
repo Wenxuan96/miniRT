@@ -6,7 +6,7 @@
 /*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/10 21:41:58 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/11 20:49:18 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,30 +114,3 @@ void add_inter(t_intersec **i1, double t[], int hit_count, void *obj_type)
 		current->next_intersec= nxt_inter;
 	}
 }
-
-// int	main(void)
-// {
-// 	t_ray		r;
-// 	// t_tuple		new_pos;
-// 	t_sphere	*sph;
-// 	t_intersec	*xs;
-// 	double		test[1];
-
-// 	xs = NULL;
-// 	r.origin = new_tuple(0, 0, 5, 1);
-// 	r.direction = new_tuple(0, 0, 1, 0);
-// 	// new_pos = position(r, 2.5);
-// 	sph = sphere();
-// 	hit_sphere(r, sph);
-// 	printf("hit point[0]: %f, hit point[1]: %f\n", sph->hit_points[0], sph->hit_points[1]);
-// 	add_inter(&xs, sph->hit_points, sph->hit_count, sph);
-// 	test[0] = 1.5;
-// 	add_inter(&xs, test, 1, sph);
-// 	test[0] = -2;
-// 	add_inter(&xs, test, 1, sph);
-// 	test[0] = 2;
-// 	add_inter(&xs, test, 1, sph);
-
-// 	xs = first_hit(xs);
-// 	printf("first hit point is: %f\n", xs->t_val);
-// }

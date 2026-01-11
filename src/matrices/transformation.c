@@ -6,7 +6,7 @@
 /*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:41:18 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/10 21:51:30 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/11 20:49:13 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,4 @@ t_ray	transform_ray(t_ray r, t_matrix4 mat)
 	new_r.direction = matXtuple(mat, r.direction);
 
 	return new_r;
-}
-
-int main(void)
-{
-	t_matrix4 	a;
-	t_ray 		r1;
-	t_ray 		r2;
-	// t_matrix4 	inverted_a;
-	// double 		m4_deter;
-
-	r1.direction= (t_tuple){0, 1, 0, 0};
-	r1.origin= (t_tuple){1, 2, 3, 1};
-	a = translation(3, 4, 5);
-	r2 = transform_ray(r1, a);
-	printf("r2.origin(%f, %f, %f, %f)\n",
-       		r2.origin.x,
-       		r2.origin.y,
-       		r2.origin.z,
-       		r2.origin.w);
-	return 0;	
 }
