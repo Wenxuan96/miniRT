@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 12:18:52 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/13 13:25:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@
 
 typedef struct s_sphere
 {
-	t_tuple	position;
-	double	diameter;
-	t_rgb	color;
+	t_tuple		position;
+	double		diameter;
+	t_rgb		color;
+	t_matrix4	transform;
+	double		hit_points[2];
+	int			hit_count;
 }	t_sphere;
 
 typedef struct s_plane
@@ -94,15 +97,29 @@ typedef struct s_intersec
 {
 	double		t_val;
 	void		*x_object;
-	t_intersec	*next_intersec;
+	struct s_intersec	*next_intersec;
 }	t_intersec;
 
 //fucntions to create mock data
-t_camera	*camera(void);
-t_sphere	*sphere(void);
-t_ambient	*ambient(void);
-t_light		*light(void);
+// t_camera	*camera(void);
+// t_sphere	*sphere(void);
+// t_ambient	*ambient(void);
+// t_light		*light(void);
 
-t_viewport	*set_viewport(t_camera camera);
+
+void    set_viewport(t_viewport	*viewport, t_camera camera);
+
+//ray_sphere
+void hit_sphere(t_ray r, t_sphere *sph);
+void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type);
+t_intersec *first_hit(t_intersec *inter_lst);
+t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type);
+//transformation
+t_ray	transform_ray(t_ray r, t_matrix4 mat);
+t_matrix4 rotation_z(double radians);
+t_matrix4 rotation_y(double radians);
+t_matrix4 rotation_x(double radians);
+t_matrix4 shearing(t_shearing sh);
+t_matrix4 translation(double x, double y, double z);
 
 #endif

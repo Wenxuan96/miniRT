@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 12:15:32 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/11 22:35:27 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <errno.h>
 # include <string.h>
-# include "../MLX42/include/MLX42/MLX42.h"
+# include "../../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include "objects.h"
 # include "parsing.h"
@@ -39,8 +39,8 @@ typedef struct s_context
 
 //ray functions
 int		ray_color(t_context	*context, int x, int y);
-t_tuple	find_dir(t_viewport *view, t_camera *cam, int x, int y);
-t_tuple	get_rgb(t_tuple ray, t_camera *cam);
+t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y);
+t_tuple	get_rgb(t_ray ray, void *object, t_context *context);
 t_tuple	map(t_tuple *obj_input);
 
 // int		ray_color(t_context	*context, int x, int y);

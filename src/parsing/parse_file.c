@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 17:50:22 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/11 21:32:32 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_file_extension(char *argv)
 {
 	char	*ext;
 
-	ext = ft_strchr(argv, '.');
+	ext = ft_strrchr(argv, '.');
 	if (!ext || ft_strlen(ext) != 3 || ft_strncmp(ext, ".rt", 3) != 0)
 	{
 		printf("Error\nInvalid file extension, use .rt file\n");
