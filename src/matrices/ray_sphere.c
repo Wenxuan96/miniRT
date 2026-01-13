@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/09 14:51:58 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/09 14:56:20 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void hit_sphere(t_ray r, t_sphere *sph)
 	}
 }
 
-void add_inter(t_intersec **i1, double t[], int hit_count, void *obj_type)
+void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type)
 {
 	t_intersec	*current;
 	t_intersec	*nxt_inter;
