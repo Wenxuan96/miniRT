@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   transformation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 13:41:18 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/06 15:48:49 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/11 20:49:13 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,43 +84,12 @@ t_matrix4 rotation_z(double radians)
 	return rt_matrix;
 }
 
-// int main(void)
-// {
-// 	t_matrix4 	a;
-// 	t_matrix4 	b;
-// 	t_matrix4 	c;
-// 	t_matrix4 	t;
-// 	// t_matrix4 	inverted_a;
-// 	t_tuple		tup;
-// 	t_tuple		new_tup;
-// 	// double 		m4_deter;
-	
-// 	a = rotation_x(PI / 2);
-// 	b = scaling(5, 5, 5);
-// 	c = translation(10, 5, 7);
+t_ray	transform_ray(t_ray r, t_matrix4 mat)
+{
+	t_ray	new_r;
 
-// 	t = multi_mat(multi_mat(c, b), a);
-// 	// printf("a:\n");
-// 	// prt_mat(a);
-// 	// printf("\n");
-// 	// a = invert_m4(a);
-// 	tup = tuple(1, 0, 1, 1);
-// 	new_tup = matXtuple(t, tup);
-// 	// new_tup = matXtuple(b, new_tup);
-// 	// new_tup = matXtuple(c, new_tup);
-// 	// m4_deter = get_m4_deter(&a);
-// 	// inverted_a = invert_m4(a);
+	new_r.origin = matXtuple(mat, r.origin);
+	new_r.direction = matXtuple(mat, r.direction);
 
-// 	// printf("m4_deter: %f\n", a.m4_deter);
-// 	// printf("inverted_a:\n");
-// 	// prt_mat(a);
-// 	// printf("\n");
-// 	// system("python3 test.py");
-// 	// printf("\n");
-// 	// tup = tuple(2, 2, 1, 0);
-// 	// printf("tup(%f, %f, %f, %f)\n", tup.x, tup.y, tup.z, tup.w);
-// 	// new_tup = matXtuple(a, tup);
-// 	printf("new tup(%f, %f, %f, %f)\n", new_tup.x, new_tup.y, new_tup.z, new_tup.w);
-	
-// 	return 0;	
-// }
+	return new_r;
+}

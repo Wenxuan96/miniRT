@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/09 14:56:20 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/13 12:32:56 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type)
 	t_intersec *i1;
 	t_intersec *i2;
 	
-	if (hit_count == 0)
+	i1 = malloc(sizeof(t_intersec));
+	if (!i1 || hit_count == 0)
 		return NULL;
 	if (hit_count == 1)
 	{
@@ -27,9 +28,12 @@ t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type)
 	}
 	else if (hit_count == 2)
 	{
+		i2 = malloc(sizeof(t_intersec));
+		if (!i2)
+			return i1;
 		i1->t_val = t[0];
 		i1->x_object = obj_type;
-		i1->t_val = t[1];
+		i2->t_val = t[1];
 		i2->x_object = obj_type;
 		i2->next_intersec = NULL;
 		i1->next_intersec = i2;
@@ -37,30 +41,24 @@ t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type)
 	return i1;
 }
 
-t_intersec	*first_hit(t_intersec *inter_lst)
+t_intersec *first_hit(t_intersec *inter_lst)
 {
-	t_intersec	*nearest_hit;
-	t_intersec	*cur_inter_obj;
-	double		smlst_non_neg_t;
-	
-	cur_inter_obj = inter_lst;
-	nearest_hit = cur_inter_obj;
-	smlst_non_neg_t = cur_inter_obj->t_val;
-	while (cur_inter_obj != NULL)
-	{
-		while (smlst_non_neg_t < 0)
-		{
-			cur_inter_obj = cur_inter_obj->next_intersec;
-			smlst_non_neg_t = cur_inter_obj->t_val;
-		}
-		if (cur_inter_obj->next_intersec != NULL
-			&& smlst_non_neg_t >= cur_inter_obj->next_intersec->t_val)
-		{
-			cur_inter_obj = cur_inter_obj->next_intersec;
-			smlst_non_neg_t = cur_inter_obj->t_val;
-		}					
-		cur_inter_obj = cur_inter_obj->next_intersec;
-	}
+    t_intersec *cur;
+    t_intersec *nearest_hit;
+
+	cur = inter_lst;
+	nearest_hit = NULL;
+    while (cur != NULL)
+    {
+        if (cur->t_val >= 0)
+        {
+            if (nearest_hit == NULL
+				|| cur->t_val < nearest_hit->t_val)
+                nearest_hit = cur;
+        }
+        cur = cur->next_intersec;
+    }
+    return nearest_hit;
 }
 
 t_tuple	position(t_ray r, double t)
@@ -115,19 +113,4 @@ void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type)
 			current = current->next_intersec;
 		current->next_intersec= nxt_inter;
 	}
-}
-
-int	main(void)
-{
-	t_ray		r;
-	t_tuple		new_pos;
-	t_sphere	*sph;
-	t_sphere	*xs;
-
-	r.origin = new_tuple(0, 0, -5, 1);
-	r.direction = new_tuple(0, 0, 1, 0);
-	new_pos = position(r, 2.5);
-	sph = sphere();
-	xs = intersect(sph, r);
-	printf("new pos(%f, %f, %f, %f)\n", new_pos.x, new_pos.y, new_pos.z, new_pos.w);
 }

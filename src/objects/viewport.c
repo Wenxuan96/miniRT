@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewport.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 15:40:42 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/11 22:15:14 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,32 @@ double	deg_to_rad(double degrees)
 	return (degrees * PI / 180);
 }
 
-t_tuple	upper_left(t_viewport *viewport, t_camera *cam)
+t_tuple	upper_left(t_viewport *viewport, t_camera cam)
 {
 	t_tuple	upper_left;
 
-	upper_left = tuple_add(cam->position, cam->orientation);
+	upper_left = tuple_add(cam.position, cam.orientation);
 	upper_left = tuple_sub(upper_left, tuple_div(viewport->viewport_u, 2.0));
 	upper_left = tuple_sub(upper_left, tuple_div(viewport->viewport_v, 2.0));
 	return (upper_left);
 }
 
-void compute_viewport_axis(t_viewport *view, t_camera *cam)
+void compute_viewport_axis(t_viewport *view, t_camera cam)
 {
 	t_tuple	right;
 	t_tuple	up;
 
-	if (fabs(tuple_dot(cam->orientation, cam->world_up)) > 0.999)
-        cam->world_up = tuple(1, 0, 0, 0);
-	right = tuple_norm(tuple_cross(cam->orientation, cam->world_up));
-	up = tuple_cross(right, cam->orientation);
+	if (fabs(tuple_dot(cam.orientation, cam.world_up)) > 0.999)
+        cam.world_up = new_tuple(1, 0, 0, 0);
+	right = tuple_norm(tuple_cross(cam.orientation, cam.world_up));
+	up = tuple_cross(right, cam.orientation);
     view->viewport_u = tuple_mult(right, view->plane_width);
     view->viewport_v = tuple_mult(up, view->plane_height);
 }
 
 //not sure if this should be part of the camera struct or not
-t_viewport	*set_viewport(t_camera camera)
+void    set_viewport(t_viewport	viewport, t_camera camera)
 {
-	static t_viewport	viewport;
 	double				d;
 	double				fov_rad;
 	double				aspect_ratio;
@@ -58,5 +57,4 @@ t_viewport	*set_viewport(t_camera camera)
 	viewport.pixel_delta_u = tuple_div(viewport.viewport_u, WIDTH);
 	viewport.pixel_delta_v = tuple_div(viewport.viewport_v, HEIGHT);
 	viewport.upper_left = upper_left(&viewport, camera);
-	return (&viewport);
 }
