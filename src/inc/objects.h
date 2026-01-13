@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/11 22:14:40 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/13 13:25:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ typedef struct s_intersec
 // t_light		*light(void);
 
 
-void    set_viewport(t_viewport	viewport, t_camera camera);
+void    set_viewport(t_viewport	*viewport, t_camera camera);
 
 //ray_sphere
 void hit_sphere(t_ray r, t_sphere *sph);
-void add_inter(t_intersec **i1, double t[], int hit_count, void *obj_type);
+void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type);
 t_intersec *first_hit(t_intersec *inter_lst);
 t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type);
 //transformation

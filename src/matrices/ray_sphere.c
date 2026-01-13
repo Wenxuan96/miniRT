@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/13 12:32:56 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/13 13:20:55 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ t_tuple	position(t_ray r, double t)
 	return rt;
 }
 
+void	assign_hit_count(t_sphere *sph, double hit1, double hit2)
+{
+	if (hit1 > 0 && hit2 > 0)
+	{
+		sph->hit_count = 2;
+	}
+	if ((hit1 > 0 && hit2 <= 0) || (hit2 > 0 && hit1 <= 0))
+	{
+		sph->hit_count = 1;
+	}
+	if (hit1 <= 0 && hit2 <= 0)
+		sph->hit_count = 0;
+}
+
 void hit_sphere(t_ray r, t_sphere *sph)
 {
 	t_tuple		origin_center;
@@ -91,10 +105,7 @@ void hit_sphere(t_ray r, t_sphere *sph)
 	{
 		sph->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
 		sph->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
-		if (sph->hit_points[0] == sph->hit_points[1])
-			sph->hit_count = 1;
-		else
-			sph->hit_count = 2;
+		assign_hit_count(sph, sph->hit_points[0], sph->hit_points[0]);
 	}
 }
 

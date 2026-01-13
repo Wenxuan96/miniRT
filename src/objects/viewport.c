@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewport.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/11 22:15:14 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/13 13:33:22 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,23 @@ void compute_viewport_axis(t_viewport *view, t_camera cam)
     view->viewport_v = tuple_mult(up, view->plane_height);
 }
 
-//not sure if this should be part of the camera struct or not
-void    set_viewport(t_viewport	viewport, t_camera camera)
+void set_viewport(t_viewport *viewport, t_camera camera)
 {
-	double				d;
-	double				fov_rad;
-	double				aspect_ratio;
+	double d;
+	double fov_rad;
+	double aspect_ratio;
 
 	d = 1.0;
 	fov_rad = deg_to_rad(camera.fov);
-	viewport.plane_width = 2 * d * tan(fov_rad / 2);
-	aspect_ratio = (double)HEIGHT / (double)WIDTH;
-	viewport.plane_height = viewport.plane_width * aspect_ratio;
-	compute_viewport_axis(&viewport, camera);
-	viewport.pixel_delta_u = tuple_div(viewport.viewport_u, WIDTH);
-	viewport.pixel_delta_v = tuple_div(viewport.viewport_v, HEIGHT);
-	viewport.upper_left = upper_left(&viewport, camera);
+
+	viewport->plane_height = 2.0 * d * tan(fov_rad / 2.0);
+	aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	viewport->plane_width = viewport->plane_height * aspect_ratio;
+
+	compute_viewport_axis(viewport, camera);
+
+	viewport->pixel_delta_u = tuple_div(viewport->viewport_u, WIDTH);
+	viewport->pixel_delta_v = tuple_div(viewport->viewport_v, HEIGHT);
+
+	viewport->upper_left = upper_left(viewport, camera);
 }
