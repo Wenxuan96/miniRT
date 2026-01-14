@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 17:11:53 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/14 19:03:48 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ t_tuple	color_sphere(t_sphere *sphere, t_ray *ray, t_light li)
 	double	t;
 	// t_tuple	ambient;
 
+	(void)li;
 	t = select_t(ray->hit_points[0], ray->hit_points[1]);
 	if (t == -1)
 		return (new_tuple(0,0,0,0));
 	hit_point = tuple_add(ray->origin, tuple_mult(ray->direction, t));
 	norm_hit_point = tuple_norm(tuple_sub(hit_point, sphere->position));
-	color.x = sphere->color.r * light_intensity(hit_point, norm_hit_point, li);
-	color.y = sphere->color.g * light_intensity(hit_point, norm_hit_point, li);
-	color.z = sphere->color.b * light_intensity(hit_point, norm_hit_point, li);
+	color.x = sphere->color.r / 255; //* light_intensity(hit_point, norm_hit_point, li);
+	color.y = sphere->color.g / 255; //* light_intensity(hit_point, norm_hit_point, li);
+	color.z = sphere->color.b / 255; //* light_intensity(hit_point, norm_hit_point, li);
 	return (color);
 }
 
@@ -92,15 +93,59 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	return (tuple_norm(ray_dir));
 }
 
-t_tuple	get_rgb(t_ray *ray, void *object, t_context *context)
+t_sphere	unit_sphere(void)
+{
+	
+}
+
+t_sphere	unit_plane(void)
+{
+	
+}
+
+t_sphere	unit_cylinder(void)
+{
+	
+}
+
+double transform(t_ray org_r, void *obj_type)
+{
+	
+}
+
+t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 {
 	double		t;
+	double		smallest_t;
 	t_tuple		rgb;
 	t_sphere	*sph;
-
-
-	sph = (t_sphere *)object;
-	hit_sphere(ray, sph);
+	int			closest_obj = -1;
+	t_list		*current_obj;
+	
+	// find closest object
+	current_obj = object;
+	t = INFINITY;
+	smallest_t = INFINITY;
+	while (current_obj != NULL)
+	{
+		if (current_obj->type == SPHERE)
+		{
+			sph = (t_sphere *)current_obj->content;
+			hit_sphere(ray, sph);
+			t = select_t(ray->hit_points[0], ray->hit_points[1]);
+		}
+		if (t > 0 && t < smallest_t)
+		{
+			smallest_t = t;
+			closest_obj = current_obj->id;
+			printf("closest ID: %i\n", closest_obj);
+			printf("closest t: %f\n", t);
+		}
+		current_obj = current_obj->next;
+	}
+	//calculate the color, if no hittable object ->background color
+	//for the closest object, do the matrixtransformations needed for the closest object
+	//make a t_tuple?double transform(t_ray org_r, void *obj_type); function
 	if (ray->hit_count == 0)
 	{
 		t = 0.5 * (ray->direction.y + 1);
@@ -109,7 +154,9 @@ t_tuple	get_rgb(t_ray *ray, void *object, t_context *context)
 		rgb.z = 255 / 255;
 	}
 	else
+		sph = find_obj_id(object, closest_obj);
 		rgb = color_sphere(sph, ray, context->world->light);
+		//rgb = color_sphere(*change sph to unit_sph*, ray, context->world->light);
 	return (rgb);
 }
 
@@ -128,7 +175,7 @@ int	ray_color(t_context	*context, int x, int y)
 
 	// printf("x:%d, y:%d\nrdir: %f, %f, %f, %f\n", x, y, ray_dir.x, ray_dir.y, ray_dir.z, ray_dir.w);
     ray->origin = context->world->camera.position;
-	vec_rgb = get_rgb(ray, context->world->objects->content, context);
+	vec_rgb = get_rgb(ray, context->world->objects, context);
 	// make it  0-255 again
 	//rgb.r = (int)fmin(255, fmax(0, vec_rgb.x));
 	//rgb.g = (int)fmin(255, fmax(0, vec_rgb.y));

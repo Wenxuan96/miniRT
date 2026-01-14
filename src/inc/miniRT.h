@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 16:12:02 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/14 18:14:08 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_context
 //ray functions
 int		ray_color(t_context	*context, int x, int y);
 t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y);
-t_tuple	get_rgb(t_ray *ray, void *object, t_context *context);
+t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context);
 t_tuple	map(t_tuple *obj_input);
 
 // int		ray_color(t_context	*context, int x, int y);
