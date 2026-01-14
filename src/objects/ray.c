@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/13 13:32:35 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/13 15:31:12 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@ double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_light li)
 	return (light_intensity);
 }
 
-// t_tuple	ambient_rgb(void)//incorrect neeed to modify
+// t_tuple	ambient_rgb(t_world	scene)
 // {
-// 	t_ambient	*amb;
 // 	t_tuple		rgb;
 
-// 	amb = ambient();
-// 	rgb.x = amb->ratio * amb->color.x;
-// 	rgb.y = amb->ratio * amb->color.y;
-// 	rgb.z = amb->ratio * amb->color.z;
+// 	rgb.x = scene.ambient.ratio * scene.ambient.color.r;
+// 	rgb.y = scene.ambient.ratio * scene.ambient.color.g;
+// 	rgb.z = scene.ambient.ratio * scene.ambient.color.b;
 // 	return (rgb);
 // }
 
@@ -40,12 +38,9 @@ t_tuple	color_sphere(t_sphere *sphere, t_ray ray, double t, t_light li)
 	t_tuple	hit_point;
 	t_tuple	norm_hit_point;
 	t_tuple	color;
-	// t_tuple	ambient;
 
 	hit_point = tuple_add(ray.origin, tuple_mult(ray.direction, t));
 	norm_hit_point = tuple_norm(tuple_sub(hit_point, sphere->position));
-	// ambient = ambient_rgb();
-	//printf("sphere color (x = %f, y = %f, z = %f)\n", sphere->color.x, sphere->color.y ,sphere->color.z);
 	color.x = sphere->color.r * light_intensity(hit_point, norm_hit_point, li);
 	color.y = sphere->color.g * light_intensity(hit_point, norm_hit_point, li);
 	color.z = sphere->color.b * light_intensity(hit_point, norm_hit_point, li);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+         #
+#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2026/01/11 22:19:47 by a12708           ###   ########.fr        #
+#    Updated: 2026/01/13 15:21:42 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@
 NAME = miniRT
 BUILD_DIR = ./build
 SRC = src/parsing/parse_file.c src/parsing/parse_objects.c src/parsing/parse_scene_setup.c src/parsing/parse_tuple.c src/parsing/parse_utils.c src/parsing/parsing.c src/parsing/scene.c \
-	src/vectors/vec_utils1.c src/vectors/vec_utils2.c src/matrices/matrices.c src/matrices/mat_invert.c src/matrices/transformation.c src/matrices/ray_sphere.c \
-	src/objects/input_data.c src/miniRT.c src/objects/ray.c src/objects/viewport.c 
+	src/vectors/vec_utils1.c src/vectors/vec_utils2.c src/matrices/matrices.c src/matrices/mat_invert.c src/matrices/transformation.c \
+	src/objects/input_data.c src/miniRT.c src/objects/ray.c src/objects/viewport.c src/objects/ray_sphere.c
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a
