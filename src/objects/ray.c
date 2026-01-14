@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/13 15:31:12 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/14 17:11:53 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,29 @@ double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_light li)
 // 	return (rgb);
 // }
 
-t_tuple	color_sphere(t_sphere *sphere, t_ray ray, double t, t_light li)
+double select_t(double t1, double t2)
+{
+    if (t1 > EPSILON && t2 > EPSILON)
+        return fmin(t1, t2);
+    if (t1 > EPSILON)
+        return t1;
+    if (t2 > EPSILON)
+        return t2;
+    return (-1);
+}
+
+t_tuple	color_sphere(t_sphere *sphere, t_ray *ray, t_light li)
 {
 	t_tuple	hit_point;
 	t_tuple	norm_hit_point;
 	t_tuple	color;
+	double	t;
+	// t_tuple	ambient;
 
-	hit_point = tuple_add(ray.origin, tuple_mult(ray.direction, t));
+	t = select_t(ray->hit_points[0], ray->hit_points[1]);
+	if (t == -1)
+		return (new_tuple(0,0,0,0));
+	hit_point = tuple_add(ray->origin, tuple_mult(ray->direction, t));
 	norm_hit_point = tuple_norm(tuple_sub(hit_point, sphere->position));
 	color.x = sphere->color.r * light_intensity(hit_point, norm_hit_point, li);
 	color.y = sphere->color.g * light_intensity(hit_point, norm_hit_point, li);
@@ -76,39 +92,42 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	return (tuple_norm(ray_dir));
 }
 
-t_tuple	get_rgb(t_ray ray, void *object, t_context *context)
+t_tuple	get_rgb(t_ray *ray, void *object, t_context *context)
 {
 	double		t;
 	t_tuple		rgb;
 	t_sphere	*sph;
 
-    t = 0.0;
+
 	sph = (t_sphere *)object;
 	hit_sphere(ray, sph);
-	if (sph->hit_count == 0)
+	if (ray->hit_count == 0)
 	{
-		t = 0.5 * (ray.direction.y + 1);
+		t = 0.5 * (ray->direction.y + 1);
 		rgb.x = ((1.0 - t) * 255 + t * 127) / 255;
 		rgb.y = ((1.0 - t) * 255 + t * 178) / 255;
 		rgb.z = 255 / 255;
 	}
 	else
-		rgb = color_sphere(sph, ray, t, context->world->light);
+		rgb = color_sphere(sph, ray, context->world->light);
 	return (rgb);
 }
 
 int	ray_color(t_context	*context, int x, int y)
 {
 	int		color;
-	t_tuple	ray_dir;
 	t_tuple	vec_rgb;
 	t_rgb	rgb;
-    t_ray   ray;
+	t_ray	*ray;
 
-	ray_dir = find_dir(context->world->view, context->world->camera, x, y);
-    ray.direction = ray_dir;
+	ray = malloc(sizeof (t_ray));
+    ray->direction = find_dir(context->world->view, context->world->camera, x, y);
+	ray->hit_count = 0;
+	ray->hit_points[0] = 0;
+	ray->hit_points[1] = 0;
+
 	// printf("x:%d, y:%d\nrdir: %f, %f, %f, %f\n", x, y, ray_dir.x, ray_dir.y, ray_dir.z, ray_dir.w);
-    ray.origin = context->world->camera.position;
+    ray->origin = context->world->camera.position;
 	vec_rgb = get_rgb(ray, context->world->objects->content, context);
 	// make it  0-255 again
 	//rgb.r = (int)fmin(255, fmax(0, vec_rgb.x));
