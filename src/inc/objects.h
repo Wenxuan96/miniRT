@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 15:39:48 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/14 17:10:53 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,19 +88,12 @@ typedef struct s_world
 
 typedef struct s_ray
 {
-	t_tuple	origin;
-	t_tuple	direction;
+	t_tuple		origin;
+	t_tuple		direction;
 	double		hit_points[2];
 	int			hit_count;
 	void		*x_object;
 }	t_ray;
-
-typedef struct s_intersec
-{
-	double		t_val;
-	void		*x_object;
-	struct s_intersec	*next_intersec;
-}	t_intersec;
 
 //fucntions to create mock data
 // t_camera	*camera(void);
@@ -113,9 +106,6 @@ void    set_viewport(t_viewport	*viewport, t_camera camera);
 
 //ray_sphere
 void hit_sphere(t_ray *r, t_sphere *sph);
-void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type);
-t_intersec *first_hit(t_intersec *inter_lst);
-t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type);
 //transformation
 t_ray	transform_ray(t_ray r, t_matrix4 mat);
 t_matrix4 rotation_z(double radians);

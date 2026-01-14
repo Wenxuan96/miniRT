@@ -3,34 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ray_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/14 15:55:11 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/14 17:10:06 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-t_intersec *first_hit(t_intersec *inter_lst)
-{
-    t_intersec *cur;
-    t_intersec *nearest_hit;
-
-	cur = inter_lst;
-	nearest_hit = NULL;
-    while (cur != NULL)
-    {
-        if (cur->t_val >= 0)
-        {
-            if (nearest_hit == NULL
-				|| cur->t_val < nearest_hit->t_val)
-                nearest_hit = cur;
-        }
-        cur = cur->next_intersec;
-    }
-    return nearest_hit;
-}
 
 t_tuple	position(t_ray r, double t)
 {
