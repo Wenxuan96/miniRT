@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:15 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:30:04 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:02:36 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ t_tuple	tuple_sub(t_tuple a, t_tuple b)
 
 t_tuple	tuple_mult(t_tuple v, double s)
 {
+	if (v.w != 0)
+		printf("Error\nCannot scale a point");
 	return ((t_tuple){v.x * s, v.y * s, v.z * s, v.w * s});
 }
 
 t_tuple	tuple_div(t_tuple v, double s)
 {
+	if (v.w != 0)
+		printf("Error\nCannot scale a point");
 	return ((t_tuple){v.x / s, v.y / s, v.z / s, v.w / s});
 }

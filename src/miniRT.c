@@ -47,7 +47,7 @@ void	put_image(void *param)
 
 t_world	*parse(int argc, char *argv[])
 {
-	t_world	*scene;
+	t_world	*world;
 
 	if (argc != 2)
 	{
@@ -56,32 +56,30 @@ t_world	*parse(int argc, char *argv[])
 	}
 	if (!check_file_extension(argv[1]))
 		return (NULL);
-	scene = ft_calloc(1, sizeof(*scene));
-	if (!scene)
+	world = ft_calloc(1, sizeof(*world));
+	if (!world)
 		return (printf("Error\nMalloc error\n"), NULL);
-	init_world(scene);
-	if (!read_file(argv, scene))
-		return (free_scene(scene), NULL);
-	if (!check_scene(scene))
-		return (free_scene(scene), NULL);
-	return (scene);
+	init_world(world);
+	if (!read_file(argv, world))
+		return (free_scene(world), NULL);
+	if (!check_scene(world))
+		return (free_scene(world), NULL);
+	return (world);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_world	*scene;
-	t_sphere *sph;
+	t_world		*world;
 	t_context	*context;
 
-	if (!(scene = parse(argc, argv)))
-		return 1;
-	sph = scene->objects[0].content;
+	if (!(world = parse(argc, argv)))
+		return (1);
 	context = ft_calloc(1, sizeof(t_context));
 	if (!context)
 		return (1);
 	if (!(context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true)))
 		printf("no window\n");
-	context->world = scene;
+	context->world = world;
 	set_viewport(&context->world->view, context->world->camera);
 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
 	put_image(context);
