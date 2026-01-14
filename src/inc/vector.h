@@ -6,13 +6,14 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/07 18:29:54 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/14 15:03:03 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_H
 # define VECTOR_H
 # include <math.h>
+# include <stdio.h>
 
 typedef struct s_tuple
 {

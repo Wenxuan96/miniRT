@@ -2,3 +2,4 @@
 *.a
 miniRT
 scenes/invalid/no_rights.rt
+*.txt

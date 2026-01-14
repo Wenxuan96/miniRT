@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/13 13:25:33 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/14 15:39:48 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ typedef struct s_sphere
 	double		diameter;
 	t_rgb		color;
 	t_matrix4	transform;
-	double		hit_points[2];
-	int			hit_count;
+
 }	t_sphere;
 
 typedef struct s_plane
@@ -91,6 +90,9 @@ typedef struct s_ray
 {
 	t_tuple	origin;
 	t_tuple	direction;
+	double		hit_points[2];
+	int			hit_count;
+	void		*x_object;
 }	t_ray;
 
 typedef struct s_intersec
@@ -110,7 +112,7 @@ typedef struct s_intersec
 void    set_viewport(t_viewport	*viewport, t_camera camera);
 
 //ray_sphere
-void hit_sphere(t_ray r, t_sphere *sph);
+void hit_sphere(t_ray *r, t_sphere *sph);
 void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type);
 t_intersec *first_hit(t_intersec *inter_lst);
 t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type);

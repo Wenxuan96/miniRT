@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/13 13:20:55 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/14 15:55:11 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
-
-t_intersec	*assign_inter(double t[],  int hit_count, void *obj_type)
-{
-	t_intersec *i1;
-	t_intersec *i2;
-	
-	i1 = malloc(sizeof(t_intersec));
-	if (!i1 || hit_count == 0)
-		return NULL;
-	if (hit_count == 1)
-	{
-		i1->t_val = t[0];
-		i1->x_object = obj_type;
-		i1->next_intersec = NULL;
-	}
-	else if (hit_count == 2)
-	{
-		i2 = malloc(sizeof(t_intersec));
-		if (!i2)
-			return i1;
-		i1->t_val = t[0];
-		i1->x_object = obj_type;
-		i2->t_val = t[1];
-		i2->x_object = obj_type;
-		i2->next_intersec = NULL;
-		i1->next_intersec = i2;
-	}
-	return i1;
-}
 
 t_intersec *first_hit(t_intersec *inter_lst)
 {
@@ -70,21 +41,21 @@ t_tuple	position(t_ray r, double t)
 	return rt;
 }
 
-void	assign_hit_count(t_sphere *sph, double hit1, double hit2)
+void	assign_hit_count(t_ray *r, double hit1, double hit2)
 {
 	if (hit1 > 0 && hit2 > 0)
 	{
-		sph->hit_count = 2;
+		r->hit_count = 2;
 	}
 	if ((hit1 > 0 && hit2 <= 0) || (hit2 > 0 && hit1 <= 0))
 	{
-		sph->hit_count = 1;
+		r->hit_count = 1;
 	}
 	if (hit1 <= 0 && hit2 <= 0)
-		sph->hit_count = 0;
+		r->hit_count = 0;
 }
 
-void hit_sphere(t_ray r, t_sphere *sph)
+void hit_sphere(t_ray *r, t_sphere *sph)
 {
 	t_tuple		origin_center;
 	double		a;
@@ -94,34 +65,19 @@ void hit_sphere(t_ray r, t_sphere *sph)
 	double		discriminant;
 
 	radius = sph->diameter / 2;
-	origin_center = tuple_sub(r.origin, sph->position);
-	a = tuple_dot(r.direction, r.direction);
-	b = 2.0 * tuple_dot(r.direction, origin_center);
+	origin_center = tuple_sub(r->origin, sph->position);
+	a = tuple_dot(r->direction, r->direction);
+	b = 2.0 * tuple_dot(r->direction, origin_center);
 	c = tuple_dot(origin_center, origin_center) - (radius * radius);
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
-		sph->hit_count = 0;
+		r->hit_count = 0;
 	else
 	{
-		sph->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
-		sph->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
-		assign_hit_count(sph, sph->hit_points[0], sph->hit_points[0]);
+		r->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
+		r->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
+		r->hit_count = 2;
+		//assign_hit_count(r, r->hit_points[0], r->hit_points[1]);
 	}
 }
 
-void populate_i_list(t_intersec **i1, double t[], int hit_count, void *obj_type)
-{
-	t_intersec	*current;
-	t_intersec	*nxt_inter;
-
-	if (*i1 == NULL)
-		*i1 = assign_inter(t, hit_count, obj_type);
-	else
-	{
-		current = *i1;
-		nxt_inter = assign_inter(t, hit_count, obj_type);
-		while (current->next_intersec != NULL)
-			current = current->next_intersec;
-		current->next_intersec= nxt_inter;
-	}
-}
