@@ -82,6 +82,7 @@ int	main(int argc, char *argv[])
 	context->world = world;
 	set_viewport(&context->world->view, context->world->camera);
 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
+	setup_default();
 	put_image(context);
 	mlx_loop(context->mlx);
 	mlx_terminate(context->mlx);

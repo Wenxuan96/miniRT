@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 12:02:34 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/15 14:13:05 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,6 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 //}
 
 //t_sphere	unit_cylinder(void)
-//{
-	
-//}
-
-//double transform(t_ray org_r, void *obj_type)
 //{
 	
 //}
