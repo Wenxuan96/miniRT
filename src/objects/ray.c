@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 11:44:27 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/15 12:02:34 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ t_tuple	color_sphere(t_sphere *sphere, t_ray *ray, t_light li)
 	double	t;
 	// t_tuple	ambient;
 
-	(void)li;
 	t = select_t(ray->hit_points[0], ray->hit_points[1]);
 	if (t == -1)
 		return (new_tuple(0,0,0,0));
 	hit_point = tuple_add(ray->origin, tuple_mult(ray->direction, t));
 	norm_hit_point = tuple_norm(tuple_sub(hit_point, sphere->position));
-	color.x = sphere->color.r / 255; //* light_intensity(hit_point, norm_hit_point, li);
-	color.y = sphere->color.g / 255; //* light_intensity(hit_point, norm_hit_point, li);
-	color.z = sphere->color.b / 255; //* light_intensity(hit_point, norm_hit_point, li);
+	color.x = (sphere->color.r / 255) * light_intensity(hit_point, norm_hit_point, li);
+	color.y = (sphere->color.g / 255) * light_intensity(hit_point, norm_hit_point, li);
+	color.z = (sphere->color.b / 255) * light_intensity(hit_point, norm_hit_point, li);
 	return (color);
 }
 
