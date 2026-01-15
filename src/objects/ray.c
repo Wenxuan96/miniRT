@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 19:03:48 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/15 11:44:27 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,25 +93,25 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	return (tuple_norm(ray_dir));
 }
 
-t_sphere	unit_sphere(void)
-{
+//t_sphere	unit_sphere(void)
+//{
 	
-}
+//}
 
-t_sphere	unit_plane(void)
-{
+//t_sphere	unit_plane(void)
+//{
 	
-}
+//}
 
-t_sphere	unit_cylinder(void)
-{
+//t_sphere	unit_cylinder(void)
+//{
 	
-}
+//}
 
-double transform(t_ray org_r, void *obj_type)
-{
+//double transform(t_ray org_r, void *obj_type)
+//{
 	
-}
+//}
 
 t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 {
@@ -121,11 +121,13 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 	t_sphere	*sph;
 	int			closest_obj = -1;
 	t_list		*current_obj;
+	t_sphere	*closest_sph;
 	
 	// find closest object
 	current_obj = object;
 	t = INFINITY;
 	smallest_t = INFINITY;
+	closest_sph = NULL;
 	while (current_obj != NULL)
 	{
 		if (current_obj->type == SPHERE)
@@ -138,6 +140,7 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 		{
 			smallest_t = t;
 			closest_obj = current_obj->id;
+			closest_sph = sph;
 			printf("closest ID: %i\n", closest_obj);
 			printf("closest t: %f\n", t);
 		}
@@ -146,7 +149,7 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 	//calculate the color, if no hittable object ->background color
 	//for the closest object, do the matrixtransformations needed for the closest object
 	//make a t_tuple?double transform(t_ray org_r, void *obj_type); function
-	if (ray->hit_count == 0)
+	if (closest_sph == NULL)
 	{
 		t = 0.5 * (ray->direction.y + 1);
 		rgb.x = ((1.0 - t) * 255 + t * 127) / 255;
@@ -154,8 +157,8 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 		rgb.z = 255 / 255;
 	}
 	else
-		sph = find_obj_id(object, closest_obj);
-		rgb = color_sphere(sph, ray, context->world->light);
+		//sph = find_obj_id(object, closest_obj);
+		rgb = color_sphere(closest_sph, ray, context->world->light);
 		//rgb = color_sphere(*change sph to unit_sph*, ray, context->world->light);
 	return (rgb);
 }
