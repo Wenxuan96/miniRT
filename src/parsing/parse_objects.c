@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/09 12:18:04 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/14 18:31:03 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	add_node(int type, void *content, t_world *scene)
 	if (!node)
 		return (printf("Error\nMalloc error\n"), 0);
 	node->type = type;
-	ft_lstadd_front(&scene->objects, node);
+	node->id = ft_lstsize(scene->objects) + 1;
+	ft_lstadd_back(&scene->objects, node);
 	return (1);
 }
 
