@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewport.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/13 13:33:22 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/15 17:33:04 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ void set_viewport(t_viewport *viewport, t_camera camera)
 	viewport->plane_height = 2.0 * d * tan(fov_rad / 2.0);
 	aspect_ratio = (double)WIDTH / (double)HEIGHT;
 	viewport->plane_width = viewport->plane_height * aspect_ratio;
-
 	compute_viewport_axis(viewport, camera);
-
 	viewport->pixel_delta_u = tuple_div(viewport->viewport_u, WIDTH);
 	viewport->pixel_delta_v = tuple_div(viewport->viewport_v, HEIGHT);
-
 	viewport->upper_left = upper_left(viewport, camera);
 }
