@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 17:10:53 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/15 17:55:36 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_sphere
 	double		diameter;
 	t_rgb		color;
 	t_matrix4	transform;
-
+	t_matrix4	inv_transform;
 }	t_sphere;
 
 typedef struct s_plane
@@ -107,11 +107,13 @@ void    set_viewport(t_viewport	*viewport, t_camera camera);
 //ray_sphere
 void hit_sphere(t_ray *r, t_sphere *sph);
 //transformation
-t_ray	transform_ray(t_ray r, t_matrix4 mat);
-t_matrix4 rotation_z(double radians);
-t_matrix4 rotation_y(double radians);
-t_matrix4 rotation_x(double radians);
-t_matrix4 shearing(t_shearing sh);
-t_matrix4 translation(double x, double y, double z);
+t_matrix4	rotation_z(double radians);
+t_matrix4	rotation_y(double radians);
+t_matrix4	rotation_x(double radians);
+t_matrix4	shearing(t_shearing sh);
+t_matrix4	translation(double x, double y, double z);
+double 		select_t(double t1, double t2);
+double		intersect_unit_sphere(t_ray	*ray);
+void		init_sphere_transform(t_sphere *sphere);
 
 #endif

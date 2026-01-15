@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 18:31:03 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/15 17:37:32 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	parse_sphere(char **tokens, t_world *scene)
 		return (printf("Error\nWrong rgb value sphere\n"), 0);
 	if (!add_node(SPHERE, sphere, scene))
 		return (0);
+	init_sphere_transform(sphere);
 	return (1);
 }
 

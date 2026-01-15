@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/05 13:41:18 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/15 14:13:10 by wxi              ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2026/01/15 18:39:38 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../inc/miniRT.h"
 
@@ -23,7 +24,7 @@ t_matrix4 translation(double x, double y, double z)
 	return rt_matrix;
 }
 
-t_matrix4 scaling(double x, double y, double z)
+t_matrix4 mat_scaling(double x, double y, double z)
 {
 	t_matrix4 rt_matrix;
 	
@@ -88,9 +89,15 @@ t_ray	transform_ray(t_ray r, t_matrix4 mat)
 {
 	t_ray	new_r;
 
+	r.origin.w = 1;
+    r.direction.w = 0;
+	
 	new_r.origin = matXtuple(mat, r.origin);
 	new_r.direction = matXtuple(mat, r.direction);
 
+	new_r.origin.w = 1;
+    new_r.direction.w = 0;
+	
 	return new_r;
 }
 
