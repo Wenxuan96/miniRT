@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 12:02:34 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/15 18:30:19 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_light li)
 
 double select_t(double t1, double t2)
 {
-    if (t1 > EPSILON && t2 > EPSILON)
+    if (t1 == t2)
+		return (t1);
+	if (t1 > EPSILON && t2 > EPSILON)
         return fmin(t1, t2);
     if (t1 > EPSILON)
         return t1;
@@ -44,24 +46,63 @@ double select_t(double t1, double t2)
     return (-1);
 }
 
-t_tuple	color_sphere(t_sphere *sphere, t_ray *ray, t_light li)
-{
-	t_tuple	hit_point;
-	t_tuple	norm_hit_point;
-	t_tuple	color;
-	double	t;
-	// t_tuple	ambient;
+//t_tuple	color_sphere(t_sphere *sphere, t_ray *ray, t_light li, double t)
+//{
+//	t_tuple	hit_point;
+//	t_tuple	norm_hit_point;
+//	t_tuple	color;
+//	// t_tuple	ambient;
 
-	t = select_t(ray->hit_points[0], ray->hit_points[1]);
-	if (t == -1)
-		return (new_tuple(0,0,0,0));
-	hit_point = tuple_add(ray->origin, tuple_mult(ray->direction, t));
-	norm_hit_point = tuple_norm(tuple_sub(hit_point, sphere->position));
-	color.x = (sphere->color.r / 255) * light_intensity(hit_point, norm_hit_point, li);
-	color.y = (sphere->color.g / 255) * light_intensity(hit_point, norm_hit_point, li);
-	color.z = (sphere->color.b / 255) * light_intensity(hit_point, norm_hit_point, li);
-	return (color);
+//	(void)li;
+//	if (t == -1)
+//		return (new_tuple(0,0,0,0));
+//	hit_point = tuple_add(ray->origin, tuple_mult(ray->direction, t));
+//	t_tuple obj_hit = tuple_norm(matXtuple(sphere->inv_transform, hit_point));
+//	norm_hit_point = tuple_norm(tuple_sub(obj_hit, sphere->position));
+//	color.x = (sphere->color.r / 255) ;//* light_intensity(hit_point, norm_hit_point, li);
+//	color.y = (sphere->color.g / 255) ;//* light_intensity(hit_point, norm_hit_point, li);
+//	color.z = (sphere->color.b / 255) ;//* light_intensity(hit_point, norm_hit_point, li);
+//	return (color);
+//}
+
+t_tuple color_sphere(t_sphere *sph, t_ray *world_ray, double t)
+{
+    t_tuple hit_world;
+    t_tuple hit_object;
+    t_tuple normal_object;
+    t_tuple normal_world;
+    t_tuple color;
+
+    //World-space hit point
+    hit_world = tuple_add(
+        world_ray->origin,
+        tuple_mult(world_ray->direction, t)
+    );
+
+    //transform hit point to object space
+    hit_object = matXtuple(sph->inv_transform, hit_world);
+
+    //Unit sphere normal (center = 0)
+    normal_object = tuple_norm(hit_object);
+    normal_object.w = 0;
+
+    // Transform normal back to world space
+    normal_world = matXtuple(
+        transpose_mat(sph->inv_transform),
+        normal_object
+    );
+    normal_world.w = 0;
+    normal_world = tuple_norm(normal_world);
+
+    //Flat color (for now)
+    color.x = sph->color.r / 255.0;
+    color.y = sph->color.g / 255.0;
+    color.z = sph->color.b / 255.0;
+    color.w = 0;
+
+    return color;
 }
+
 
 t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 {
@@ -121,7 +162,9 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 	int			closest_obj = -1;
 	t_list		*current_obj;
 	t_sphere	*closest_sph;
+	t_ray		unit_ray;
 	
+	(void)context;
 	// find closest object
 	current_obj = object;
 	t = INFINITY;
@@ -132,9 +175,12 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 		if (current_obj->type == SPHERE)
 		{
 			sph = (t_sphere *)current_obj->content;
-			hit_sphere(ray, sph);
-			t = select_t(ray->hit_points[0], ray->hit_points[1]);
+			printf("world ray direction : %f, %f, %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
+			printf("world ray origin : %f, %f, %f\n", ray->origin.x, ray->origin.y, ray->origin.z);
+			unit_ray = transform_ray(*ray, sph->inv_transform);
+			t = intersect_unit_sphere(&unit_ray);
 		}
+		printf("closest t: %f\n", t);
 		if (t > 0 && t < smallest_t)
 		{
 			smallest_t = t;
@@ -148,7 +194,7 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 	//calculate the color, if no hittable object ->background color
 	//for the closest object, do the matrixtransformations needed for the closest object
 	//make a t_tuple?double transform(t_ray org_r, void *obj_type); function
-	if (closest_sph == NULL)
+	if (closest_obj == -1)
 	{
 		t = 0.5 * (ray->direction.y + 1);
 		rgb.x = ((1.0 - t) * 255 + t * 127) / 255;
@@ -157,7 +203,8 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 	}
 	else
 		//sph = find_obj_id(object, closest_obj);
-		rgb = color_sphere(closest_sph, ray, context->world->light);
+		//rgb = color_sphere(closest_sph, ray, context->world->light, t);
+		rgb = color_sphere(closest_sph, ray, t);
 		//rgb = color_sphere(*change sph to unit_sph*, ray, context->world->light);
 	return (rgb);
 }

@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 15:03:03 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/15 17:53:59 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,10 @@ t_matrix4	transpose_mat(t_matrix4 a);
 t_tuple		matXtuple(t_matrix4 a, t_tuple tup);
 t_matrix4	identity_m4();
 t_matrix4	invert_m4(t_matrix4 src_m4);
+t_matrix4 	mat_scaling(double x, double y, double z);
 double		get_m4_deter(t_matrix4 *org_mat);
 void		prt_mat(t_matrix4 m);
+
 
 // typedef struct s_vec3
 // {
