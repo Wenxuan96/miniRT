@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 12:51:23 by a12708            #+#    #+#             */
-/*   Updated: 2026/01/05 15:44:08 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/17 16:44:18 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ t_matrix4 invert_m4(t_matrix4 src_m4)
 	inverted_m4 = transpose_mat(inverted_m4);
 	return inverted_m4;
 }
-
 
 
 

@@ -34,8 +34,6 @@ void	put_image(void *param)
 		while (y < HEIGHT)
 		{
 			color = ray_color(context, x, y);
-			// mlx_put_pixel(context->image, x, y,
-			// 	ray_color(ray_rgb(ray_dir(view, cam, x, y),cam)));
 			mlx_put_pixel(context->image, x, y, color);
 			y++;
 		}
@@ -82,6 +80,7 @@ int	main(int argc, char *argv[])
 	context->world = world;
 	set_viewport(&context->world->view, context->world->camera);
 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
+	// setup_default();
 	put_image(context);
 	mlx_loop(context->mlx);
 	mlx_terminate(context->mlx);
