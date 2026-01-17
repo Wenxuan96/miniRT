@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_utils1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:15 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/14 15:02:36 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/17 16:57:36 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ t_tuple	tuple_sub(t_tuple a, t_tuple b)
 t_tuple	tuple_mult(t_tuple v, double s)
 {
 	if (v.w != 0)
-		printf("Error\nCannot scale a point");
+		printf("Error: Cannot multiply a point\n");
 	return ((t_tuple){v.x * s, v.y * s, v.z * s, v.w * s});
 }
 
 t_tuple	tuple_div(t_tuple v, double s)
 {
 	if (v.w != 0)
-		printf("Error\nCannot scale a point");
+		printf("Error: Cannot divide a point\n");
 	return ((t_tuple){v.x / s, v.y / s, v.z / s, v.w / s});
 }

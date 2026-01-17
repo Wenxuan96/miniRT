@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 18:04:18 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/17 17:20:58 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ typedef struct s_context
 int		ray_color(t_context	*context, int x, int y);
 t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y);
 t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context);
-t_tuple	map(t_tuple *obj_input);
 t_ray	transform_ray(t_ray r, t_matrix4 mat);
-
-// int		ray_color(t_context	*context, int x, int y);
-// t_tuple	find_dir(t_viewport *view, t_camera *cam, int x, int y);
-// t_tuple	get_rgb(t_tuple ray, t_camera *cam);
-// t_tuple	map(t_tuple *obj_input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 18:39:46 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/17 17:23:28 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,60 +46,32 @@ double select_t(double t1, double t2)
     return (-1);
 }
 
-//t_tuple	color_sphere(t_sphere *sphere, t_ray *ray, t_light li, double t)
-//{
-//	t_tuple	hit_point;
-//	t_tuple	norm_hit_point;
-//	t_tuple	color;
-//	// t_tuple	ambient;
-
-//	(void)li;
-//	if (t == -1)
-//		return (new_tuple(0,0,0,0));
-//	hit_point = tuple_add(ray->origin, tuple_mult(ray->direction, t));
-//	t_tuple obj_hit = tuple_norm(matXtuple(sphere->inv_transform, hit_point));
-//	norm_hit_point = tuple_norm(tuple_sub(obj_hit, sphere->position));
-//	color.x = (sphere->color.r / 255) ;//* light_intensity(hit_point, norm_hit_point, li);
-//	color.y = (sphere->color.g / 255) ;//* light_intensity(hit_point, norm_hit_point, li);
-//	color.z = (sphere->color.b / 255) ;//* light_intensity(hit_point, norm_hit_point, li);
-//	return (color);
-//}
-
 t_tuple color_sphere(t_sphere *sph, t_ray *world_ray, double t)
 {
-    t_tuple hit_world;
-    t_tuple hit_object;
-    t_tuple normal_object;
-    t_tuple normal_world;
+    t_tuple world_hit_p;
+    t_tuple unit_hit_p;
+    t_tuple norm_unit;
+    t_tuple norm_world;
     t_tuple color;
 
-    //World-space hit point
-    hit_world = tuple_add(
+    world_hit_p = tuple_add(
         world_ray->origin,
         tuple_mult(world_ray->direction, t)
     );
-
-    //transform hit point to object space
-    hit_object = matXtuple(sph->inv_transform, hit_world);
-
-    //Unit sphere normal (center = 0)
-    normal_object = tuple_norm(hit_object);
-    normal_object.w = 0;
-
-    // Transform normal back to world space
-    normal_world = matXtuple(
+    unit_hit_p = matXtuple(sph->inv_transform, world_hit_p);
+	norm_unit = tuple_sub(unit_hit_p, new_tuple(0,0,0,1));
+	norm_unit.w = 0;
+	norm_unit = tuple_norm(norm_unit);
+    norm_world = matXtuple(
         transpose_mat(sph->inv_transform),
-        normal_object
+        norm_unit
     );
-    normal_world.w = 0;
-    normal_world = tuple_norm(normal_world);
-
-    //Flat color (for now)
+    norm_world.w = 0;
+    norm_world = tuple_norm(norm_world);
     color.x = sph->color.r / 255.0;
     color.y = sph->color.g / 255.0;
     color.z = sph->color.b / 255.0;
     color.w = 0;
-
     return color;
 }
 
@@ -109,14 +81,9 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	t_tuple	pixel;
 	t_tuple	ray_dir;
 
-	// Ensure pixel deltas are vectors
 	view.pixel_delta_u.w = 0;
 	view.pixel_delta_v.w = 0;
-
-	// Ensure upper_left is a point
 	view.upper_left.w = 1;
-
-	// Compute pixel position on the viewport (a POINT)
 	pixel = tuple_add(
 		view.upper_left,
 		tuple_add(
@@ -125,32 +92,25 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 		)
 	);
 	pixel.w = 1;
-
-	// Direction = point - point => VECTOR
 	ray_dir = tuple_sub(pixel, cam.position);
 	ray_dir.w = 0;
 
 	return (tuple_norm(ray_dir));
 }
 
-//t_sphere	unit_sphere(void)
+//double	unit_plane(void)
 //{
 	
 //}
 
-//t_sphere	unit_plane(void)
+//double	unit_cylinder(void)
 //{
 	
 //}
 
-//t_sphere	unit_cylinder(void)
-//{
-	
-//}
-
-t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
+t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 {
-	double		t;
+	double		unit_t;
 	double		smallest_t;
 	t_tuple		rgb;
 	t_sphere	*sph;
@@ -160,9 +120,8 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 	t_ray		unit_ray;
 	
 	(void)context;
-	// find closest object
 	current_obj = object;
-	t = INFINITY;
+	unit_t = INFINITY;
 	smallest_t = INFINITY;
 	closest_sph = NULL;
 	while (current_obj != NULL)
@@ -170,37 +129,26 @@ t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context)
 		if (current_obj->type == SPHERE)
 		{
 			sph = (t_sphere *)current_obj->content;
-			printf("world ray direction : %f, %f, %f\n", ray->direction.x, ray->direction.y, ray->direction.z);
-			printf("world ray origin : %f, %f, %f\n", ray->origin.x, ray->origin.y, ray->origin.z);
-			unit_ray = transform_ray(*ray, sph->inv_transform);
-			t = intersect_unit_sphere(&unit_ray);
+			unit_ray = transform_ray(*world_ray, sph->inv_transform);
+			unit_t = intersect_unit_sphere(&unit_ray);
 		}
-		printf("closest t: %f\n", t);
-		if (t > 0 && t < smallest_t)
+		if (unit_t > 0 && unit_t < smallest_t)
 		{
-			smallest_t = t;
+			smallest_t = unit_t;
 			closest_obj = current_obj->id;
 			closest_sph = sph;
-			printf("closest ID: %i\n", closest_obj);
-			printf("closest t: %f\n", t);
 		}
 		current_obj = current_obj->next;
 	}
-	//calculate the color, if no hittable object ->background color
-	//for the closest object, do the matrixtransformations needed for the closest object
-	//make a t_tuple?double transform(t_ray org_r, void *obj_type); function
 	if (closest_obj == -1)
 	{
-		t = 0.5 * (ray->direction.y + 1);
-		rgb.x = ((1.0 - t) * 255 + t * 127) / 255;
-		rgb.y = ((1.0 - t) * 255 + t * 178) / 255;
+		unit_t = 0.5 * (world_ray->direction.y + 1);
+		rgb.x = ((1.0 - unit_t) * 255 + unit_t * 127) / 255;
+		rgb.y = ((1.0 - unit_t) * 255 + unit_t * 178) / 255;
 		rgb.z = 255 / 255;
 	}
 	else
-		//sph = find_obj_id(object, closest_obj);
-		//rgb = color_sphere(closest_sph, ray, context->world->light, t);
-		rgb = color_sphere(closest_sph, ray, t);
-		//rgb = color_sphere(*change sph to unit_sph*, ray, context->world->light);
+		rgb = color_sphere(closest_sph, world_ray, unit_t);
 	return (rgb);
 }
 
@@ -209,21 +157,17 @@ int	ray_color(t_context	*context, int x, int y)
 	int		color;
 	t_tuple	vec_rgb;
 	t_rgb	rgb;
-	t_ray	*ray;
+	t_ray	*world_ray;
 
-	ray = malloc(sizeof (t_ray));
-    ray->direction = find_dir(context->world->view, context->world->camera, x, y);
-	ray->hit_count = 0;
-	ray->hit_points[0] = 0;
-	ray->hit_points[1] = 0;
+	world_ray = malloc(sizeof (t_ray));
+    world_ray->direction = find_dir(context->world->view, context->world->camera, x, y);
+	world_ray->origin = context->world->camera.position;
+	world_ray->hit_points[0] = 0;
+	world_ray->hit_points[1] = 0;
 
-	// printf("x:%d, y:%d\nrdir: %f, %f, %f, %f\n", x, y, ray_dir.x, ray_dir.y, ray_dir.z, ray_dir.w);
-    ray->origin = context->world->camera.position;
-	vec_rgb = get_rgb(ray, context->world->objects, context);
-	// make it  0-255 again
-	//rgb.r = (int)fmin(255, fmax(0, vec_rgb.x));
-	//rgb.g = (int)fmin(255, fmax(0, vec_rgb.y));
-	//rgb.b = (int)fmin(255, fmax(0, vec_rgb.z));
+	vec_rgb = get_rgb(world_ray, context->world->objects, context);
+	free(world_ray);
+	world_ray = NULL;
 	rgb.r = (int)((vec_rgb.x) * 255);
 	rgb.g = (int)((vec_rgb.y) * 255);
 	rgb.b = (int)((vec_rgb.z) * 255);

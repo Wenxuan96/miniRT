@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2026/01/15 18:39:38 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/17 16:38:44 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,22 @@ t_matrix4 rotation_z(double radians)
 
 t_ray	transform_ray(t_ray r, t_matrix4 mat)
 {
-	t_ray	new_r;
+    t_ray new_r;
 
-	r.origin.w = 1;
+    // Ensure origin is a point and direction is a vector
+    r.origin.w = 1;
     r.direction.w = 0;
-	
-	new_r.origin = matXtuple(mat, r.origin);
-	new_r.direction = matXtuple(mat, r.direction);
 
-	new_r.origin.w = 1;
+    // Transform both by the matrix
+    new_r.origin = matXtuple(mat, r.origin);
+    new_r.direction = matXtuple(mat, r.direction);
+
+    // Reset w components to be safe
+    new_r.origin.w = 1;
     new_r.direction.w = 0;
+
+    // Normalize direction to avoid scaling effects
+    new_r.direction = tuple_norm(new_r.direction);
 	
 	return new_r;
 }
