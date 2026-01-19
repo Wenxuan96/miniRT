@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 15:08:56 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 16:58:25 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ t_tuple color_sphere(t_sphere *sph, t_ray *world_ray, double t, t_world *world)
     t_tuple norm_world;
     t_tuple color;
     double intensity;
+	// t_sphere *sph;
+	// t_cylinder *cy;
+	// t_plane *pl;
+
     // t_ambient amb;
 
     // 1. Hit point in object space
@@ -204,10 +208,7 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 	}
 	else
 		// rgb = color_sphere(closest_sph, &unit_ray, unit_t, context->world);
-	{
-		// unit_ray = transform_ray(*world_ray, closest_sph->inv_transform);
 		rgb = color_sphere(closest_sph, &unit_ray, smallest_t, context->world);
-	}
 	return (rgb);
 }
 
