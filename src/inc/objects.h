@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/17 17:19:12 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 14:15:34 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_tuple	point;
-	t_tuple	normal;
-	t_rgb	color;
+	t_tuple		point;
+	t_tuple		normal;
+	t_rgb		color;
+	t_matrix4	transform;
+	t_matrix4	inv_transform;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -105,5 +107,6 @@ t_matrix4	translation(double x, double y, double z);
 double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 void		init_sphere_transform(t_sphere *sphere);
+void		init_plane_transform(t_plane *pl);
 
 #endif

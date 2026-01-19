@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2026/01/17 16:38:44 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 14:07:02 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,67 @@ t_matrix4 shearing(t_shearing sh)
 	return rt_matrix;
 }
 
-t_matrix4 rotation_x(double radians)
-{
-	t_matrix4 rt_matrix;
+// t_matrix4 rotation_x(double radians)
+// {
+// 	t_matrix4 rt_matrix;
 	
-	rt_matrix = identity_m4();
-	rt_matrix.m4[1][1] = cos(radians);
-	rt_matrix.m4[1][2] = -sin(radians);
-	rt_matrix.m4[2][1] = sin(radians);
-	rt_matrix.m4[2][2] = cos(radians);
-	return rt_matrix;
+// 	rt_matrix = identity_m4();
+// 	rt_matrix.m4[1][1] = cos(radians);
+// 	rt_matrix.m4[1][2] = -sin(radians);
+// 	rt_matrix.m4[2][1] = sin(radians);
+// 	rt_matrix.m4[2][2] = cos(radians);
+// 	return rt_matrix;
+// }
+
+// t_matrix4 rotation_y(double radians)
+// {
+// 	t_matrix4 rt_matrix;
+	
+// 	rt_matrix = identity_m4();
+// 	rt_matrix.m4[0][0] = cos(radians);
+// 	rt_matrix.m4[0][2] = sin(radians);
+// 	rt_matrix.m4[2][0] = -sin(radians);
+// 	rt_matrix.m4[2][2] = cos(radians);
+// 	return rt_matrix;
+// }
+
+// t_matrix4 rotation_z(double radians)
+// {
+// 	t_matrix4 rt_matrix;
+	
+// 	rt_matrix = identity_m4();
+// 	rt_matrix.m4[0][0] = cos(radians);
+// 	rt_matrix.m4[0][1] = -sin(radians);
+// 	rt_matrix.m4[1][0] = sin(radians);
+// 	rt_matrix.m4[1][1] = cos(radians);
+// 	return rt_matrix;
+// }
+
+t_matrix4 rotation(t_tuple axis, double angle)
+{
+    t_matrix4 R;
+    double c;
+    double s;
+
+	R = identity_m4();
+	c = cos(angle);
+	s = sin(angle);
+    R.m4[0][0] = (1 - c) * axis.x * axis.x + c;
+    R.m4[0][1] = (1 - c) * axis.x * axis.y - s * axis.z;
+    R.m4[0][2] = (1 - c) * axis.x * axis.z + s * axis.y;
+    R.m4[1][0] = (1 - c) * axis.x * axis.y + s * axis.z;
+    R.m4[1][1] = (1 - c) * axis.y * axis.y + c; 
+    R.m4[1][2] = (1 - c) * axis.y * axis.z - s * axis.x;
+    R.m4[2][0] = (1 - c) * axis.x * axis.z - s * axis.y;
+    R.m4[2][1] = (1 - c) * axis.y * axis.z + s * axis.x;
+    R.m4[2][2] = (1 - c) * axis.z * axis.z + c;
+    R.m4[0][3] = R.m4[1][3] = R.m4[2][3] = 0;
+    R.m4[3][0] = R.m4[3][1] = R.m4[3][2] = 0;
+    R.m4[3][3] = 1;
+
+    return R;
 }
 
-t_matrix4 rotation_y(double radians)
-{
-	t_matrix4 rt_matrix;
-	
-	rt_matrix = identity_m4();
-	rt_matrix.m4[0][0] = cos(radians);
-	rt_matrix.m4[0][2] = sin(radians);
-	rt_matrix.m4[2][0] = -sin(radians);
-	rt_matrix.m4[2][2] = cos(radians);
-	return rt_matrix;
-}
-
-t_matrix4 rotation_z(double radians)
-{
-	t_matrix4 rt_matrix;
-	
-	rt_matrix = identity_m4();
-	rt_matrix.m4[0][0] = cos(radians);
-	rt_matrix.m4[0][1] = -sin(radians);
-	rt_matrix.m4[1][0] = sin(radians);
-	rt_matrix.m4[1][1] = cos(radians);
-	return rt_matrix;
-}
 
 t_ray	transform_ray(t_ray r, t_matrix4 mat)
 {
