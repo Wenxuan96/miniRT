@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 14:16:33 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 18:40:07 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/parsing.h"
 
-int	add_node(int type, void *content, t_world *scene)
+int	add_node(void *content, t_world *scene)
 {
 	t_list	*node;
 
 	node = ft_lstnew(content);
 	if (!node)
 		return (printf("Error\nMalloc error\n"), 0);
-	node->type = type;
 	node->id = ft_lstsize(scene->objects) + 1;
 	ft_lstadd_back(&scene->objects, node);
 	return (1);
@@ -34,6 +33,16 @@ int	check_tokens(char **tokens, int expected)
 		i++;
 	if (i != expected)
 		return (printf("Error\nWrong amount of tokens\n"), 0);
+	return (1);
+}
+int	init_base(t_object *base, t_obj_type type, t_rgb color)
+{
+	if (!base)
+		return (0);
+	base->type = type;
+	base->color = color;
+	base->transform = identity_m4();
+	base->inv_transform = identity_m4();
 	return (1);
 }
 
@@ -51,11 +60,12 @@ int	parse_sphere(char **tokens, t_world *scene)
 	if (!check_double(tokens[2]))
 		return (printf("Error\nWrong double value sphere diameter\n"), 0);
 	sphere->diameter = str_to_double(tokens[2]);
-	if (!str_to_rgb(tokens[3], &sphere->color))
+	if (!str_to_rgb(tokens[3], &sphere->base.color))
 		return (printf("Error\nWrong rgb value sphere\n"), 0);
-	if (!add_node(SPHERE, sphere, scene))
-		return (0);
-	init_sphere_transform(sphere);
+	init_base(&sphere->base, SPHERE, sphere->base.color);
+	init_sphere_transform(sphere->base, sphere);
+	if (!add_node(sphere, scene))
+			return (0);
 	return (1);
 }
 
@@ -72,10 +82,11 @@ int	parse_plane(char **tokens, t_world *scene)
 		return (0);
 	if (!parse_norm_tuple(tokens[2], &plane->normal))
 		return (0);
-	if (!str_to_rgb(tokens[3], &plane->color))
+	if (!str_to_rgb(tokens[3], &plane->base.color))
 		return (printf("Error\nWrong rgb value plane\n"), 0);
-	if (!add_node(PLANE, plane, scene))
+	if (!add_node(plane, scene))
 		return (0);
+	init_base(&plane->base, PLANE, plane->base.color);
 	init_plane_transform(plane);
 	return (1);
 }
@@ -99,9 +110,10 @@ int	parse_cylinder(char **tokens, t_world *scene)
 	if (!check_double(tokens[4]))
 		return (printf("Error\nWrong double value cylinder heigth\n"), 0);
 	cylinder->heigth = str_to_double(tokens[4]);
-	if (!str_to_rgb(tokens[5], &cylinder->color))
+	if (!str_to_rgb(tokens[5], &cylinder->base.color))
 		return (printf("Error\nWrong rgb value cylinder\n"), 0);
-	if (!add_node(CYLINDER, cylinder, scene))
+	init_base(&cylinder->base, CYLINDER, cylinder->base.color);
+	if (!add_node(cylinder, scene))
 		return (0);
 	return (1);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray_sphere.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/19 16:58:48 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 18:28:00 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-void	init_sphere_transform(t_sphere *sphere)
+void	init_sphere_transform(t_object base, t_sphere *sphere)
 {
 	double		radius;
 	t_matrix4	scale_mat;
@@ -21,8 +21,8 @@ void	init_sphere_transform(t_sphere *sphere)
 	radius = sphere->diameter / 2;
 	scale_mat = mat_scaling(radius, radius, radius);
 	trans_mat = translation(sphere->position.x, sphere->position.y, sphere->position.z);
-	sphere->transform = multi_mat(trans_mat, scale_mat);
-	sphere->inv_transform = invert_m4(sphere->transform);
+	base.transform = multi_mat(trans_mat, scale_mat);
+	base.inv_transform = invert_m4(base.transform);
 }
 
 double	intersect_unit_sphere(t_ray	*ray)
