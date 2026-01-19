@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/17 23:24:05 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/19 15:08:56 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 		{
 			smallest_t = unit_t;
 			closest_obj = current_obj->id;
-			closest_sph = sph;
+			closest_sph = (t_sphere *)current_obj->content;
 		}
 		current_obj = current_obj->next;
 	}
@@ -205,7 +205,7 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 	else
 		// rgb = color_sphere(closest_sph, &unit_ray, unit_t, context->world);
 	{
-		unit_ray = transform_ray(*world_ray, closest_sph->inv_transform);
+		// unit_ray = transform_ray(*world_ray, closest_sph->inv_transform);
 		rgb = color_sphere(closest_sph, &unit_ray, smallest_t, context->world);
 	}
 	return (rgb);

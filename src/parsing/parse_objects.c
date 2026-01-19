@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 17:37:32 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/19 14:16:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	parse_plane(char **tokens, t_world *scene)
 		return (printf("Error\nWrong rgb value plane\n"), 0);
 	if (!add_node(PLANE, plane, scene))
 		return (0);
+	init_plane_transform(plane);
 	return (1);
 }
 

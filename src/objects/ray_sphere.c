@@ -6,20 +6,20 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/17 17:21:48 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 14:13:37 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-t_tuple	position(t_ray r, double t)
-{
-	t_tuple rt;
+// t_tuple	position(t_ray r, double t)
+// {
+// 	t_tuple rt;
 
-	rt = tuple_mult(r.direction, t);
-	rt = tuple_add(r.origin, rt);
-	return rt;
-}
+// 	rt = tuple_mult(r.direction, t);
+// 	rt = tuple_add(r.origin, rt);
+// 	return rt;
+// }
 
 void	init_sphere_transform(t_sphere *sphere)
 {
