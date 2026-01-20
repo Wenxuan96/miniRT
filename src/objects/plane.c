@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:55:52 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/20 16:08:07 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 19:06:06 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_plane_transform(t_plane *plane)
 	if (fabs(denom) < EPSILON)
 		return (-1.0);
 	t = -ray->origin.y / ray->direction.y;
-	if (t < 0)
+	if (t < EPSILON)
 		return (-1.0);
 	return (t);
  }

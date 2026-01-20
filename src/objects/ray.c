@@ -6,22 +6,33 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 18:16:18 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 19:06:46 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
+
+t_hit	hit_object(t_ray *world_ray, t_list *object);
 
 double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_world *world)
 {
 	t_tuple		light_direction;
 	double		light_intensity;
 	t_light		li;
+	double		distance_to_light;
+	//t_ray		shadow_ray;
+	//t_hit		hit;
 	
 	li = world->light;
 	light_direction = tuple_sub(li.origin, hit_point);
+	distance_to_light = sqrt(tuple_dot(light_direction, light_direction));
 	light_direction = tuple_norm(light_direction);
 	light_intensity = fmax(0.0, tuple_dot(norm_hit_point, light_direction)) * li.ratio;
+	//shadow_ray.origin = tuple_add(hit_point, tuple_mult(norm_hit_point, EPSILON));
+	//shadow_ray.direction = light_direction;
+	//hit = hit_object(&shadow_ray, world->objects);
+	//if (hit.object != NULL && hit.t < distance_to_light)
+	//	return (0);
 	return (light_intensity);
 }
 
