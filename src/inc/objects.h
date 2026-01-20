@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 19:07:29 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 15:18:06 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_matrix4	shearing(t_shearing sh);
 t_matrix4	translation(double x, double y, double z);
 double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
-void		init_sphere_transform(t_object base, t_sphere *sphere);
+void		init_sphere_transform(t_sphere *sphere);
 void		init_plane_transform(t_plane *pl);
 
 #endif

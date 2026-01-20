@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 18:40:07 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 15:18:12 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int	parse_sphere(char **tokens, t_world *scene)
 	sphere->diameter = str_to_double(tokens[2]);
 	if (!str_to_rgb(tokens[3], &sphere->base.color))
 		return (printf("Error\nWrong rgb value sphere\n"), 0);
-	init_base(&sphere->base, SPHERE, sphere->base.color);
-	init_sphere_transform(sphere->base, sphere);
+	if (!init_base(&sphere->base, SPHERE, sphere->base.color))
+		return (printf("Error\nInit base sphere failed\n"));
+	init_sphere_transform(sphere);
 	if (!add_node(sphere, scene))
 			return (0);
 	return (1);
