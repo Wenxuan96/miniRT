@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 16:45:39 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:16:18 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_tuple	normal_object(t_object *obj, t_tuple unit_hit_p)
 	return norm_unit;
 }
 
-t_tuple color_sphere(t_object *obj, t_ray *unit_ray, double t, t_world *world)
+t_tuple color_sphere(t_hit *hit, t_world *world)
 {
     t_tuple 	unit_hit_p;
     t_tuple 	world_hit_p;
@@ -113,18 +113,18 @@ t_tuple color_sphere(t_object *obj, t_ray *unit_ray, double t, t_world *world)
 
     // 1. Hit point in object space
     unit_hit_p = tuple_add(
-        unit_ray->origin,       // <- should this be the object-space ray?
-        tuple_mult(unit_ray->direction, t)
+        hit->ray.origin,       // <- should this be the object-space ray?
+        tuple_mult(hit->ray.direction, hit->t)
     );
 
     // 2. Hit point in world space
-    world_hit_p = matXtuple(obj->transform, unit_hit_p);
+    world_hit_p = matXtuple(hit->object->transform, unit_hit_p);
 
     // 3. Normal in object space (from center to hit point)
-    norm_unit = normal_object(obj, unit_hit_p);
+    norm_unit = normal_object(hit->object, unit_hit_p);
 
     // 4. Normal in world space
-    norm_world = matXtuple(transpose_mat(obj->inv_transform), norm_unit);
+    norm_world = matXtuple(transpose_mat(hit->object->inv_transform), norm_unit);
     norm_world.w = 0;
     norm_world = tuple_norm(norm_world);
 
@@ -134,9 +134,9 @@ t_tuple color_sphere(t_object *obj, t_ray *unit_ray, double t, t_world *world)
     // Ambient light: object_color * ambient_color * ambient_ratio
     // Diffuse light: object_color * diffuse_intensity
     // Combined: object_color * (ambient_color * ambient_ratio + diffuse_intensity)
-    double obj_r = obj->color.r / 255.0;
-    double obj_g = obj->color.g / 255.0;
-    double obj_b = obj->color.b / 255.0;
+    double obj_r = hit->object->color.r / 255.0;
+    double obj_g = hit->object->color.g / 255.0;
+    double obj_b = hit->object->color.b / 255.0;
     
     double amb_r = (world->ambient.color.r / 255.0) * world->ambient.ratio;
     double amb_g = (world->ambient.color.g / 255.0) * world->ambient.ratio;
@@ -184,47 +184,54 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	
 //}
 
-t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
+t_hit	hit_object(t_ray *world_ray, t_list *object)
 {
-	double		unit_t;
-	double		smallest_t;
-	t_tuple		rgb;
-	t_object	*closest_obj;
+	t_hit		hit;
 	t_list		*current_obj;
+	t_object	*obj_base;
+	double		t;
 	t_ray		unit_ray;
-	t_ray		hitting_ray;
-	t_object	*obj;
 	
-	(void)context;
+	t = -1;
 	current_obj = object;
-	unit_t = INFINITY;
-	smallest_t = INFINITY;
-	closest_obj = NULL;
+	hit.t = INFINITY;
+	hit.object = NULL;
 	while (current_obj != NULL)
 	{
-		obj = current_obj->content;
-		unit_ray = transform_ray(*world_ray, obj->inv_transform);
-		if (obj->type == SPHERE)
-			unit_t = intersect_unit_sphere(&unit_ray);
-		if (obj->type == PLANE)
-			unit_t = intersect_unit_plane(&unit_ray);
-		if (unit_t > 0 && unit_t < smallest_t)
+		obj_base = current_obj->content;
+		unit_ray = transform_ray(*world_ray, obj_base->inv_transform);
+		if (obj_base->type == SPHERE)
+			t = intersect_unit_sphere(&unit_ray);
+		if (obj_base->type == PLANE)
+			t = intersect_unit_plane(&unit_ray);
+		//if (obj_base->type == CYLINDER)
+		//	hit.t = intersect_unit_cylinder(&unit_ray);
+		if (t > 0 && t < hit.t)
 		{
-			smallest_t = unit_t;
-			closest_obj = obj;
-			hitting_ray = unit_ray;
+			hit.object = obj_base;
+			hit.ray = unit_ray;
+			hit.t = t;
 		}
 		current_obj = current_obj->next;
 	}
-	if (closest_obj == NULL)
+	return hit;
+}
+
+t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
+{
+	t_tuple	rgb;
+	t_hit	hit;
+
+	hit = hit_object(world_ray, object);
+	if (hit.object == NULL)
 	{
-		unit_t = 0.5 * (world_ray->direction.y + 1);
-		rgb.x = ((1.0 - unit_t) * 255 + unit_t * 127) / 255;
-		rgb.y = ((1.0 - unit_t) * 255 + unit_t * 178) / 255;
+		hit.t = 0.5 * (world_ray->direction.y + 1);
+		rgb.x = ((1.0 - hit.t) * 255 + hit.t * 127) / 255;
+		rgb.y = ((1.0 - hit.t) * 255 + hit.t * 178) / 255;
 		rgb.z = 255 / 255;
 	}
 	else
-		rgb = color_sphere(closest_obj, &hitting_ray, smallest_t, context->world);
+		rgb = color_sphere(&hit, context->world);
 	return (rgb);
 }
 

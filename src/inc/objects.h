@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 16:11:13 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 18:03:04 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,19 @@ typedef struct s_world
 	t_list		*objects;
 } 	t_world;
 
-
 typedef struct s_ray
 {
 	t_tuple		origin;
 	t_tuple		direction;
 	double		hit_points[2];
-
-	void		*x_object;
 }	t_ray;
 
+typedef struct s_hit
+{
+	t_object	*object;
+	t_ray		ray;
+	double		t;
+}	t_hit;
 
 void    	set_viewport(t_viewport	*viewport, t_camera camera);
 t_matrix4	rotation_z(double radians);
