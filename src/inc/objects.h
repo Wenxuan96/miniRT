@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 15:18:06 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:11:13 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ typedef struct s_ray
 }	t_ray;
 
 
-void    set_viewport(t_viewport	*viewport, t_camera camera);
+void    	set_viewport(t_viewport	*viewport, t_camera camera);
 t_matrix4	rotation_z(double radians);
 t_matrix4	rotation_y(double radians);
 t_matrix4	rotation_x(double radians);
@@ -120,5 +120,6 @@ double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 void		init_sphere_transform(t_sphere *sphere);
 void		init_plane_transform(t_plane *pl);
+double		intersect_unit_plane(t_ray	*ray);
 
 #endif

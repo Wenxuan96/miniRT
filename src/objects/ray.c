@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 15:19:47 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/20 16:45:39 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,21 @@ double select_t(double t1, double t2)
 t_tuple	normal_object(t_object *obj, t_tuple unit_hit_p)
 {
 	t_tuple	norm_unit;
+	t_plane	*plane;
 
+	norm_unit = new_tuple(0,0,0,0);
 	if (obj->type == SPHERE)
 	{
 		norm_unit = tuple_sub(unit_hit_p, new_tuple(0,0,0,1));
    		norm_unit.w = 0;
     	norm_unit = tuple_norm(norm_unit);
 	}
-	if (obj->type == PLANE)
-		norm_unit = new_tuple(0, 1, 0 ,0);
-	if (obj->type == CYLINDER)
+	else if (obj->type == PLANE)
+	{
+		plane = (t_plane *)obj;
+		norm_unit = plane->normal;
+	}
+	else if (obj->type == CYLINDER)
 	{
 		norm_unit = new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0);
 		norm_unit = tuple_norm(norm_unit);
@@ -184,10 +189,10 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 	double		unit_t;
 	double		smallest_t;
 	t_tuple		rgb;
-	t_sphere	*sph;
 	t_object	*closest_obj;
 	t_list		*current_obj;
 	t_ray		unit_ray;
+	t_ray		hitting_ray;
 	t_object	*obj;
 	
 	(void)context;
@@ -198,16 +203,16 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 	while (current_obj != NULL)
 	{
 		obj = current_obj->content;
+		unit_ray = transform_ray(*world_ray, obj->inv_transform);
 		if (obj->type == SPHERE)
-		{
-			sph = (t_sphere *)obj;
-			unit_ray = transform_ray(*world_ray, obj->inv_transform);
 			unit_t = intersect_unit_sphere(&unit_ray);
-		}
+		if (obj->type == PLANE)
+			unit_t = intersect_unit_plane(&unit_ray);
 		if (unit_t > 0 && unit_t < smallest_t)
 		{
 			smallest_t = unit_t;
 			closest_obj = obj;
+			hitting_ray = unit_ray;
 		}
 		current_obj = current_obj->next;
 	}
@@ -219,8 +224,7 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 		rgb.z = 255 / 255;
 	}
 	else
-		// rgb = color_sphere(closest_sph, &unit_ray, unit_t, context->world);
-		rgb = color_sphere(obj, &unit_ray, smallest_t, context->world);
+		rgb = color_sphere(closest_obj, &hitting_ray, smallest_t, context->world);
 	return (rgb);
 }
 
