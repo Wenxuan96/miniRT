@@ -14,6 +14,19 @@
 #include "inc/graphics.h"
 #include <stdio.h>
 
+void	my_keyhook(mlx_key_data_t keydata, void *param)
+{
+	t_context *context = (t_context *)param;
+
+	if (keydata.key == MLX_KEY_ESCAPE &&
+        keydata.action == MLX_PRESS)
+	{
+		mlx_terminate(context->mlx);
+		free(context);
+		exit (EXIT_SUCCESS);
+	}
+}
+
 int	get_rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
@@ -82,8 +95,7 @@ int	main(int argc, char *argv[])
 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
 	// setup_default();
 	put_image(context);
+	mlx_key_hook(context->mlx, my_keyhook, context);
 	mlx_loop(context->mlx);
-	mlx_terminate(context->mlx);
-	free(context);
 	return (0);
 }
