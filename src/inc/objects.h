@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 14:15:34 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/21 14:28:41 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,43 @@
 # include "graphics.h"
 # include "../libft/libft.h"
 
-typedef struct s_sphere
+typedef enum	e_obj_type
 {
-	t_tuple		position;
-	double		diameter;
-	t_rgb		color;
+	SPHERE,
+	PLANE,
+	CYLINDER,
+} t_obj_type;
+
+typedef struct s_object
+{
+	t_obj_type	type;
 	t_matrix4	transform;
 	t_matrix4	inv_transform;
+	t_rgb		color;
+}	t_object;
+
+typedef struct s_sphere
+{
+	t_object	base;
+	t_tuple		position;
+	double		diameter;
 }	t_sphere;
 
 typedef struct s_plane
 {
+	t_object	base;
 	t_tuple		point;
 	t_tuple		normal;
-	t_rgb		color;
-	t_matrix4	transform;
-	t_matrix4	inv_transform;
+
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_tuple	center;
-	t_tuple	axis;
-	double	diameter;
-	double	heigth;
-	t_rgb	color;
+	t_object	base;
+	t_tuple		center;
+	t_tuple		axis;
+	double		diameter;
+	double		heigth;
 }	t_cylinder;
 
 
@@ -87,26 +99,27 @@ typedef struct s_world
 	t_list		*objects;
 } 	t_world;
 
-
 typedef struct s_ray
 {
 	t_tuple		origin;
 	t_tuple		direction;
 	double		hit_points[2];
-
-	void		*x_object;
 }	t_ray;
 
+typedef struct s_hit
+{
+	t_object	*object;
+	t_ray		ray;
+	double		t;
+}	t_hit;
 
-void    set_viewport(t_viewport	*viewport, t_camera camera);
-t_matrix4	rotation_z(double radians);
-t_matrix4	rotation_y(double radians);
-t_matrix4	rotation_x(double radians);
+void    	set_viewport(t_viewport	*viewport, t_camera camera);
 t_matrix4	shearing(t_shearing sh);
 t_matrix4	translation(double x, double y, double z);
 double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 void		init_sphere_transform(t_sphere *sphere);
 void		init_plane_transform(t_plane *pl);
+double		intersect_unit_plane(t_ray	*ray);
 
 #endif

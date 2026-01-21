@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 14:43:45 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/19 18:43:14 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,7 @@ typedef struct s_parsermap
 	t_parser_func	func;	
 }	t_parsermap;
 
-typedef enum	e_obj_type
-{
-	SPHERE,
-	PLANE,
-	CYLINDER,
-} t_obj_type;
+
 
 int		parse_ambient(char **tokens, t_world *scene);
 int		parse_camera(char **tokens, t_world *scene);
