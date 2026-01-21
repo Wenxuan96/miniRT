@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/21 16:35:43 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/21 18:13:15 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,21 @@ double select_t(double t1, double t2)
     return (-1);
 }
 
-t_tuple	normal_object(t_object *obj, t_tuple unit_hit_p)
+t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 {
-	t_tuple	norm_unit;
-	t_plane	*plane;
+	t_tuple		norm_unit;
+	t_plane		*plane;
+	t_object	*obj;
 
 	norm_unit = new_tuple(0,0,0,0);
+	obj = hit->object;
 	if (obj->type == SPHERE)
 	{
 		norm_unit = tuple_sub(unit_hit_p, new_tuple(0,0,0,1));
    		norm_unit.w = 0;
     	norm_unit = tuple_norm(norm_unit);
+		if (tuple_dot(norm_unit, hit->ray.direction) > 0)
+			norm_unit = tuple_mult(norm_unit, -1);
 	}
 	else if (obj->type == PLANE)
 	{
@@ -114,7 +118,7 @@ t_tuple color_obj(t_hit *hit, t_world *world)
 
 	unit_hit_p = tuple_add( hit->ray.origin, tuple_mult(hit->ray.direction, hit->t));
 	world_hit_p = matXtuple(hit->object->transform, unit_hit_p);
-	norm_unit = normal_object(hit->object, unit_hit_p);
+	norm_unit = normal_object(hit, unit_hit_p);
 	norm_world = matXtuple(transpose_mat(hit->object->inv_transform), norm_unit);
 	norm_world.w = 0;
 	norm_world = tuple_norm(norm_world);
@@ -191,10 +195,13 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 	hit = hit_object(world_ray, object, NULL);
 	if (hit.object == NULL)
 	{
-		hit.t = 0.5 * (world_ray->direction.y + 1);
-		rgb.x = ((1.0 - hit.t) * 255 + hit.t * 127) / 255;
-		rgb.y = ((1.0 - hit.t) * 255 + hit.t * 178) / 255;
-		rgb.z = 255 / 255;
+		//hit.t = 0.5 * (world_ray->direction.y + 1);
+		//rgb.x = ((1.0 - hit.t) * 255 + hit.t * 127) / 255;
+		//rgb.y = ((1.0 - hit.t) * 255 + hit.t * 178) / 255;
+		//rgb.z = 255 / 255;
+		rgb.x = 0;
+		rgb.y = 0;
+		rgb.z = 0;
 	}
 	else
 		rgb = color_obj(&hit, context->world);

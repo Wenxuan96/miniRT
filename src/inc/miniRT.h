@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/21 15:10:46 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/21 17:04:09 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # include "objects.h"
 # include "parsing.h"
 
-# define WIDTH 800
-# define HEIGHT 400
+# define WIDTH 1600
+# define HEIGHT 800
 # define PI 3.14159265358979323846
 # define EPSILON 1e-6
 
