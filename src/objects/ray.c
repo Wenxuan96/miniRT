@@ -6,33 +6,41 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/21 14:52:21 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:35:43 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-t_hit	hit_object(t_ray *world_ray, t_list *object);
+t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ingore);
 
-double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_world *world)
+double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_world *world, t_object *curr_obj)
 {
 	t_tuple		light_direction;
 	double		light_intensity;
 	t_light		li;
 	double		distance_to_light;
-	//t_ray		shadow_ray;
-	//t_hit		hit;
+	t_ray		shadow_ray;
+	t_hit		hit;
 	
 	li = world->light;
 	light_direction = tuple_sub(li.origin, hit_point);
 	distance_to_light = sqrt(tuple_dot(light_direction, light_direction));
 	light_direction = tuple_norm(light_direction);
 	light_intensity = fmax(0.0, tuple_dot(norm_hit_point, light_direction)) * li.ratio;
-	//shadow_ray.origin = tuple_add(hit_point, tuple_mult(norm_hit_point, EPSILON));
-	//shadow_ray.direction = light_direction;
-	//hit = hit_object(&shadow_ray, world->objects);
-	//if (hit.object != NULL && hit.t < distance_to_light)
-	//	return (0);
+	shadow_ray.origin = tuple_add(hit_point, tuple_mult(norm_hit_point, EPSILON));
+	shadow_ray.direction = light_direction;
+	hit = hit_object(&shadow_ray, world->objects, curr_obj);
+	if (hit.object == NULL)
+		return (light_intensity);
+	t_tuple shadow_hit_unit =
+    tuple_add(hit.ray.origin, tuple_mult(hit.ray.direction, hit.t));
+	t_tuple shadow_hit_world =
+    matXtuple(hit.object->transform, shadow_hit_unit);
+	t_tuple dist_to_hit = tuple_sub(shadow_hit_world, hit_point);
+	double lenght_to_hit = sqrt(tuple_dot(dist_to_hit, dist_to_hit));
+	if (hit.object != NULL && lenght_to_hit < distance_to_light)
+		return (0);
 	return (light_intensity);
 }
 
@@ -110,7 +118,7 @@ t_tuple color_obj(t_hit *hit, t_world *world)
 	norm_world = matXtuple(transpose_mat(hit->object->inv_transform), norm_unit);
 	norm_world.w = 0;
 	norm_world = tuple_norm(norm_world);
-	intensity = light_intensity(world_hit_p, norm_world, world);
+	intensity = light_intensity(world_hit_p, norm_world, world, hit->object);
 	color = get_color(hit->object, world->ambient, intensity);
 	return color;
 }
@@ -137,7 +145,7 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	return (tuple_norm(ray_dir));
 }
 
-t_hit	hit_object(t_ray *world_ray, t_list *object)
+t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 {
 	t_hit		hit;
 	t_list		*current_obj;
@@ -152,6 +160,11 @@ t_hit	hit_object(t_ray *world_ray, t_list *object)
 	{
 		t = -1;
 		obj_base = current_obj->content;
+		if (obj_base == ignore)
+		{
+			current_obj = current_obj->next;
+			continue ;
+		}
 		unit_ray = transform_ray(*world_ray, obj_base->inv_transform);
 		if (obj_base->type == SPHERE)
 			t = intersect_unit_sphere(&unit_ray);
@@ -175,7 +188,7 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 	t_tuple	rgb;
 	t_hit	hit;
 
-	hit = hit_object(world_ray, object);
+	hit = hit_object(world_ray, object, NULL);
 	if (hit.object == NULL)
 	{
 		hit.t = 0.5 * (world_ray->direction.y + 1);
