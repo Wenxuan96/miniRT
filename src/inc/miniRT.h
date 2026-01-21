@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 13:31:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/17 17:20:58 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/21 15:10:46 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int		ray_color(t_context	*context, int x, int y);
 t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y);
 t_tuple	get_rgb(t_ray *ray, t_list *object, t_context *context);
 t_ray	transform_ray(t_ray r, t_matrix4 mat);
+void	my_keyhook(mlx_key_data_t keydata, void *param);
 
 #endif
