@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 15:18:12 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:31:14 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	add_node(void *content, t_world *scene)
 
 	node = ft_lstnew(content);
 	if (!node)
+	{
 		return (printf("Error\nMalloc error\n"), 0);
+	}
 	node->id = ft_lstsize(scene->objects) + 1;
 	ft_lstadd_back(&scene->objects, node);
 	return (1);
@@ -66,7 +68,7 @@ int	parse_sphere(char **tokens, t_world *scene)
 		return (printf("Error\nInit base sphere failed\n"));
 	init_sphere_transform(sphere);
 	if (!add_node(sphere, scene))
-			return (0);
+		return (0);
 	return (1);
 }
 

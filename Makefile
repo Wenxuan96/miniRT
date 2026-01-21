@@ -6,12 +6,9 @@
 #    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
-#    Updated: 2026/01/19 12:56:40 by wxi              ###   ########.fr        #
+#    Updated: 2026/01/21 15:40:14 by wxi              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
-
 
 NAME = miniRT
 BUILD_DIR = ./build
@@ -55,6 +52,18 @@ $(BUILD_DIR)/%.o : %.c
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_PATH) all
+
+VALGRIND = valgrind
+VALGRIND_FLAGS = \
+	--leak-check=full \
+	--show-leak-kinds=all \
+	--trace-children=no \
+	--suppressions=mlx42.supp
+
+SCENE = scenes/valid/one_sphere.rt
+
+valgrind: all
+	$(VALGRIND) $(VALGRIND_FLAGS) ./$(NAME) $(SCENE)
 
 clean:
 	rm -rf $(BUILD_DIR)
