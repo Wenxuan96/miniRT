@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/21 14:28:41 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/22 16:34:47 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 void		init_sphere_transform(t_sphere *sphere);
 void		init_plane_transform(t_plane *pl);
+void		init_cylinder_transform(t_cylinder *cylinder);
 double		intersect_unit_plane(t_ray	*ray);
+double		intersect_unit_cylinder(t_ray *ray);
 
 #endif

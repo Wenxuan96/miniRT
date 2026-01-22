@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/20 15:18:12 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/22 16:35:00 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	parse_cylinder(char **tokens, t_world *scene)
 	if (!str_to_rgb(tokens[5], &cylinder->base.color))
 		return (printf("Error\nWrong rgb value cylinder\n"), 0);
 	init_base(&cylinder->base, CYLINDER, cylinder->base.color);
+	init_cylinder_transform(cylinder);
 	if (!add_node(cylinder, scene))
 		return (0);
 	return (1);

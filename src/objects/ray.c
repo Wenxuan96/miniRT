@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/21 18:13:15 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/22 18:05:30 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	t_tuple		norm_unit;
 	t_plane		*plane;
 	t_object	*obj;
+	t_cylinder	*cyl;
 
 	norm_unit = new_tuple(0,0,0,0);
 	obj = hit->object;
@@ -80,8 +81,16 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	}
 	else if (obj->type == CYLINDER)
 	{
-		norm_unit = new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0);
-		norm_unit = tuple_norm(norm_unit);
+		cyl = (t_cylinder *)obj;
+		double half_h = cyl->heigth / 2.0;
+		if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
+			norm_unit = new_tuple(0, 1, 0, 0);
+		else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)
+			norm_unit = new_tuple(0, -1, 0, 0);
+		else
+			norm_unit = tuple_norm(new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0));
+		if (tuple_dot(norm_unit, hit->ray.direction) > 0)
+			norm_unit = tuple_mult(norm_unit, -1);
 	}
 	return norm_unit;
 }
@@ -156,6 +165,8 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 	t_object	*obj_base;
 	double		t;
 	t_ray		unit_ray;
+	t_cylinder	*cylinder;
+	double		half_lenght;
 	
 	current_obj = object;
 	hit.t = INFINITY;
@@ -174,8 +185,18 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 			t = intersect_unit_sphere(&unit_ray);
 		if (obj_base->type == PLANE)
 			t = intersect_unit_plane(&unit_ray);
-		//if (obj_base->type == CYLINDER)
-		//	hit.t = intersect_unit_cylinder(&unit_ray);
+		if (obj_base->type == CYLINDER)
+		{
+			cylinder = (t_cylinder *)obj_base;
+			half_lenght = cylinder->heigth / 2.0;
+			t = intersect_unit_cylinder(&unit_ray);
+			if (t > 0)
+			{
+				double	y_hit = unit_ray.origin.y + t * unit_ray.direction.y;
+				if (y_hit < -half_lenght || y_hit > half_lenght)
+					t = -1;
+			}
+		}
 		if (t > 0 && t < hit.t)
 		{
 			hit.object = obj_base;
