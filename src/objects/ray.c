@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 15:38:19 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/22 18:05:30 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/22 19:33:27 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_world *world
 	
 	li = world->light;
 	light_direction = tuple_sub(li.origin, hit_point);
-	distance_to_light = sqrt(tuple_dot(light_direction, light_direction));
+	distance_to_light = tuple_lenght(light_direction);
 	light_direction = tuple_norm(light_direction);
 	light_intensity = fmax(0.0, tuple_dot(norm_hit_point, light_direction)) * li.ratio;
 	shadow_ray.origin = tuple_add(hit_point, tuple_mult(norm_hit_point, EPSILON));
@@ -38,7 +38,7 @@ double	light_intensity(t_tuple hit_point, t_tuple norm_hit_point, t_world *world
 	t_tuple shadow_hit_world =
     matXtuple(hit.object->transform, shadow_hit_unit);
 	t_tuple dist_to_hit = tuple_sub(shadow_hit_world, hit_point);
-	double lenght_to_hit = sqrt(tuple_dot(dist_to_hit, dist_to_hit));
+	double lenght_to_hit = tuple_lenght(dist_to_hit);
 	if (hit.object != NULL && lenght_to_hit < distance_to_light)
 		return (0);
 	return (light_intensity);
@@ -154,8 +154,20 @@ t_tuple	find_dir(t_viewport view, t_camera cam, int x, int y)
 	pixel.w = 1;
 	ray_dir = tuple_sub(pixel, cam.position);
 	ray_dir.w = 0;
-
 	return (tuple_norm(ray_dir));
+}
+
+double	world_distance(t_object	*object, double t, t_ray	unit_ray, t_ray *world_ray)
+{
+	double	distance;
+	t_tuple	obj_point;
+	t_tuple	world_point;
+	
+	obj_point = tuple_add(unit_ray.origin, tuple_mult(unit_ray.direction, t));
+	obj_point.w = 1;
+	world_point = matXtuple(object->transform, obj_point);
+	distance = tuple_lenght(tuple_sub(world_point, world_ray->origin));
+	return (distance);
 }
 
 t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
@@ -167,9 +179,11 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 	t_ray		unit_ray;
 	t_cylinder	*cylinder;
 	double		half_lenght;
+	double		distance;
+	double		shortest_distance;
 	
 	current_obj = object;
-	hit.t = INFINITY;
+	shortest_distance = INFINITY;
 	hit.object = NULL;
 	while (current_obj != NULL)
 	{
@@ -197,11 +211,16 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 					t = -1;
 			}
 		}
-		if (t > 0 && t < hit.t)
+		if (t > 0)
 		{
-			hit.object = obj_base;
-			hit.ray = unit_ray;
-			hit.t = t;
+			distance = world_distance(obj_base, t, unit_ray, world_ray);
+			if (distance < shortest_distance)
+			{
+				hit.object = obj_base;
+				hit.ray = unit_ray;
+				hit.t = t;
+				shortest_distance = distance;
+			}
 		}
 		current_obj = current_obj->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 12:23:13 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/22 18:00:05 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/22 19:32:54 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_matrix4	cylinder_rotation(t_cylinder *cylinder)
 	
 	angle = compute_cylinder_angle(cylinder->axis);
 	rotation_axis = tuple_cross(new_tuple(0,1,0,0), cylinder->axis);
-	axis_lenght = sqrt(tuple_dot(rotation_axis, rotation_axis));
+	axis_lenght = tuple_lenght(rotation_axis);
 	if (axis_lenght < EPSILON)
 	{
 		if (tuple_dot(new_tuple(0,1,0,0), cylinder->axis) > 0)

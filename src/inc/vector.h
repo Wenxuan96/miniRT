@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 14:07:43 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/22 19:18:50 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_tuple	tuple_div(t_tuple v, double s);
 t_tuple	tuple_norm(t_tuple v);
 t_tuple	tuple_mult(t_tuple v, double s);
 t_tuple	tuple_cross(t_tuple a, t_tuple b);
+double	tuple_lenght(t_tuple a);
 
 t_matrix4	assign_mat_val(double val);
 t_matrix4	multi_mat(t_matrix4 a, t_matrix4 b);
