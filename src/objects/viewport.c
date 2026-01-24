@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:42:08 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/15 17:33:04 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/21 16:55:43 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void compute_viewport_axis(t_viewport *view, t_camera cam)
 
 	if (fabs(tuple_dot(cam.orientation, cam.world_up)) > 0.999)
         cam.world_up = new_tuple(1, 0, 0, 0);
-	right = tuple_norm(tuple_cross(cam.orientation, cam.world_up));
+	right = tuple_norm(tuple_cross(cam.world_up, cam.orientation));
 	up = tuple_cross(right, cam.orientation);
     view->viewport_u = tuple_mult(right, view->plane_width);
     view->viewport_v = tuple_mult(up, view->plane_height);
