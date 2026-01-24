@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/22 16:34:47 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/24 15:13:28 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_hit
 	t_object	*object;
 	t_ray		ray;
 	double		t;
+	double		world_dist;
 }	t_hit;
 
 void    	set_viewport(t_viewport	*viewport, t_camera camera);
@@ -123,5 +124,7 @@ void		init_plane_transform(t_plane *pl);
 void		init_cylinder_transform(t_cylinder *cylinder);
 double		intersect_unit_plane(t_ray	*ray);
 double		intersect_unit_cylinder(t_ray *ray);
+double		light_intensity(t_tuple hit_point, t_tuple norm_hp,
+				t_world *world, t_object *obj);
 
 #endif
