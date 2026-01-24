@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/24 16:38:57 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/24 17:51:42 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,16 @@ double	intersect_unit_sphere(t_ray	*ray)
 	ray->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
 	ray->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
 	return (select_t(ray->hit_points[0], ray->hit_points[1]));
+}
+
+t_tuple	normal_sphere(t_hit *hit, t_tuple unit_hit_p)
+{
+	t_tuple	norm_unit;
+
+	norm_unit = tuple_sub(unit_hit_p, new_tuple(0, 0, 0, 1));
+	norm_unit.w = 0;
+	norm_unit = tuple_norm(norm_unit);
+	if (tuple_dot(norm_unit, hit->ray.direction) > 0)
+		norm_unit = tuple_mult(norm_unit, -1);
+	return (norm_unit);
 }

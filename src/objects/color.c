@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:28 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 13:43:00 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/24 17:56:27 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,19 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	t_tuple		norm_unit;
 	t_plane		*plane;
 	t_object	*obj;
-	t_cylinder	*cyl;
 
 	norm_unit = new_tuple(0,0,0,0);
 	obj = hit->object;
 	if (obj->type == SPHERE)
-	{
-		norm_unit = tuple_sub(unit_hit_p, new_tuple(0,0,0,1));
-   		norm_unit.w = 0;
-    	norm_unit = tuple_norm(norm_unit);
-		if (tuple_dot(norm_unit, hit->ray.direction) > 0)
-			norm_unit = tuple_mult(norm_unit, -1);
-	}
+		norm_unit = normal_sphere(hit, unit_hit_p);
 	else if (obj->type == PLANE)
 	{
 		plane = (t_plane *)obj;
 		norm_unit = plane->normal;
 	}
 	else if (obj->type == CYLINDER)
-	{
-		cyl = (t_cylinder *)obj;
-		double half_h = cyl->heigth / 2.0;
-		if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
-			norm_unit = new_tuple(0, 1, 0, 0);
-		else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)
-			norm_unit = new_tuple(0, -1, 0, 0);
-		else
-			norm_unit = tuple_norm(new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0));
-		if (tuple_dot(norm_unit, hit->ray.direction) > 0)
-			norm_unit = tuple_mult(norm_unit, -1);
-	}
-	return norm_unit;
+		normal_cylinder(hit, unit_hit_p, obj);
+	return (norm_unit);
 }
 
 t_tuple	get_color(t_object *obj, t_ambient world_amb, double intensity)
@@ -88,7 +70,7 @@ t_tuple color_obj(t_hit *hit, t_world *world)
 	norm_world = tuple_norm(norm_world);
 	intensity = light_intensity(world_hit_p, norm_world, world, hit->object);
 	color = get_color(hit->object, world->ambient, intensity);
-	return color;
+	return (color);
 }
 
 t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)

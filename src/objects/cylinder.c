@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 12:23:13 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/22 19:32:54 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/24 18:00:08 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,23 @@ double	intersect_unit_cylinder(t_ray *ray)
 	t = select_t(ray->hit_points[0], ray->hit_points[1]);
 	t = intersect_top_bottom(ray, t);
 	return (t);
+}
+
+t_tuple	normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj)
+{
+	t_cylinder	*cyl;
+	double		half_h;
+	t_tuple		norm_unit;
+
+	cyl = (t_cylinder *)obj;
+	half_h = cyl->heigth / 2.0;
+	if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
+		norm_unit = new_tuple(0, 1, 0, 0);
+	else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)
+		norm_unit = new_tuple(0, -1, 0, 0);
+	else
+		norm_unit = tuple_norm(new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0));
+	if (tuple_dot(norm_unit, hit->ray.direction) > 0)
+		norm_unit = tuple_mult(norm_unit, -1);
+	return (norm_unit);
 }

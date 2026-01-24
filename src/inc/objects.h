@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 15:13:28 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/24 17:55:39 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,7 @@ double		intersect_unit_plane(t_ray	*ray);
 double		intersect_unit_cylinder(t_ray *ray);
 double		light_intensity(t_tuple hit_point, t_tuple norm_hp,
 				t_world *world, t_object *obj);
+t_tuple		normal_sphere(t_hit *hit, t_tuple unit_hit_p);
+t_tuple		normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj);
 
 #endif
