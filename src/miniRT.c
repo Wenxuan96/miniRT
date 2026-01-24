@@ -21,7 +21,9 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE &&
         keydata.action == MLX_PRESS)
 	{
+		mlx_delete_image(context->mlx, context->image);
 		mlx_terminate(context->mlx);
+		free_scene(context->world);
 		free(context);
 		exit (EXIT_SUCCESS);
 	}
