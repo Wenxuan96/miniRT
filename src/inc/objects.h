@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/25 17:19:35 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/25 17:21:39 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 void		init_sphere_transform(t_sphere *sphere);
 void		init_plane_transform(t_plane *pl);
+double		intersect_unit_plane(t_ray	*ray);
 double		light_intensity(t_tuple hit_point, t_tuple norm_hp,
 				t_world *world, t_object *obj);
 
