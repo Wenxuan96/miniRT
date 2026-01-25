@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+         #
+#    By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: Invalid date        by                   #+#    #+#              #
 #    Updated: 2026/01/21 15:40:14 by wxi              ###   ########.fr        #
@@ -14,7 +14,7 @@ NAME = miniRT
 BUILD_DIR = ./build
 SRC = src/parsing/parse_file.c src/parsing/parse_objects.c src/parsing/parse_scene_setup.c src/parsing/parse_tuple.c src/parsing/parse_utils.c src/parsing/scene.c \
 	src/vectors/vec_utils1.c src/vectors/vec_utils2.c src/matrices/matrices.c src/matrices/mat_invert.c src/matrices/transformation.c \
-	src/miniRT.c src/objects/ray.c src/objects/viewport.c src/objects/ray_sphere.c src/objects/plane.c
+	src/miniRT.c src/objects/color.c src/objects/cylinder.c src/objects/hit_objects.c src/objects/lighting.c src/objects/ray.c src/objects/viewport.c src/objects/sphere.c src/objects/plane.c 
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 LIBFT_PATH = src/libft
 LIBFT = $(LIBFT_PATH)/libft.a

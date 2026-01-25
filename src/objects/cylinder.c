@@ -6,19 +6,19 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:44:46 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/21 16:46:05 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/24 19:01:16 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-void	init_cylinder_transform(t_cylinder *cy)
-{
+// void	init_cylinder_transform(t_cylinder *cy)
+// {
 
-}
+// }
 
- double	intersect_unit_cylinder(t_ray *ray)
- {
+//  double	intersect_unit_cylinder(t_ray *ray)
+//  {
 
- }
+//  }
  

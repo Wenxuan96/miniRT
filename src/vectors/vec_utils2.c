@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:54:21 by lyvan-de          #+#    #+#             */
-/*   Updated: 2025/12/31 14:12:03 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/25 17:21:02 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,9 @@ t_tuple	tuple_cross(t_tuple a, t_tuple b)
 	c.w = 0;
 
 	return (c);
+}
+
+double	tuple_length(t_tuple a)
+{
+	return(sqrt(tuple_dot(a, a)));
 }
