@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:17 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/25 17:20:42 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/26 16:25:05 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 	t_object	*obj_base;
 	double		t;
 	t_ray		unit_ray;
-	// t_cylinder	*cylinder;
-	// double		half_length;
 	double		distance;
 	double		shortest_distance;
 	
@@ -67,18 +65,8 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 			t = intersect_unit_sphere(&unit_ray);
 		if (obj_base->type == PLANE)
 			t = intersect_unit_plane(&unit_ray);
-		// if (obj_base->type == CYLINDER)
-		// {
-		// 	cylinder = (t_cylinder *)obj_base;
-		// 	half_length = cylinder->heigth / 2.0;
-		// 	t = intersect_unit_cylinder(&unit_ray);
-		// 	if (t > 0)
-		// 	{
-		// 		double	y_hit = unit_ray.origin.y + t * unit_ray.direction.y;
-		// 		if (y_hit < -half_length || y_hit > half_length)
-		// 			t = -1;
-		// 	}
-		// }
+		if (obj_base->type == CYLINDER)
+			t = intersect_unit_cylinder(&unit_ray, (t_cylinder *)current_obj->content);
 		if (t > 0)
 		{
 			distance = world_distance(obj_base, t, unit_ray, world_ray);

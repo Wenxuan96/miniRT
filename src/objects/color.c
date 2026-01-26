@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:28 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 13:43:00 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:26:12 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	else if (obj->type == CYLINDER)
 	{
 		cyl = (t_cylinder *)obj;
-		double half_h = cyl->heigth / 2.0;
+		double half_h = cyl->height / 2.0;
 		if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
 			norm_unit = new_tuple(0, 1, 0, 0);
 		else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)
@@ -71,7 +71,7 @@ t_tuple	get_color(t_object *obj, t_ambient world_amb, double intensity)
 	return (rt_color);
 }
 
-t_tuple color_obj(t_hit *hit, t_world *world)
+t_tuple color_obj(t_hit *hit, t_world *world, t_tuple *unit_norm)
 {
     t_tuple 	unit_hit_p;
     t_tuple 	world_hit_p;
@@ -80,9 +80,12 @@ t_tuple color_obj(t_hit *hit, t_world *world)
     t_tuple 	color;
     double		intensity;
 
-	unit_hit_p = tuple_add( hit->ray.origin, tuple_mult(hit->ray.direction, hit->t));
+	unit_hit_p = tuple_add(hit->ray.origin, tuple_mult(hit->ray.direction, hit->t));
 	world_hit_p = matXtuple(hit->object->transform, unit_hit_p);
-	norm_unit = normal_object(hit, unit_hit_p);
+	if (unit_norm)
+		norm_unit = *unit_norm;
+	else
+		norm_unit = normal_object(hit, unit_hit_p);
 	norm_world = matXtuple(transpose_mat(hit->object->inv_transform), norm_unit);
 	norm_world.w = 0;
 	norm_world = tuple_norm(norm_world);
@@ -95,6 +98,8 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 {
 	t_tuple	rgb;
 	t_hit	hit;
+	t_cylinder	*cy;
+	t_tuple norm;
 
 	hit = hit_object(world_ray, object, NULL);
 	if (hit.object == NULL)
@@ -107,7 +112,25 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 		rgb.y = 0;
 		rgb.z = 0;
 	}
+	//found seg fault here 
+	printf("test\n");
+	printf("%d\n", hit.object->type);
+	if (hit.object && hit.object->type == CYLINDER)
+	{
+		
+		cy = (t_cylinder *)object->content;
+		if (cy->hit_location == TOP)
+		{
+			norm = new_tuple(0, 1, 0, 0);
+			color_obj(&hit, context->world, &norm);
+		}
+		if (cy->hit_location == BOTTOM)
+		{
+			norm = new_tuple(0, -1, 0, 0);
+			color_obj(&hit, context->world, &norm);
+		}
+	}
 	else
-		rgb = color_obj(&hit, context->world);
+		rgb = color_obj(&hit, context->world, NULL);
 	return (rgb);
 }

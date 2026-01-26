@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 17:32:18 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 19:02:21 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/26 16:08:23 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,13 @@ int	parse_cylinder(char **tokens, t_world *scene)
 	cylinder->diameter = str_to_double(tokens[3]);
 	if (!check_double(tokens[4]))
 		return (printf("Error\nWrong double value cylinder heigth\n"), 0);
-	cylinder->heigth = str_to_double(tokens[4]);
+	cylinder->height = str_to_double(tokens[4]);
+	cylinder->closed = true;
+	cylinder->hit_location = CYLINDER;
 	if (!str_to_rgb(tokens[5], &cylinder->base.color))
 		return (printf("Error\nWrong rgb value cylinder\n"), 0);
 	init_base(&cylinder->base, CYLINDER, cylinder->base.color);
-	// init_cylinder_transform(cylinder);
+	init_cylinder_transform(cylinder);
 	if (!add_node(cylinder, scene))
 		return (0);
 	return (1);
