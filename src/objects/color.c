@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:28 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/26 16:26:12 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/26 18:15:18 by a12708           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	t_tuple		norm_unit;
 	t_plane		*plane;
 	t_object	*obj;
-	t_cylinder	*cyl;
+
 
 	norm_unit = new_tuple(0,0,0,0);
 	obj = hit->object;
@@ -36,11 +36,11 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	}
 	else if (obj->type == CYLINDER)
 	{
-		cyl = (t_cylinder *)obj;
-		double half_h = cyl->height / 2.0;
-		if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
+
+		// In unit space, cylinder extends from -1 to 1 in y direction
+		if (fabs(unit_hit_p.y - 1.0) < EPSILON)
 			norm_unit = new_tuple(0, 1, 0, 0);
-		else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)
+		else if (fabs(unit_hit_p.y + 1.0) < EPSILON)
 			norm_unit = new_tuple(0, -1, 0, 0);
 		else
 			norm_unit = tuple_norm(new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0));
@@ -111,23 +111,25 @@ t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)
 		rgb.x = 0;
 		rgb.y = 0;
 		rgb.z = 0;
+		return (rgb);
 	}
-	//found seg fault here 
-	printf("test\n");
-	printf("%d\n", hit.object->type);
-	if (hit.object && hit.object->type == CYLINDER)
+	if (hit.object->type == CYLINDER)
 	{
-		
-		cy = (t_cylinder *)object->content;
+		cy = (t_cylinder *)hit.object;
 		if (cy->hit_location == TOP)
 		{
 			norm = new_tuple(0, 1, 0, 0);
-			color_obj(&hit, context->world, &norm);
+			rgb = color_obj(&hit, context->world, &norm);
 		}
-		if (cy->hit_location == BOTTOM)
+		else if (cy->hit_location == BOTTOM)
 		{
 			norm = new_tuple(0, -1, 0, 0);
-			color_obj(&hit, context->world, &norm);
+			rgb = color_obj(&hit, context->world, &norm);
+		}
+		else
+		{
+			// Hit on the side of the cylinder
+			rgb = color_obj(&hit, context->world, NULL);
 		}
 	}
 	else

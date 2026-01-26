@@ -99,7 +99,7 @@ double	intersect_unit_cylinder(t_ray *unit_ray, t_cylinder *cy)
 	c = unit_ray->origin.x * unit_ray->origin.x 
 		+ unit_ray->origin.z * unit_ray->origin.z - 1;
 	disc = b * b - 4 * a * c;
-	if (fabs(disc) < EPSILON)
+	if (disc < 0)
 		return -1.0;
 	unit_ray->hit_points[0] = find_t((-b - sqrt(disc)) / (2.0 * a), unit_ray);
 	unit_ray->hit_points[1] = find_t((-b + sqrt(disc)) / (2.0 * a), unit_ray);
