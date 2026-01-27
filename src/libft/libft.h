@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:16:53 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 18:29:25 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/27 14:47:25 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
-int	    ft_lstsize(t_list *lst);
+int		ft_lstsize(t_list *lst);
 char	*get_next_line(int fd);
 
 #endif
