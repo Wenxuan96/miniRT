@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 16:44:46 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/27 13:52:43 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 14:52:16 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ t_tuple	normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj)
 	t_tuple		norm_unit;
 
 	cyl = (t_cylinder *)obj;
-	half_h = cyl->heigth / 2.0;
+	half_h = cyl->height / 2.0;
 	if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
 		norm_unit = new_tuple(0, 1, 0, 0);
 	else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)

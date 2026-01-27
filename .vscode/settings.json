@@ -4,5 +4,6 @@
 		"minirt.h": "c",
 		"parsing.h": "c",
 		"stdint.h": "c"
-	}
+	},
+	"cmake.sourceDirectory": "/home/wxi/CodamProjects/Rank4/miniRT/MLX42"
 }
