@@ -6,13 +6,13 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 11:15:22 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/06 11:59:01 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 14:22:29 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-t_matrix4 assign_mat_val(double val)
+t_matrix4	assign_mat_val(double val)
 {
 	t_matrix4	m;
 	int			i;
@@ -30,10 +30,10 @@ t_matrix4 assign_mat_val(double val)
 		j = 0;
 		i++;
 	}
-	return m;
+	return (m);
 }
 
-t_matrix4 identity_m4()
+t_matrix4	identity_m4(void)
 {
 	t_matrix4	m;
 	int			i;
@@ -54,14 +54,14 @@ t_matrix4 identity_m4()
 		j = 0;
 		i++;
 	}
-	return m;
+	return (m);
 }
 
-t_matrix4 multi_mat(t_matrix4 a, t_matrix4 b)
+t_matrix4	multi_mat(t_matrix4 a, t_matrix4 b)
 {
-	t_matrix4 new_m = {0};
-	int	row;
-	int col;
+	t_matrix4	new_m;
+	int			row;
+	int			col;
 
 	row = 0;
 	while (row < 4)
@@ -69,23 +69,22 @@ t_matrix4 multi_mat(t_matrix4 a, t_matrix4 b)
 		col = 0;
 		while (col < 4)
 		{
-			new_m.m4[row][col] = a.m4[row][0] * b.m4[0][col] +
-								 a.m4[row][1] * b.m4[1][col] +
-								 a.m4[row][2] * b.m4[2][col] +
-								 a.m4[row][3] * b.m4[3][col];
+			new_m.m4[row][col] = a.m4[row][0] * b.m4[0][col]
+				+ a.m4[row][1] * b.m4[1][col]
+				+ a.m4[row][2] * b.m4[2][col]
+				+ a.m4[row][3] * b.m4[3][col];
 			col++;
 		}
 		row++;
 	}
-	return new_m;
+	return (new_m);
 }
 
-
-t_matrix4 transpose_mat(t_matrix4 a)
+t_matrix4	transpose_mat(t_matrix4 a)
 {
-	t_matrix4 new_m;
-	int	row;
-	int col;
+	t_matrix4	new_m;
+	int			row;
+	int			col;
 
 	row = 0;
 	while (row < 4)
@@ -98,40 +97,20 @@ t_matrix4 transpose_mat(t_matrix4 a)
 		}
 		row++;
 	}
-	return new_m;
+	return (new_m);
 }
 
-t_tuple matXtuple(t_matrix4 a, t_tuple tup)
+t_tuple	matxtuple(t_matrix4 a, t_tuple tup)
 {
 	t_tuple	new_tup;
 
-	new_tup.x = a.m4[0][0] * tup.x + a.m4[0][1] * tup.y +
-				a.m4[0][2] * tup.z + a.m4[0][3] * tup.w;
-	new_tup.y = a.m4[1][0] * tup.x + a.m4[1][1] * tup.y +
-				a.m4[1][2] * tup.z + a.m4[1][3] * tup.w;
-	new_tup.z = a.m4[2][0] * tup.x + a.m4[2][1] * tup.y +
-				a.m4[2][2] * tup.z + a.m4[2][3] * tup.w;
-	new_tup.w = a.m4[3][0] * tup.x + a.m4[3][1] * tup.y +
-				a.m4[3][2] * tup.z + a.m4[3][3] * tup.w;
-	return new_tup;
-}
-
-void prt_mat(t_matrix4 m)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i < 4)
-	{
-		while (j < 4)
-		{
-			printf("m.m4[%d][%d]: %f ", i, j, m.m4[i][j]);
-			j++;
-			printf("\n");
-		}
-		j = 0;
-		i++;
-	}
+	new_tup.x = a.m4[0][0] * tup.x + a.m4[0][1] * tup.y
+		+ a.m4[0][2] * tup.z + a.m4[0][3] * tup.w;
+	new_tup.y = a.m4[1][0] * tup.x + a.m4[1][1] * tup.y
+		+ a.m4[1][2] * tup.z + a.m4[1][3] * tup.w;
+	new_tup.z = a.m4[2][0] * tup.x + a.m4[2][1] * tup.y
+		+ a.m4[2][2] * tup.z + a.m4[2][3] * tup.w;
+	new_tup.w = a.m4[3][0] * tup.x + a.m4[3][1] * tup.y
+		+ a.m4[3][2] * tup.z + a.m4[3][3] * tup.w;
+	return (new_tup);
 }

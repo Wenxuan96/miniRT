@@ -3,114 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 12:23:13 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/22 19:32:54 by lyvan-de         ###   ########.fr       */
+/*   Created: 2026/01/21 16:44:46 by wxi               #+#    #+#             */
+/*   Updated: 2026/01/27 13:52:43 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/miniRT.h"
 
-double	compute_cylinder_angle(t_tuple axis)
+void	init_cylinder_transform(t_cylinder *cy)
 {
-	t_tuple	up;
-	double	angle;
-	double	cos_theta;
-
-	up = new_tuple(0,1,0,0);
-	axis = tuple_norm(axis);
-	cos_theta = tuple_dot(up, axis);
-	cos_theta = fmin(1.0, fmax(-1.0, cos_theta));
-	angle = acos(cos_theta);
-	return (angle);
-}
-
-t_matrix4	cylinder_rotation(t_cylinder *cylinder)
-{
-	t_tuple		rotation_axis;
+	t_matrix4	t;
+	t_matrix4	r;
+	t_matrix4	s;
+	t_tuple		y_axis;
 	double		angle;
-	double		axis_lenght;
-	t_matrix4	rotation_mat;
-	
-	angle = compute_cylinder_angle(cylinder->axis);
-	rotation_axis = tuple_cross(new_tuple(0,1,0,0), cylinder->axis);
-	axis_lenght = tuple_lenght(rotation_axis);
-	if (axis_lenght < EPSILON)
-	{
-		if (tuple_dot(new_tuple(0,1,0,0), cylinder->axis) > 0)
-		rotation_mat = identity_m4();
-		else
-		rotation_mat = rotation(new_tuple(1,0,0,0), PI);
-	}
+
+	y_axis = new_tuple(0, 1, 0, 0);
+	s = mat_scaling(cy->diameter / 2, cy->height / 2,
+			cy->diameter / 2);
+	if (fabs(tuple_dot(y_axis, cy->axis)) > 0.999)
+		r = identity_m4();
 	else
 	{
-		rotation_axis = tuple_norm(rotation_axis);
-		rotation_mat = rotation(rotation_axis, angle);
+		angle = acos(tuple_dot(y_axis, cy->axis));
+		r = rotation(tuple_norm(tuple_cross(y_axis, cy->axis)), angle);
 	}
-		return (rotation_mat);
+	t = translation(cy->center.x, cy->center.y, cy->center.z);
+	cy->base.transform = multi_mat(t, multi_mat(r, s));
+	cy->base.inv_transform = invert_m4(cy->base.transform);
 }
 
-void	init_cylinder_transform(t_cylinder *cylinder)
+double	find_t(double t, t_ray *unit_ray)
 {
-	t_matrix4	scale_mat;
-	t_matrix4	rotate_mat;
-	t_matrix4	trans_mat;
-	double		radius;
-	
-	radius = cylinder->diameter / 2.0;
-	scale_mat = mat_scaling(radius, 1.0, radius);
-	rotate_mat = cylinder_rotation(cylinder);
-	trans_mat = translation(cylinder->center.x, cylinder->center.y, cylinder->center.z);
-	cylinder->base.transform = multi_mat(trans_mat, multi_mat(rotate_mat, scale_mat));
-	cylinder->base.inv_transform = invert_m4(cylinder->base.transform);
+	double	t_y;
+
+	t_y = unit_ray->origin.y + t * unit_ray->direction.y;
+	if (-1.0 < t_y && t_y < 1.0)
+		return (t);
+	return (-1);
 }
 
-double	intersect_top_bottom(t_ray *ray, double t)
+bool	check_cap(t_ray *unit_ray, double t)
 {
-	double	t_top;
-	double	t_bottom;
-	double	x_hit;
-	double	z_hit;
+	double	x;
+	double	z;
 
-	if (fabs(ray->direction.y) > EPSILON)
-	{
-		t_top = (1.0 - ray->origin.y) / ray->direction.y;
-		x_hit = ray->origin.x + t_top * ray->direction.x;
-		z_hit = ray->origin.z + t_top * ray->direction.z;
-		if (x_hit*x_hit + z_hit*z_hit <= 1)
-			t = select_t(t, t_top); 
-	}
-	if (fabs(ray->direction.y) > EPSILON)
-	{
-		t_bottom = (-1.0 - ray->origin.y) / ray->direction.y;
-		x_hit = ray->origin.x + t_bottom * ray->direction.x;
-		z_hit = ray->origin.z + t_bottom * ray->direction.z;
-		if (x_hit*x_hit + z_hit*z_hit <= 1)
-			t = select_t(t, t_bottom);
-	}
-	return (t);
+	x = unit_ray->origin.x + t * unit_ray->direction.x;
+	z = unit_ray->origin.z + t * unit_ray->direction.z;
+	return (((x * x + z * z) <= 1));
 }
 
-double	intersect_unit_cylinder(t_ray *ray)
+double	intersect_caps(t_ray *unit_ray, t_cylinder *cy)
+{
+	double	upper_cap_t;
+	double	lower_cap_t;
+	double	cap_ts[2];
+	double	cap_t;
+
+	cap_ts[0] = -1;
+	cap_ts[1] = -1;
+	if (fabs(unit_ray->direction.y) < EPSILON)
+		return (-1);
+	upper_cap_t = (1 - unit_ray->origin.y) / unit_ray->direction.y;
+	lower_cap_t = (-1 - unit_ray->origin.y) / unit_ray->direction.y;
+	if (check_cap(unit_ray, upper_cap_t))
+		cap_ts[0] = upper_cap_t;
+	if (check_cap(unit_ray, lower_cap_t))
+		cap_ts[1] = lower_cap_t;
+	cap_t = select_t(cap_ts[0], cap_ts[1]);
+	if (cap_t == upper_cap_t && cap_t != -1)
+		cy->hit_location = TOP;
+	else if (cap_t == lower_cap_t && cap_t != -1)
+		cy->hit_location = BOTTOM;
+	return (cap_t);
+}
+
+double	intersect_unit_cylinder(t_ray *unit_ray, t_cylinder *cy)
 {
 	double	a;
 	double	b;
 	double	c;
-	double	discriminant;
+	double	disc;
 	double	t;
 
-	a = pow(ray->direction.x, 2.0) + pow(ray->direction.z, 2.0);
-	if (fabs(a) < EPSILON)
-		return (-1);
-	b = 2 * ray->origin.x * ray->direction.x + 2 * ray->origin.z * ray->direction.z;
-	c = pow(ray->origin.x, 2.0) + pow(ray->origin.z, 2.0) -1;
-	discriminant = pow(b, 2.0) - 4 * a * c;
-	if (discriminant < 0)
-		return (-1);
-	ray->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
-	ray->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
-	t = select_t(ray->hit_points[0], ray->hit_points[1]);
-	t = intersect_top_bottom(ray, t);
+	a = unit_ray->direction.x * unit_ray->direction.x
+		+ unit_ray->direction.z * unit_ray->direction.z;
+	if (a < EPSILON)
+		return (-1.0);
+	b = 2 * unit_ray->origin.x * unit_ray->direction.x
+		+ 2 * unit_ray->origin.z * unit_ray->direction.z;
+	c = unit_ray->origin.x * unit_ray->origin.x
+		+ unit_ray->origin.z * unit_ray->origin.z - 1;
+	disc = b * b - 4 * a * c;
+	if (disc < 0)
+		return (-1.0);
+	unit_ray->hit_points[0] = find_t((-b - sqrt(disc)) / (2.0 * a), unit_ray);
+	unit_ray->hit_points[1] = find_t((-b + sqrt(disc)) / (2.0 * a), unit_ray);
+	t = select_t(unit_ray->hit_points[0], unit_ray->hit_points[1]);
+	t = select_t(t, intersect_caps(unit_ray, cy));
+	if (t != intersect_caps(unit_ray, cy))
+		cy->hit_location = CYLINDER;
 	return (t);
 }

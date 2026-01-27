@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 15:13:28 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/26 16:17:58 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef enum	e_obj_type
 	SPHERE,
 	PLANE,
 	CYLINDER,
+	BOTTOM,
+	TOP,
 } t_obj_type;
 
 typedef struct s_object
@@ -52,7 +54,9 @@ typedef struct s_cylinder
 	t_tuple		center;
 	t_tuple		axis;
 	double		diameter;
-	double		heigth;
+	double		height;
+	t_obj_type	hit_location;
+	bool		closed;
 }	t_cylinder;
 
 
@@ -119,11 +123,11 @@ t_matrix4	shearing(t_shearing sh);
 t_matrix4	translation(double x, double y, double z);
 double 		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
-void		init_sphere_transform(t_sphere *sphere);
-void		init_plane_transform(t_plane *pl);
-void		init_cylinder_transform(t_cylinder *cylinder);
 double		intersect_unit_plane(t_ray	*ray);
-double		intersect_unit_cylinder(t_ray *ray);
+double		intersect_unit_cylinder(t_ray	*ray, t_cylinder *cy);
+void		init_sphere_transform(t_sphere *sphere);
+void		init_cylinder_transform(t_cylinder *cy);
+void		init_plane_transform(t_plane *pl);
 double		light_intensity(t_tuple hit_point, t_tuple norm_hp,
 				t_world *world, t_object *obj);
 

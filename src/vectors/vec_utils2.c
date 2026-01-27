@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 15:54:21 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/22 19:18:36 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:21:02 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_tuple	tuple_cross(t_tuple a, t_tuple b)
 	return (c);
 }
 
-double	tuple_lenght(t_tuple a)
+double	tuple_length(t_tuple a)
 {
 	return(sqrt(tuple_dot(a, a)));
 }

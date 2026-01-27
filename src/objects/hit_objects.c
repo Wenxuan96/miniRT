@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_objects.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:17 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 15:10:25 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:58:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ double	world_distance(t_object	*object, double t, t_ray unit_ray, t_ray *world_r
 
 	obj_point = tuple_add(unit_ray.origin, tuple_mult(unit_ray.direction, t));
 	obj_point.w = 1;
-	world_point = matXtuple(object->transform, obj_point);
-	distance = tuple_lenght(tuple_sub(world_point, world_ray->origin));
+	world_point = matxtuple(object->transform, obj_point);
+	distance = tuple_length(tuple_sub(world_point, world_ray->origin));
 	return (distance);
 }
 
@@ -45,8 +45,6 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 	t_object	*obj_base;
 	double		t;
 	t_ray		unit_ray;
-	t_cylinder	*cylinder;
-	double		half_lenght;
 	double		distance;
 	double		shortest_distance;
 	
@@ -68,17 +66,7 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 		if (obj_base->type == PLANE)
 			t = intersect_unit_plane(&unit_ray);
 		if (obj_base->type == CYLINDER)
-		{
-			cylinder = (t_cylinder *)obj_base;
-			half_lenght = cylinder->heigth / 2.0;
-			t = intersect_unit_cylinder(&unit_ray);
-			if (t > 0)
-			{
-				double	y_hit = unit_ray.origin.y + t * unit_ray.direction.y;
-				if (y_hit < -half_lenght || y_hit > half_lenght)
-					t = -1;
-			}
-		}
+			t = intersect_unit_cylinder(&unit_ray, (t_cylinder *)current_obj->content);
 		if (t > 0)
 		{
 			distance = world_distance(obj_base, t, unit_ray, world_ray);
