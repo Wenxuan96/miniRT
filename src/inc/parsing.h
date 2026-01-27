@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/27 12:54:52 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:11:38 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@
 # include "../libft/libft.h"
 # include "objects.h"
 
-
-typedef int (*t_parser_func)(char **tokens, t_world *scene);
+typedef int	(*t_parser_func)(char **tokens, t_world *scene);
 
 typedef struct s_parsermap
 {
 	char			*id;
 	t_parser_func	func;	
 }	t_parsermap;
-
-
 
 int		parse_ambient(char **tokens, t_world *scene);
 int		parse_camera(char **tokens, t_world *scene);
@@ -49,7 +46,7 @@ int		read_file(char *argv[], t_world *scene);
 void	init_world(t_world *scene);
 void	free_scene(t_world *scene);
 int		check_scene(t_world *scene);
-int		check_tokens(char **tokens, int	expected);
+int		check_tokens(char **tokens, int expected);
 t_world	*parse(int argc, char *argv[]);
 int		add_node(void *content, t_world *scene);
 int		check_tokens(char **tokens, int expected);

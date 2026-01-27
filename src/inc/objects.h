@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 17:55:39 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/27 13:10:40 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "graphics.h"
 # include "../libft/libft.h"
 
-typedef enum	e_obj_type
+typedef enum e_obj_type
 {
 	SPHERE,
 	PLANE,
 	CYLINDER,
-} t_obj_type;
+}	t_obj_type;
 
 typedef struct s_object
 {
@@ -55,7 +55,6 @@ typedef struct s_cylinder
 	double		heigth;
 }	t_cylinder;
 
-
 typedef struct s_camera
 {
 	t_tuple	position;
@@ -64,7 +63,7 @@ typedef struct s_camera
 	t_tuple	world_up;
 }	t_camera;
 
-typedef struct	s_viewport
+typedef struct s_viewport
 {
 	double	plane_width;
 	double	plane_height;
@@ -97,7 +96,7 @@ typedef struct s_world
 	bool		has_camera;
 	bool		has_light;
 	t_list		*objects;
-} 	t_world;
+}	t_world;
 
 typedef struct s_ray
 {
@@ -114,10 +113,10 @@ typedef struct s_hit
 	double		world_dist;
 }	t_hit;
 
-void    	set_viewport(t_viewport	*viewport, t_camera camera);
+void		set_viewport(t_viewport	*viewport, t_camera camera);
 t_matrix4	shearing(t_shearing sh);
 t_matrix4	translation(double x, double y, double z);
-double 		select_t(double t1, double t2);
+double		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 void		init_sphere_transform(t_sphere *sphere);
 void		init_plane_transform(t_plane *pl);
