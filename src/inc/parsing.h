@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:50:23 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/19 18:43:14 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/27 12:54:52 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	free_scene(t_world *scene);
 int		check_scene(t_world *scene);
 int		check_tokens(char **tokens, int	expected);
 t_world	*parse(int argc, char *argv[]);
+int		add_node(void *content, t_world *scene);
+int		check_tokens(char **tokens, int expected);
+int		init_base(t_object *base, t_obj_type type, t_rgb color);
 
 #endif
