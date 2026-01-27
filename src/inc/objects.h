@@ -6,15 +6,15 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/26 16:17:58 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 16:25:02 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
-# include "vector.h"
-# include "graphics.h"
 # include "../libft/libft.h"
+# include "graphics.h"
+# include "vector.h"
 
 typedef enum e_obj_type
 {
@@ -23,7 +23,7 @@ typedef enum e_obj_type
 	CYLINDER,
 	BOTTOM,
 	TOP,
-} t_obj_type;
+}				t_obj_type;
 
 typedef struct s_object
 {
@@ -31,14 +31,14 @@ typedef struct s_object
 	t_matrix4	transform;
 	t_matrix4	inv_transform;
 	t_rgb		color;
-}	t_object;
+}				t_object;
 
 typedef struct s_sphere
 {
 	t_object	base;
 	t_tuple		position;
 	double		diameter;
-}	t_sphere;
+}				t_sphere;
 
 typedef struct s_plane
 {
@@ -46,7 +46,7 @@ typedef struct s_plane
 	t_tuple		point;
 	t_tuple		normal;
 
-}	t_plane;
+}				t_plane;
 
 typedef struct s_cylinder
 {
@@ -57,38 +57,38 @@ typedef struct s_cylinder
 	double		height;
 	t_obj_type	hit_location;
 	bool		closed;
-}	t_cylinder;
+}				t_cylinder;
 
 typedef struct s_camera
 {
-	t_tuple	position;
-	t_tuple	orientation;
-	int		fov;
-	t_tuple	world_up;
-}	t_camera;
+	t_tuple		position;
+	t_tuple		orientation;
+	int			fov;
+	t_tuple		world_up;
+}				t_camera;
 
 typedef struct s_viewport
 {
-	double	plane_width;
-	double	plane_height;
-	t_tuple	viewport_u;
-	t_tuple	viewport_v;
-	t_tuple	pixel_delta_u;
-	t_tuple	pixel_delta_v;
-	t_tuple	upper_left;
-}	t_viewport;
+	double		plane_width;
+	double		plane_height;
+	t_tuple		viewport_u;
+	t_tuple		viewport_v;
+	t_tuple		pixel_delta_u;
+	t_tuple		pixel_delta_v;
+	t_tuple		upper_left;
+}				t_viewport;
 
 typedef struct s_ambient
 {
-	double	ratio;
-	t_rgb	color;
-}	t_ambient;
+	double		ratio;
+	t_rgb		color;
+}				t_ambient;
 
 typedef struct t_light
 {
-	t_tuple	origin;
-	double	ratio;
-}	t_light;
+	t_tuple		origin;
+	double		ratio;
+}				t_light;
 
 typedef struct s_world
 {
@@ -100,14 +100,14 @@ typedef struct s_world
 	bool		has_camera;
 	bool		has_light;
 	t_list		*objects;
-}	t_world;
+}				t_world;
 
 typedef struct s_ray
 {
 	t_tuple		origin;
 	t_tuple		direction;
 	double		hit_points[2];
-}	t_ray;
+}				t_ray;
 
 typedef struct s_hit
 {
@@ -115,21 +115,21 @@ typedef struct s_hit
 	t_ray		ray;
 	double		t;
 	double		world_dist;
-}	t_hit;
+}				t_hit;
 
-void		set_viewport(t_viewport	*viewport, t_camera camera);
-t_matrix4	shearing(t_shearing sh);
-t_matrix4	translation(double x, double y, double z);
-double		select_t(double t1, double t2);
-double		intersect_unit_sphere(t_ray	*ray);
-double		intersect_unit_plane(t_ray	*ray);
-double		intersect_unit_cylinder(t_ray	*ray, t_cylinder *cy);
-void		init_sphere_transform(t_sphere *sphere);
-void		init_cylinder_transform(t_cylinder *cy);
-void		init_plane_transform(t_plane *pl);
-double		light_intensity(t_tuple hit_point, t_tuple norm_hp,
-				t_world *world, t_object *obj);
-t_tuple		normal_sphere(t_hit *hit, t_tuple unit_hit_p);
-t_tuple		normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj);
+void			set_viewport(t_viewport *viewport, t_camera camera);
+t_matrix4		shearing(t_shearing sh);
+t_matrix4		translation(double x, double y, double z);
+double			select_t(double t1, double t2);
+double			intersect_unit_sphere(t_ray *ray);
+double			intersect_unit_plane(t_ray *ray);
+double			intersect_unit_cylinder(t_ray *ray, t_cylinder *cy);
+void			init_sphere_transform(t_sphere *sphere);
+void			init_cylinder_transform(t_cylinder *cy);
+void			init_plane_transform(t_plane *pl);
+double			light_intensity(t_tuple hit_point, t_tuple norm_hp,
+					t_world *world, t_object *obj);
+t_tuple			normal_sphere(t_hit *hit, t_tuple unit_hit_p);
+t_tuple			normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj);
 
 #endif

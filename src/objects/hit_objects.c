@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:17 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/27 15:58:13 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 16:23:40 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,7 @@ double	update_t(t_object *obj_base, t_ray unit_ray, t_list *object)
 	if (obj_base->type == PLANE)
 		t = intersect_unit_plane(&unit_ray);
 	if (obj_base->type == CYLINDER)
-		t = intersect_unit_cylinder(&unit_ray,
-			(t_cylinder *)object->content);
-	
+		t = intersect_unit_cylinder(&unit_ray, (t_cylinder *)object->content);
 	return (t);
 }
 
