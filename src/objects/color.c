@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:28 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/26 18:15:18 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/27 13:58:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ t_tuple color_obj(t_hit *hit, t_world *world, t_tuple *unit_norm)
     double		intensity;
 
 	unit_hit_p = tuple_add(hit->ray.origin, tuple_mult(hit->ray.direction, hit->t));
-	world_hit_p = matXtuple(hit->object->transform, unit_hit_p);
+	world_hit_p = matxtuple(hit->object->transform, unit_hit_p);
 	if (unit_norm)
 		norm_unit = *unit_norm;
 	else
 		norm_unit = normal_object(hit, unit_hit_p);
-	norm_world = matXtuple(transpose_mat(hit->object->inv_transform), norm_unit);
+	norm_world = matxtuple(transpose_mat(hit->object->inv_transform), norm_unit);
 	norm_world.w = 0;
 	norm_world = tuple_norm(norm_world);
 	intensity = light_intensity(world_hit_p, norm_world, world, hit->object);

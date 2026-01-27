@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/25 17:20:09 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 13:58:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ double	tuple_length(t_tuple a);
 t_matrix4	assign_mat_val(double val);
 t_matrix4	multi_mat(t_matrix4 a, t_matrix4 b);
 t_matrix4	transpose_mat(t_matrix4 a);
-t_tuple		matXtuple(t_matrix4 a, t_tuple tup);
+t_tuple		matxtuple(t_matrix4 a, t_tuple tup);
 t_matrix4	identity_m4();
 t_matrix4	invert_m4(t_matrix4 src_m4);
 t_matrix4 	mat_scaling(double x, double y, double z);

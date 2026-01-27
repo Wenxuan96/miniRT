@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:17 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/26 16:25:05 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 13:58:33 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ double	world_distance(t_object	*object, double t, t_ray unit_ray, t_ray *world_r
 
 	obj_point = tuple_add(unit_ray.origin, tuple_mult(unit_ray.direction, t));
 	obj_point.w = 1;
-	world_point = matXtuple(object->transform, obj_point);
+	world_point = matxtuple(object->transform, obj_point);
 	distance = tuple_length(tuple_sub(world_point, world_ray->origin));
 	return (distance);
 }
