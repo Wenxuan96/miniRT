@@ -21,13 +21,13 @@ typedef struct s_tuple
 	double	y;
 	double	z;
 	double	w;
-}	t_tuple;
+}			t_tuple;
 
 typedef struct s_matrix4
 {
 	double	m4[4][4];
 	double	m4_deter;
-}	t_matrix4;
+}			t_matrix4;
 
 typedef struct s_shearing
 {

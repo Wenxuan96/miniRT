@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 12:16:53 by lyvan-de          #+#    #+#             */
 /*   Updated: 2026/01/27 14:47:25 by lyvan-de         ###   ########.fr       */
@@ -20,7 +20,7 @@ typedef struct s_list
 	void			*content;
 	int				id;
 	struct s_list	*next;
-}	t_list;
+}					t_list;
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
