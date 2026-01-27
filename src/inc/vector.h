@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 18:00:30 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/27 16:25:08 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 14:46:31 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_shearing
 	double	y_z;
 	double	z_x;
 	double	z_y;
-}			t_shearing;
+}	t_shearing;
 
 t_tuple		new_tuple(double x, double y, double z, double w);
 t_tuple		tuple_add(t_tuple a, t_tuple b);

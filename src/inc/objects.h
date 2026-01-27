@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   objects.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 14:40:25 by lyvan-de          #+#    #+#             */
 /*   Updated: 2026/01/27 16:25:02 by wxi              ###   ########.fr       */
@@ -23,7 +23,7 @@ typedef enum e_obj_type
 	CYLINDER,
 	BOTTOM,
 	TOP,
-}				t_obj_type;
+}	t_obj_type;
 
 typedef struct s_object
 {
