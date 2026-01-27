@@ -76,7 +76,9 @@ int	parse_cylinder(char **tokens, t_world *scene)
 	cylinder->diameter = str_to_double(tokens[3]);
 	if (!check_double(tokens[4]))
 		return (printf("Error\nWrong double value cylinder heigth\n"), 0);
-	cylinder->heigth = str_to_double(tokens[4]);
+	cylinder->height = str_to_double(tokens[4]);
+	cylinder->closed = true;
+	cylinder->hit_location = CYLINDER;
 	if (!str_to_rgb(tokens[5], &cylinder->base.color))
 		return (printf("Error\nWrong rgb value cylinder\n"), 0);
 	init_base(&cylinder->base, CYLINDER, cylinder->base.color);

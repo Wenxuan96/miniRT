@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 14:20:31 by lyvan-de          #+#    #+#             */
-/*   Updated: 2024/10/08 12:43:52 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:20:55 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ size_t	ft_strlen(const char *s)
 //{
 //    char    str[] = "hallo";
 
-//    printf("using ft_strlen the lenght is: %lu\n", ft_strlen(str));
-//    printf("using strlen the lenght is:%lu\n", strlen(str));
+//    printf("using ft_strlen the length is: %lu\n", ft_strlen(str));
+//    printf("using strlen the length is:%lu\n", strlen(str));
 //    return(0);
 //}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:40:51 by wxi               #+#    #+#             */
-/*   Updated: 2026/01/24 17:51:42 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/26 11:03:48 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_sphere_transform(t_sphere *sph)
 	sph->base.inv_transform = invert_m4(sph->base.transform);
 }
 
-double	intersect_unit_sphere(t_ray	*ray)
+double	intersect_unit_sphere(t_ray	*unit_ray)
 {
 	double	a;
 	double	b;
@@ -33,16 +33,16 @@ double	intersect_unit_sphere(t_ray	*ray)
 	double	discriminant;
 	t_tuple	origin_center;
 
-	origin_center = tuple_sub(ray->origin, new_tuple(0, 0, 0, 1));
-	a = tuple_dot(ray->direction, ray->direction);
-	b = 2.0 * tuple_dot(ray->direction, origin_center);
+	origin_center = tuple_sub(unit_ray->origin, new_tuple(0, 0, 0, 1));
+	a = tuple_dot(unit_ray->direction, unit_ray->direction);
+	b = 2.0 * tuple_dot(unit_ray->direction, origin_center);
 	c = tuple_dot(origin_center, origin_center) - 1.0;
 	discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 		return (-1);
-	ray->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
-	ray->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
-	return (select_t(ray->hit_points[0], ray->hit_points[1]));
+	unit_ray->hit_points[0] = (-b - sqrt(discriminant)) / (2.0 * a);
+	unit_ray->hit_points[1] = (-b + sqrt(discriminant)) / (2.0 * a);
+	return (select_t(unit_ray->hit_points[0], unit_ray->hit_points[1]));
 }
 
 t_tuple	normal_sphere(t_hit *hit, t_tuple unit_hit_p)

@@ -1,0 +1,164 @@
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libnvidia*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libdbus*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libglfw*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libX11*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/dri*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    obj:/usr/lib/x86_64-linux-gnu/libLLVM*
+}
+{
+    <MLX42>
+    Memcheck:Leak
+    ...
+    fun:_dl_open
+}
+# Suppress invalid reads in dynamic linker during library loading
+{
+   dl_loader_invalid_read_strncmp
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   ...
+   fun:_dl_open
+}
+# Suppress invalid reads in dl_dst_count/expand_dynamic_string_token
+{
+   dl_dst_count_invalid_read
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_count
+   ...
+}
+# Suppress invalid reads in dl_dst_substitute
+{
+   dl_dst_substitute_invalid_read
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_substitute
+   ...
+}
+# Suppress all still reachable memory from dynamic linker functions
+{
+   dl_open_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:*dl_open*
+}
+{
+   dl_map_object_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_map_object*
+}
+{
+   dl_catch_exception_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:_dl_catch_exception
+}
+# Suppress MLX library still reachable memory
+{
+   mlx_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*libmlx*
+}
+{
+   mlx_init_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:*mlx*
+}
+# Suppress X11/graphics library still reachable memory (often used by MLX)
+{
+   x11_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*libX11*
+}
+{
+   xext_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*libXext*
+}
+# Suppress LLVM library still reachable memory
+{
+   llvm_managed_static_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   ...
+   fun:*RegisterManagedStatic*
+   obj:*libLLVM*
+}
+{
+   llvm_init_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   ...
+   obj:*libLLVM*
+}
+{
+   llvm_general_category_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   ...
+   fun:*getGeneralCategory*
+   obj:*libLLVM*
+}
+# Generic suppression for graphics libraries
+{
+   graphics_libs_still_reachable
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*libGL*
+}
+{
+   graphics_libs_still_reachable_2
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   obj:*libxcb*
+}

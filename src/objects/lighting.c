@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:26 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/24 15:25:59 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/25 17:20:47 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	in_shadow(t_ray shadow_ray, t_object *obj, t_world *world)
 	shadow_hit = hit_object(&shadow_ray, world->objects, obj);
 	if (shadow_hit.object == NULL)
 		return (false);
-	distance_to_light = tuple_lenght(
+	distance_to_light = tuple_length(
 			tuple_sub(world->light.origin, shadow_ray.origin));
 	if (shadow_hit.object != NULL && shadow_hit.world_dist < distance_to_light)
 		return (true);
