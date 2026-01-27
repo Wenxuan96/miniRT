@@ -6,7 +6,7 @@
 /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/27 13:05:15 by lyvan-de         ###   ########.fr       */
+/*   Updated: 2026/01/27 18:13:47 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_world	*parse(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("Error\nPlease input .rt file\n");
+		printf("Error\nPlease input one .rt file\n");
 		return (NULL);
 	}
 	if (!check_file_extension(argv[1]))
