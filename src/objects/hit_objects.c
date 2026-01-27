@@ -6,7 +6,7 @@
 /*   By: wxi <wxi@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:34:17 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/27 16:23:40 by wxi              ###   ########.fr       */
+/*   Updated: 2026/01/27 16:51:30 by wxi              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double	world_distance(t_object *object, double t, t_ray unit_ray,
 	return (distance);
 }
 
-double	update_t(t_object *obj_base, t_ray unit_ray, t_list *object)
+double	update_t(t_object *obj_base, t_ray unit_ray)
 {
 	double	t;
 
@@ -49,17 +49,37 @@ double	update_t(t_object *obj_base, t_ray unit_ray, t_list *object)
 	if (obj_base->type == PLANE)
 		t = intersect_unit_plane(&unit_ray);
 	if (obj_base->type == CYLINDER)
-		t = intersect_unit_cylinder(&unit_ray, (t_cylinder *)object->content);
+		t = intersect_unit_cylinder(&unit_ray, (t_cylinder *)obj_base);
 	return (t);
+}
+
+void	update_hit(t_object *obj_base, t_ray *world_ray, t_hit *hit,
+		double *shortest_distance)
+{
+	t_ray	unit_ray;
+	double	t;
+	double	distance;
+
+	unit_ray = transform_ray(*world_ray, obj_base->inv_transform);
+	t = update_t(obj_base, unit_ray);
+	if (t > 0)
+	{
+		distance = world_distance(obj_base, t, unit_ray, world_ray);
+		if (distance < *shortest_distance)
+		{
+			hit->object = obj_base;
+			hit->ray = unit_ray;
+			hit->t = t;
+			hit->world_dist = distance;
+			*shortest_distance = distance;
+		}
+	}
 }
 
 t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 {
 	t_hit		hit;
 	t_object	*obj_base;
-	double		t;
-	t_ray		unit_ray;
-	double		distance;
 	double		shortest_distance;
 
 	shortest_distance = INFINITY;
@@ -72,20 +92,7 @@ t_hit	hit_object(t_ray *world_ray, t_list *object, t_object *ignore)
 			object = object->next;
 			continue ;
 		}
-		unit_ray = transform_ray(*world_ray, obj_base->inv_transform);
-		t = update_t(obj_base, unit_ray, object);
-		if (t > 0)
-		{
-			distance = world_distance(obj_base, t, unit_ray, world_ray);
-			if (distance < shortest_distance)
-			{
-				hit.object = obj_base;
-				hit.ray = unit_ray;
-				hit.t = t;
-				hit.world_dist = distance;
-				shortest_distance = distance;
-			}
-		}
+		update_hit(obj_base, world_ray, &hit, &shortest_distance);
 		object = object->next;
 	}
 	return (hit);
