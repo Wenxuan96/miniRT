@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tuple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a12708 <a12708@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 15:23:13 by lyvan-de          #+#    #+#             */
-/*   Updated: 2026/01/11 21:01:16 by a12708           ###   ########.fr       */
+/*   Updated: 2026/01/27 12:51:13 by lyvan-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,6 @@ int	parse_norm_tuple(char	*str, t_tuple	*tuple)
 	if (tuple->z < -1.0 || tuple->z > 1.0)
 		return (printf("Error\nExpected normalized vector\n"), 0);
 	if (tuple->w != 0)
-		return (printf("Error\nExpected a vector tuple, not a point. (w is not 0)\n"), 0);
+		return (printf("Error\nExpected a vector tuple, not a point.\n"), 0);
 	return (1);
 }

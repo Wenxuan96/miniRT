@@ -22,13 +22,7 @@ t_tuple	normal_object(t_hit *hit, t_tuple unit_hit_p)
 	norm_unit = new_tuple(0,0,0,0);
 	obj = hit->object;
 	if (obj->type == SPHERE)
-	{
-		norm_unit = tuple_sub(unit_hit_p, new_tuple(0,0,0,1));
-   		norm_unit.w = 0;
-    	norm_unit = tuple_norm(norm_unit);
-		if (tuple_dot(norm_unit, hit->ray.direction) > 0)
-			norm_unit = tuple_mult(norm_unit, -1);
-	}
+		norm_unit = normal_sphere(hit, unit_hit_p);
 	else if (obj->type == PLANE)
 	{
 		plane = (t_plane *)obj;
@@ -91,7 +85,7 @@ t_tuple color_obj(t_hit *hit, t_world *world, t_tuple *unit_norm)
 	norm_world = tuple_norm(norm_world);
 	intensity = light_intensity(world_hit_p, norm_world, world, hit->object);
 	color = get_color(hit->object, world->ambient, intensity);
-	return color;
+	return (color);
 }
 
 t_tuple	get_rgb(t_ray *world_ray, t_list *object, t_context *context)

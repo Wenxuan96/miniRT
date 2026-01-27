@@ -107,3 +107,22 @@ double	intersect_unit_cylinder(t_ray *unit_ray, t_cylinder *cy)
 		cy->hit_location = CYLINDER;
 	return (t);
 }
+
+t_tuple	normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj)
+{
+	t_cylinder	*cyl;
+	double		half_h;
+	t_tuple		norm_unit;
+
+	cyl = (t_cylinder *)obj;
+	half_h = cyl->heigth / 2.0;
+	if (fabs(unit_hit_p.y - half_h - EPSILON) < EPSILON)
+		norm_unit = new_tuple(0, 1, 0, 0);
+	else if (fabs(unit_hit_p.y + half_h + EPSILON) < EPSILON)
+		norm_unit = new_tuple(0, -1, 0, 0);
+	else
+		norm_unit = tuple_norm(new_tuple(unit_hit_p.x, 0, unit_hit_p.z, 0));
+	if (tuple_dot(norm_unit, hit->ray.direction) > 0)
+		norm_unit = tuple_mult(norm_unit, -1);
+	return (norm_unit);
+}

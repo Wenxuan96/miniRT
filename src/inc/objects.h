@@ -16,7 +16,7 @@
 # include "graphics.h"
 # include "../libft/libft.h"
 
-typedef enum	e_obj_type
+typedef enum e_obj_type
 {
 	SPHERE,
 	PLANE,
@@ -59,7 +59,6 @@ typedef struct s_cylinder
 	bool		closed;
 }	t_cylinder;
 
-
 typedef struct s_camera
 {
 	t_tuple	position;
@@ -68,7 +67,7 @@ typedef struct s_camera
 	t_tuple	world_up;
 }	t_camera;
 
-typedef struct	s_viewport
+typedef struct s_viewport
 {
 	double	plane_width;
 	double	plane_height;
@@ -101,7 +100,7 @@ typedef struct s_world
 	bool		has_camera;
 	bool		has_light;
 	t_list		*objects;
-} 	t_world;
+}	t_world;
 
 typedef struct s_ray
 {
@@ -118,10 +117,10 @@ typedef struct s_hit
 	double		world_dist;
 }	t_hit;
 
-void    	set_viewport(t_viewport	*viewport, t_camera camera);
+void		set_viewport(t_viewport	*viewport, t_camera camera);
 t_matrix4	shearing(t_shearing sh);
 t_matrix4	translation(double x, double y, double z);
-double 		select_t(double t1, double t2);
+double		select_t(double t1, double t2);
 double		intersect_unit_sphere(t_ray	*ray);
 double		intersect_unit_plane(t_ray	*ray);
 double		intersect_unit_cylinder(t_ray	*ray, t_cylinder *cy);
@@ -130,5 +129,7 @@ void		init_cylinder_transform(t_cylinder *cy);
 void		init_plane_transform(t_plane *pl);
 double		light_intensity(t_tuple hit_point, t_tuple norm_hp,
 				t_world *world, t_object *obj);
+t_tuple		normal_sphere(t_hit *hit, t_tuple unit_hit_p);
+t_tuple		normal_cylinder(t_hit *hit, t_tuple unit_hit_p, t_object *obj);
 
 #endif

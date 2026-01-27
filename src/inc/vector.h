@@ -29,7 +29,7 @@ typedef struct s_matrix4
 	double	m4_deter;
 }	t_matrix4;
 
-typedef struct  s_shearing
+typedef struct s_shearing
 {
 	double	x_y;
 	double	x_z;
@@ -56,26 +56,9 @@ t_matrix4	transpose_mat(t_matrix4 a);
 t_tuple		matxtuple(t_matrix4 a, t_tuple tup);
 t_matrix4	identity_m4();
 t_matrix4	invert_m4(t_matrix4 src_m4);
-t_matrix4 	mat_scaling(double x, double y, double z);
+t_matrix4	mat_scaling(double x, double y, double z);
 double		get_m4_deter(t_matrix4 *org_mat);
 void		prt_mat(t_matrix4 m);
 t_matrix4	rotation(t_tuple axis, double angle);
-
-
-// typedef struct s_vec3
-// {
-// 	double	x;
-// 	double	y;
-// 	double	z;
-// }	t_vec3;
-
-// t_vec3	vec3(double x, double y, double z);
-// t_vec3	vec3_add(t_vec3 a, t_vec3 b);
-// t_vec3	vec3_sub(t_vec3 a, t_vec3 b);
-// t_vec3	vec3_mult(t_vec3 v, double s);
-// t_vec3	vec3_div(t_vec3 v, double s);
-// t_vec3	vec3_norm(t_vec3 v);
-// double	vec3_dot(t_vec3 a, t_vec3 b);
-// t_vec3	vec3_cross(t_vec3 a, t_vec3 b);
 
 #endif

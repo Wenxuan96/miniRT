@@ -1,14 +1,14 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   main.c                                             :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
-// /*   Updated: 2025/12/17 14:18:59 by lyvan-de         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lyvan-de <lyvan-de@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/01 16:44:46 by lyvan-de          #+#    #+#             */
+/*   Updated: 2026/01/27 13:05:15 by lyvan-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "inc/miniRT.h"
 #include "inc/graphics.h"
@@ -16,10 +16,10 @@
 
 void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_context *context = (t_context *)param;
+	t_context	*context;
 
-	if (keydata.key == MLX_KEY_ESCAPE &&
-        keydata.action == MLX_PRESS)
+	context = (t_context *)param;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		mlx_delete_image(context->mlx, context->image);
 		mlx_terminate(context->mlx);
@@ -85,17 +85,18 @@ int	main(int argc, char *argv[])
 	t_world		*world;
 	t_context	*context;
 
-	if (!(world = parse(argc, argv)))
+	world = parse(argc, argv);
+	if (!world)
 		return (1);
 	context = ft_calloc(1, sizeof(t_context));
 	if (!context)
 		return (1);
-	if (!(context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true)))
+	context->mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	if (!context->mlx)
 		printf("no window\n");
 	context->world = world;
 	set_viewport(&context->world->view, context->world->camera);
 	context->image = mlx_new_image(context->mlx, WIDTH, HEIGHT);
-	// setup_default();
 	put_image(context);
 	mlx_key_hook(context->mlx, my_keyhook, context);
 	mlx_loop(context->mlx);
